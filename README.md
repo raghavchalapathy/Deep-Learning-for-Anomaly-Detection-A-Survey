@@ -33,7 +33,7 @@ I would be updating the paper every two-weeks and will be including and citing y
       5. Output of DAD Techniques 
           * AnomalyScore
           * Labels
- 9. ApplicationsofDeepAnomalyDetection 
+ 9. Applications of Deep Anomaly Detection 
      1. Intrusion Detection
      2. Host-Based Intrusion Detection Systems (HIDS)
      3. Network Intrusion Detection Systems (NIDS)
@@ -42,7 +42,7 @@ I would be updating the paper every two-weeks and will be including and citing y
      6. Mobile cellular network fraud 
      7. Insurance fraud 
      8. Healthcare fraud
-     9. MalwareDetection
+     9. Malware Detection
      10. Medical Anomaly Detection
      11. Deep learning for Anomaly detection in Social Networks 
      12. Log Anomaly Detection
@@ -63,7 +63,17 @@ I would be updating the paper every two-weeks and will be including and citing y
            * Clustering based anomaly detection
            * Deep Reinforcement Learning (DRL) based anomaly detection
            * Statistical techniques deep anomaly detection
-
+  11. Deep neural network architectures for locating anomalies 
+           * Deep Neural Networks (DNN)
+           * Spatio Temporal Networks(STN) 
+           * Sum-Product Networks(SPN)
+           * Word2vec Models 
+           * Generative Models 
+           * Convolutional Neural Networks
+           * Sequence Models
+           * Autoencoders
+           * Relative Strengths and Weakness : Deep Anomaly Detection Methods
+           * Conclusion 
 
 
 ## Authors
