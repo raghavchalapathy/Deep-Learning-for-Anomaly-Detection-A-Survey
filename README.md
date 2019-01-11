@@ -12,22 +12,21 @@
   7. Organization
   8. Different aspects of deep learning-based anomaly detection.
        * Nature of Input Data
-  9. Based on Availability of labels 
-       * Supervised deep anomaly detection
-       * Semi-supervised deep anomaly detection
-       * Unsupervised deep anomaly detection 
-   10. Based on training objective
-       * Deep Hybrid Models(DHM) 
-       * One-Class Neural Networks (OC-NN) 
-   11. Type of Anomaly
-       * PointAnomalies
-       * Contextual Anomaly Detection 
-       * Collective or Group Anomaly Detection
- 
-
-
-
-1.8.5 Output ofDADTechniques .................. 13 1.8.5.1 AnomalyScore: ................... 13 1.8.5.2 Labels:........................ 14
+     1. Based on Availability of labels 
+          * Supervised deep anomaly detection
+          * Semi-supervised deep anomaly detection
+          * Unsupervised deep anomaly detection 
+      2. Based on training objective
+          * Deep Hybrid Models(DHM) 
+          * One-Class Neural Networks (OC-NN) 
+      3. Type of Anomaly
+          * PointAnomalies
+          * Contextual Anomaly Detection 
+          * Collective or Group Anomaly Detection
+      4. Output ofDADTechniques 
+          * AnomalyScore
+          * Labels
+       
 1.9 ApplicationsofDeepAnomalyDetection . . . . . . . . . . . . . . . 14
 1.9.1 IntrusionDetection....................... 14
 1.9.1.1 Host-Based Intrusion Detection Systems (HIDS): . 14
