@@ -11,54 +11,54 @@
   6. Our Contributions
   7. Organization
   8. Different aspects of deep learning-based anomaly detection.
-       * Nature of Input Data
-     1. Based on Availability of labels 
+     1. Nature of Input Data
+     2. Based on Availability of labels 
           * Supervised deep anomaly detection
           * Semi-supervised deep anomaly detection
           * Unsupervised deep anomaly detection 
-      2. Based on training objective
+      3. Based on training objective
           * Deep Hybrid Models(DHM) 
           * One-Class Neural Networks (OC-NN) 
-      3. Type of Anomaly
+      4. Type of Anomaly
           * PointAnomalies
           * Contextual Anomaly Detection 
           * Collective or Group Anomaly Detection
-      4. Output ofDADTechniques 
+      5. Output of DAD Techniques 
           * AnomalyScore
           * Labels
-       
-1.9 ApplicationsofDeepAnomalyDetection . . . . . . . . . . . . . . . 14
-1.9.1 IntrusionDetection....................... 14
-1.9.1.1 Host-Based Intrusion Detection Systems (HIDS): . 14
-1.9.1.2 Network Intrusion Detection Systems (NIDS): . . . 15
-1.9.2 FraudDetection......................... 18
-1.9.2.1 Bankingfraud .................... 18
-1.9.2.2 Mobilecellularnetworkfraud . . . . . . . . . . . . 19
-1.9.2.3 Insurancefraud ................... 20
-1.9.2.4 Healthcarefraud................... 20
-1.9.3 MalwareDetection....................... 21
-1.9.4 MedicalAnomalyDetection:.................. 21
-1.9.5 Deep learning for Anomaly detection in Social Networks . . . 23
-1.9.6 LogAnomalyDetection:.................... 24
-1.9.7 Internet of things (IoT) Big Data Anomaly Detection . . . . . 24
-1.9.8 IndustrialAnomaliesDetection ................ 25
-1.9.9 AnomalyDetectioninTimeSeries . . . . . . . . . . . . . . 26
-1.9.10 VideoSurveillance ....................... 27
-1.10 DeepAnomalyDetection(DAD)Models . . . . . . . . . . . . . . . 28
-1.10.1 Superviseddeepanomalydetection . . . . . . . . . . . . . . 29
-1.10.2 Semi-supervised deep anomaly detection . . . . . . . . . . . 30
-1.10.3 Hybriddeepanomalydetection ................ 31
-1.10.4 One-class neural networks (OC-NN) for anomaly detection . . 34
-1.10.5 Un-supervised Deep Anomaly Detection . . . . . . . . . . . 35
-1.10.6 MiscellaneousTechniques ................... 37 1.10.6.1 Transfer Learning based anomaly detection : . . . 37
+ 9. ApplicationsofDeepAnomalyDetection 
+          * Intrusion Detection
+          * Host-Based Intrusion Detection Systems (HIDS)
+          * Network Intrusion Detection Systems (NIDS)
+          * Fraud Detection
+          * Bankingfraud 
+          * Mobile cellular network fraud 
+          * Insurance fraud 
+          * Healthcare fraud
+          * MalwareDetection
+          * Medical Anomaly Detection
+          * Deep learning for Anomaly detection in Social Networks 
+          * Log Anomaly Detection
+          * Internet of things (IoT) Big Data Anomaly Detection 
+          * Industrial Anomalies Detection 
+          * Anomaly Detection in TimeSeries 
+          * Video Surveillance 
+10. Deep Anomaly Detection(DAD) Models 
+          * Supervised deep anomaly detection 
+          * Semi-supervised deep anomaly detection 
+          * Hybriddeepanomalydetection 
+          * One-class neural networks (OC-NN) for anomaly detection
+          * Un-supervised Deep Anomaly Detection 
+          * MiscellaneousTechniques 
+          * Transfer Learning based anomaly detection 
 
 
 
 ## Contributing
 
-Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title 
+Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title and preferably bibtex entry here (https://github.com/raghavchalapathy/Deep-Learning-for-Anomaly-Detection-A-Survey/issues) in Issue list section
 
- [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+I would be updating the paper every two-weeks and will be including and citing your paper in the appropriate sections of research or application sections. This enables us to keep track and follow the recent progress in the space of deep learning based techniques for anomaly detection.
 
 
 ## Authors
