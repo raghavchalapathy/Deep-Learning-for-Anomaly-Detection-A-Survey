@@ -51,18 +51,18 @@ I would be updating the paper every two-weeks and will be including and citing y
           * Anomaly Detection in TimeSeries 
           * Video Surveillance 
 10. Deep Anomaly Detection(DAD) Models 
-          * Supervised deep anomaly detection 
-          * Semi-supervised deep anomaly detection 
-          * Hybriddeepanomalydetection 
-          * One-class neural networks (OC-NN) for anomaly detection
-          * Un-supervised Deep Anomaly Detection 
-          * Miscellaneous Techniques 
-             - Transfer Learning based anomaly detection 
-             - Zero Shot learning based anomaly detection
-             - Ensemble based anomaly detection
-             - Clustering based anomaly detection
-             - Deep Reinforcement Learning (DRL) based anomaly detection
-             - Statistical techniques deep anomaly detection
+          1. Supervised deep anomaly detection 
+          2. Semi-supervised deep anomaly detection 
+          3. Hybriddeepanomalydetection 
+          4. One-class neural networks (OC-NN) for anomaly detection
+          5. Un-supervised Deep Anomaly Detection 
+          6. Miscellaneous Techniques 
+             * Transfer Learning based anomaly detection 
+             * Zero Shot learning based anomaly detection
+             * Ensemble based anomaly detection
+             * Clustering based anomaly detection
+             * Deep Reinforcement Learning (DRL) based anomaly detection
+             * Statistical techniques deep anomaly detection
 
 
 
