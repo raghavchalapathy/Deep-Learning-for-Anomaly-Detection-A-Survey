@@ -4,9 +4,9 @@
 
 # Table of contents
 1. [Introduction](#introduction)
-2. [Some paragraph](#paragraph1)
+2. [What are anomalies?](#paragraph1)
     1. [Sub paragraph](#subparagraph1)
-3. [Another paragraph](#paragraph2)
+3. [What are novelties?](#paragraph2)
 
 
 
