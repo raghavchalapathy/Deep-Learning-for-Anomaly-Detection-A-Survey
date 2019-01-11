@@ -63,17 +63,17 @@ I would be updating the paper every two-weeks and will be including and citing y
            * Clustering based anomaly detection
            * Deep Reinforcement Learning (DRL) based anomaly detection
            * Statistical techniques deep anomaly detection
-  11. Deep neural network architectures for locating anomalies 
-           * Deep Neural Networks (DNN)
-           * Spatio Temporal Networks(STN) 
-           * Sum-Product Networks(SPN)
-           * Word2vec Models 
-           * Generative Models 
-           * Convolutional Neural Networks
-           * Sequence Models
-           * Autoencoders
-           * Relative Strengths and Weakness : Deep Anomaly Detection Methods
-           * Conclusion 
+ 11. Deep neural network architectures for locating anomalies 
+     1. Deep Neural Networks (DNN)
+     2. Spatio Temporal Networks(STN) 
+     3. Sum-Product Networks(SPN)
+     4. Word2vec Models 
+     5. Generative Models 
+     6. Convolutional Neural Networks
+     7. Sequence Models
+     8. Autoencoders
+ 12. Relative Strengths and Weakness : Deep Anomaly Detection Methods
+ 13. Conclusion 
 
 
 ## Authors
