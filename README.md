@@ -2,29 +2,31 @@
 
  The aim of this survey is two fold, firstly we present a structured and comprehensive reviewof research methods in deep anomaly detection (DAD). Furthermore, we also discuss the adoption of DAD methods across various application domains and assess their effectiveness.
 
-## Table of Contents
 
-1 Deep Learning for Anomaly Detection: A Survey
-      1.1 Introduction
-      1.2 What are anomalies?
-      1.3 What are novelties?
-      1.4 Motivation and Challenges: Deep anomaly detection (DAD) techniques
-      1.5 RelatedWork 
-      1.6 OurContributions 
-      1.7 Organization
-      1.8 Different aspects of deep learning-based anomaly detection.
-        1.8.1 Nature of Input Data
-      1.8.2 Based on Availability of labels 
-        1.8.2.1 Supervised deep anomaly detection
-        1.8.2.2 Semi-supervised deep anomaly detection.
-        1.8.2.3 Unsupervised deep anomaly detection 
-      1.8.3 Based on training objective
-       1.8.3.1 Deep Hybrid Models(DHM) 
-       1.8.3.2 One-Class Neural Networks (OC-NN) 
-      1.8.4 Type of Anomaly
-       1.8.4.1 PointAnomalies
-       1.8.4.2 Contextual Anomaly Detection 
-       1.8.4.3 Collective or Group Anomaly Detection
+# Table of contents
+
+
+1 [Deep Learning for Anomaly Detection: A Survey]
+      1.1 [Introduction]
+      1.2 [What are anomalies?]
+      1.3 [What are novelties?]
+      1.4 [Motivation and Challenges: Deep anomaly detection (DAD) techniques]
+      1.5 [RelatedWork] 
+      1.6 [OurContributions ]
+      1.7 [Organization]
+      1.8 [Different aspects of deep learning-based anomaly detection.]
+        [1.8.1 Nature of Input Data]
+      1.8.2 [Based on Availability of labels ]
+        1.8.2.1 [Supervised deep anomaly detection]
+        1.8.2.2 [Semi-supervised deep anomaly detection.]
+        1.8.2.3 [Unsupervised deep anomaly detection ]
+      1.8.3 [Based on training objective]
+       1.8.3.1 [Deep Hybrid Models(DHM) ]
+       1.8.3.2 [One-Class Neural Networks (OC-NN) ]
+      1.8.4 [Type of Anomaly]
+       1.8.4.1 [PointAnomalies]
+       1.8.4.2 [Contextual Anomaly Detection ]
+       1.8.4.3 [Collective or Group Anomaly Detection]
 
 
 1.8.5 Output ofDADTechniques .................. 13 1.8.5.1 AnomalyScore: ................... 13 1.8.5.2 Labels:........................ 14
@@ -57,7 +59,9 @@
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title 
+
+ [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 
 ## Authors
