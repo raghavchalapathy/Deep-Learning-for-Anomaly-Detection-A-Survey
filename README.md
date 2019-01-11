@@ -2,6 +2,13 @@
 
  The aim of this survey is two fold, firstly we present a structured and comprehensive reviewof research methods in deep anomaly detection (DAD). Furthermore, we also discuss the adoption of DAD methods across various application domains and assess their effectiveness.
 
+## Contributing
+
+Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title and preferably bibtex entry [here] (https://github.com/raghavchalapathy/Deep-Learning-for-Anomaly-Detection-A-Survey/issues) in Issue list section
+
+I would be updating the paper every two-weeks and will be including and citing your paper in the appropriate sections of research or application sections. This enables us to keep track and follow the recent progress in the space of deep learning based techniques for anomaly detection.
+
+
 # Table of contents
   1. Introduction
   2. What are anomalies?
@@ -49,16 +56,14 @@
           * Hybriddeepanomalydetection 
           * One-class neural networks (OC-NN) for anomaly detection
           * Un-supervised Deep Anomaly Detection 
-          * MiscellaneousTechniques 
-          * Transfer Learning based anomaly detection 
+          * Miscellaneous Techniques 
+             - Transfer Learning based anomaly detection 
+             - Zero Shot learning based anomaly detection
+             - Ensemble based anomaly detection
+             - Clustering based anomaly detection
+             - Deep Reinforcement Learning (DRL) based anomaly detection
+             - Statistical techniques deep anomaly detection
 
-
-
-## Contributing
-
-Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title and preferably bibtex entry here (https://github.com/raghavchalapathy/Deep-Learning-for-Anomaly-Detection-A-Survey/issues) in Issue list section
-
-I would be updating the paper every two-weeks and will be including and citing your paper in the appropriate sections of research or application sections. This enables us to keep track and follow the recent progress in the space of deep learning based techniques for anomaly detection.
 
 
 ## Authors
