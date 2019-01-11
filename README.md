@@ -4,8 +4,27 @@
 
 # Table of contents
   * Introduction
-   Introduction
-   > line 2 
+  * What are anomalies?
+  * What are novelties?
+  * Motivation and Challenges: Deep anomaly detection (DAD) techniques]
+      1.5 [RelatedWork] 
+      1.6 [OurContributions ]
+      1.7 [Organization]
+      1.8 [Different aspects of deep learning-based anomaly detection.]
+        [1.8.1 Nature of Input Data]
+      1.8.2 [Based on Availability of labels ]
+        1.8.2.1 [Supervised deep anomaly detection]
+        1.8.2.2 [Semi-supervised deep anomaly detection.]
+        1.8.2.3 [Unsupervised deep anomaly detection ]
+      1.8.3 [Based on training objective]
+       1.8.3.1 [Deep Hybrid Models(DHM) ]
+       1.8.3.2 [One-Class Neural Networks (OC-NN) ]
+      1.8.4 [Type of Anomaly]
+       1.8.4.1 [PointAnomalies]
+       1.8.4.2 [Contextual Anomaly Detection ]
+       1.8.4.3 [Collective or Group Anomaly Detection]
+  
+  
    >> line 3
   * [Uninstallation](#uninstallation)
   * [Available plugins](#available-plugins)
