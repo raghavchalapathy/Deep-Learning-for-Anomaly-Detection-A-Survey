@@ -3,26 +3,26 @@
  The aim of this survey is two fold, firstly we present a structured and comprehensive reviewof research methods in deep anomaly detection (DAD). Furthermore, we also discuss the adoption of DAD methods across various application domains and assess their effectiveness.
 
 # Table of contents
-  * Introduction
-  * What are anomalies?
-  * What are novelties?
-  * Motivation and Challenges: Deep anomaly detection (DAD) techniques
-  * RelatedWork
-  * OurContributions
-  * Organization
-  * Different aspects of deep learning-based anomaly detection.
-       > Nature of Input Data
-  * Based on Availability of labels 
-       > Supervised deep anomaly detection
-       > Semi-supervised deep anomaly detection
-       > Unsupervised deep anomaly detection 
-   * Based on training objective
-       > Deep Hybrid Models(DHM) 
-       > One-Class Neural Networks (OC-NN) 
-   * Type of Anomaly
-       > PointAnomalies
-       > Contextual Anomaly Detection 
-       > Collective or Group Anomaly Detection
+  1. Introduction
+  2. What are anomalies?
+  3. What are novelties?
+  4. Motivation and Challenges: Deep anomaly detection (DAD) techniques
+  5. Related Work
+  6. Our Contributions
+  7. Organization
+  8. Different aspects of deep learning-based anomaly detection.
+       * Nature of Input Data
+  9. Based on Availability of labels 
+       * Supervised deep anomaly detection
+       * Semi-supervised deep anomaly detection
+       * Unsupervised deep anomaly detection 
+   10. Based on training objective
+       * Deep Hybrid Models(DHM) 
+       * One-Class Neural Networks (OC-NN) 
+   11. Type of Anomaly
+       * PointAnomalies
+       * Contextual Anomaly Detection 
+       * Collective or Group Anomaly Detection
  
 
 
