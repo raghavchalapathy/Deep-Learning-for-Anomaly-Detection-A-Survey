@@ -10,14 +10,14 @@ I would be updating the paper every two-weeks and will be including and citing y
 
 
 # Table of contents
-  1. Introduction
-  2. What are anomalies?
-  3. What are novelties?
-  4. Motivation and Challenges: Deep anomaly detection (DAD) techniques
-  5. Related Work
-  6. Our Contributions
-  7. Organization
-  8. #### Different aspects of deep learning-based anomaly detection.
+  1. #### Introduction
+    * What are anomalies?
+    * What are novelties?
+    * Motivation and Challenges: Deep anomaly detection (DAD) techniques
+    * Related Work
+    * Our Contributions
+    * Organization
+  2. #### Different aspects of deep learning-based anomaly detection.
      1. Nature of Input Data
      2. Based on Availability of labels 
           * Supervised deep anomaly detection
@@ -33,7 +33,7 @@ I would be updating the paper every two-weeks and will be including and citing y
       5. Output of DAD Techniques 
           * AnomalyScore
           * Labels
- 9. Applications of Deep Anomaly Detection 
+ 3. #### Applications of Deep Anomaly Detection 
      1. Intrusion Detection
      2. Host-Based Intrusion Detection Systems (HIDS)
      3. Network Intrusion Detection Systems (NIDS)
@@ -50,7 +50,7 @@ I would be updating the paper every two-weeks and will be including and citing y
      14. Industrial Anomalies Detection 
      15. Anomaly Detection in TimeSeries 
      16. Video Surveillance 
-10. Deep Anomaly Detection(DAD) Models 
+4.#### Deep Anomaly Detection(DAD) Models 
      1. Supervised deep anomaly detection 
      2. Semi-supervised deep anomaly detection 
      3. Hybriddeepanomalydetection 
@@ -63,7 +63,7 @@ I would be updating the paper every two-weeks and will be including and citing y
            * Clustering based anomaly detection
            * Deep Reinforcement Learning (DRL) based anomaly detection
            * Statistical techniques deep anomaly detection
- 11. Deep neural network architectures for locating anomalies 
+5. #### Deep neural network architectures for locating anomalies 
      1. Deep Neural Networks (DNN)
      2. Spatio Temporal Networks(STN) 
      3. Sum-Product Networks(SPN)
@@ -72,8 +72,8 @@ I would be updating the paper every two-weeks and will be including and citing y
      6. Convolutional Neural Networks
      7. Sequence Models
      8. Autoencoders
- 12. Relative Strengths and Weakness : Deep Anomaly Detection Methods
- 13. Conclusion 
+ 6. #### Relative Strengths and Weakness : Deep Anomaly Detection Methods
+ 7. #### Conclusion 
 
 
 ## Authors
