@@ -7,8 +7,8 @@
 
 
 1 [Deep Learning for Anomaly Detection: A Survey]
-      1.1 [Introduction]
-      1.2 [What are anomalies?]
+      1.1 [Introduction](#introduction)
+      1.2 [What are anomalies?] (#What are anomalies?)
       1.3 [What are novelties?]
       1.4 [Motivation and Challenges: Deep anomaly detection (DAD) techniques]
       1.5 [RelatedWork] 
