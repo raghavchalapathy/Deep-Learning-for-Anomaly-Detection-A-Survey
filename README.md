@@ -3,10 +3,9 @@
  The aim of this survey is two fold, firstly we present a structured and comprehensive reviewof research methods in deep anomaly detection (DAD). Furthermore, we also discuss the adoption of DAD methods across various application domains and assess their effectiveness.
 
 # Table of contents
-1. [Introduction](#introduction)
-2. [What are anomalies?](#paragraph1)
-    1. [Sub paragraph](#subparagraph1)
-3. [What are novelties?](#paragraph2)
+1.1. [Introduction](#introduction)
+1.2. [What are anomalies?](#paragraph1)
+1.3  [What are novelties?](#paragraph2)
 
 
 
