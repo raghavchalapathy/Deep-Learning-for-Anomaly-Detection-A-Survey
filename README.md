@@ -6,85 +6,25 @@
   * Introduction
   * What are anomalies?
   * What are novelties?
-  * Motivation and Challenges: Deep anomaly detection (DAD) techniques]
-      1.5 [RelatedWork] 
-      1.6 [OurContributions ]
-      1.7 [Organization]
-      1.8 [Different aspects of deep learning-based anomaly detection.]
-        [1.8.1 Nature of Input Data]
-      1.8.2 [Based on Availability of labels ]
-        1.8.2.1 [Supervised deep anomaly detection]
-        1.8.2.2 [Semi-supervised deep anomaly detection.]
-        1.8.2.3 [Unsupervised deep anomaly detection ]
-      1.8.3 [Based on training objective]
-       1.8.3.1 [Deep Hybrid Models(DHM) ]
-       1.8.3.2 [One-Class Neural Networks (OC-NN) ]
-      1.8.4 [Type of Anomaly]
-       1.8.4.1 [PointAnomalies]
-       1.8.4.2 [Contextual Anomaly Detection ]
-       1.8.4.3 [Collective or Group Anomaly Detection]
-  
-  
-   >> line 3
-  * [Uninstallation](#uninstallation)
-  * [Available plugins](#available-plugins)
-  * [Usage](#usage)
-    * [Check available plugins](#check-available-plugins)
-    * [Check available versions for each plugin](#check-available-versions-for-each-plugin)
-    * [Create an environment](#create-an-environment)
-    * [Activate/deactivate environment](#activatedeactivate-environment)
-      * [Activating in a new shell](#activating-in-a-new-shell)
-      * [Activating in the same shell](#activating-in-the-same-shell)
-    * [Get list of environments](#get-list-of-environments)
-    * [Get current activated environment](#get-current-activated-environment)
-    * [Do something in environment without enabling it](#do-something-in-environment-without-enabling-it)
-    * [Get help](#get-help)
-    * [Get help for a command](#get-help-for-a-command)
-  * [How to add a plugin?](#how-to-add-a-plugin)
-    * [Mandatory elements](#mandatory-elements)
-      * [plug_list_versions](#plug_list_versions)
-      * [plug_url_for_download](#plug_url_for_download)
-      * [plug_build](#plug_build)
-    * [Optional elements](#optional-elements)
-      * [Variables](#variables)
-      * [Functions](#functions)
-    * [Examples](#examples)
-  * [Example of the usage](#example-of-the-usage)
-  * [Dependencies](#dependencies)
-  * [Supported OS](#supported-os)
-  * [Tests](#tests)
-  * [Version History](#version-history)
-  * [License](#license)
-  * [README in another language](#readme-in-another-language)
+  * Motivation and Challenges: Deep anomaly detection (DAD) techniques
+  * RelatedWork
+  * OurContributions
+  * Organization
+  * Different aspects of deep learning-based anomaly detection.
+       > Nature of Input Data
+  * Based on Availability of labels 
+       > Supervised deep anomaly detection
+       > Semi-supervised deep anomaly detection
+       > Unsupervised deep anomaly detection 
+   * Based on training objective
+       > Deep Hybrid Models(DHM) 
+       > One-Class Neural Networks (OC-NN) 
+   * Type of Anomaly
+       > PointAnomalies
+       > Contextual Anomaly Detection 
+       > Collective or Group Anomaly Detection
+ 
 
-
-
-
-
-# Table of contents
-
-
-1 [Deep Learning for Anomaly Detection: A Survey]
-      1.1 [Introduction](#introduction)
-      1.2 [What are anomalies?] (#What are anomalies?)
-      1.3 [What are novelties?]
-      1.4 [Motivation and Challenges: Deep anomaly detection (DAD) techniques]
-      1.5 [RelatedWork] 
-      1.6 [OurContributions ]
-      1.7 [Organization]
-      1.8 [Different aspects of deep learning-based anomaly detection.]
-        [1.8.1 Nature of Input Data]
-      1.8.2 [Based on Availability of labels ]
-        1.8.2.1 [Supervised deep anomaly detection]
-        1.8.2.2 [Semi-supervised deep anomaly detection.]
-        1.8.2.3 [Unsupervised deep anomaly detection ]
-      1.8.3 [Based on training objective]
-       1.8.3.1 [Deep Hybrid Models(DHM) ]
-       1.8.3.2 [One-Class Neural Networks (OC-NN) ]
-      1.8.4 [Type of Anomaly]
-       1.8.4.1 [PointAnomalies]
-       1.8.4.2 [Contextual Anomaly Detection ]
-       1.8.4.3 [Collective or Group Anomaly Detection]
 
 
 1.8.5 Output ofDADTechniques .................. 13 1.8.5.1 AnomalyScore: ................... 13 1.8.5.2 Labels:........................ 14
