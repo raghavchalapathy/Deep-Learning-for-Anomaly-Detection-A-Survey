@@ -1,0 +1,38 @@
+%!TEX root = ../../main.tex
+\subsection{Anomaly Detection in Time Series }
+\label{sec:timeseriesAD}
+Data recorded continuously over a duration is known the time series. Time series data are the best examples of collective outliers. In recent times, deep learning models for detecting time series anomalies has been well studied~\cite{fawaz2018deep,langkvist2014review,gamboa2017deep,lu2017unsupervised}. The advancements in deep learning domain offer opportunities to extract rich hierarchical features which can greatly improve outlier detection as illustrated by various techniques illustrated in Table ~\ref{tab:sensorAnomalyDetect}. Furthermore DeepAD, an anomaly detection framework to detect anomalies precisely, even in complex data patterns is proposed by~\cite{buda2018deepad}. Some of the challenges to detect anomalies in time series using deep learning models data are:
+\begin{itemize}
+    \item Lack of defined pattern in which an anomaly occuring may be defined.
+    \item Noise within the input data seriously effects the performance of algorithms.
+    \item As the length of the time series data increases the computational complexity also increases.
+    \item Time series data is usually non-stationary, non-linear and dynamically evolving, hence DAD models should be able to detect anomalies in real time.
+\end{itemize}
+
+
+%%%%%%% Begin table sensor networks time series anomaly detection
+\begin{table*}
+\begin{center}
+\caption{Examples of DAD techniques used in time series data.
+        \\CNN: Convolution Neural Networks, GAN: Generative Adversarial networks,LSTM : Long Short Term Memory Networks
+        \\GRU: Gated Recurrent Unit, DNN : Deep Neural Networks,
+        \\AE: Autoencoders, DAE: Denoising Autoencoders, VAE: Variational Autoencoder
+        \\ SDAE: Stacked Denoising Autoencoders}
+    \captionsetup{justification=centering}
+  \label{tab:sensorAnomalyDetect}
+  \scalebox{0.90}{
+    \begin{tabular}{ | p{3cm} | p{4cm} | p{9cm} |}
+    \hline
+    \textbf{Techniques}  & \textbf{Section} & \textbf{References} \\ \hline
+     LSTM & Section ~\ref{sec:rnn_lstm_gru} & \cite{shipmon2017time},\cite{hundman2018detecting},\cite{zhu2017deep},\cite{hundman2018detecting},\cite{malhotra2015long},\cite{chauhan2015anomaly},\cite{assendorp2017deep},\cite{buda2018deepad},\newline \cite{ahmad2017unsupervised},\cite{malhotra2016lstm},\cite{bontemps2016collective},\cite{taylor2016anomaly},\cite{cheng2016ms},\cite{loganathan2018sequence},\cite{chauhan2015anomaly},\cite{malhotra2015long},\cite{gorokhov2017convolutional}\\\hline
+     AE,LSTM-AE,CNN-AE,GRU-AE & Section ~\ref{sec:ae} & ~\cite{Dominique},~\cite{kieu2018outlier},~\cite{cowton2018combined},~\cite{malhotra2016multi},~\cite{malhotra2016lstm},\newline ~\cite{filonov2016multivariate},~\cite{sugimoto2018deep},~\cite{oh2018residual},~\cite{ebrahimzadehmulti}\\\hline
+     RNN & Section ~\ref{sec:rnn_lstm_gru} & ~\cite{wielgosz2017recurrent},~\cite{saurav2018online},~\cite{wielgosz2018model},~\cite{guo2016robust}\\\hline
+     CNN, CNN-LSTM & Section ~\ref{sec:cnn},~\ref{sec:rnn_lstm_gru} & ~\cite{kanarachos2017detecting},~\cite{dumodeling},~\cite{gorokhov2017convolutional},~\cite{napoletano2018anomaly},~\cite{shanmugam2018jiffy},\cite{medel2016anomaly}\\\hline
+     LSTM-VAE & Section ~\ref{sec:rnn_lstm_gru},~\ref{sec:gan_adversarial} & ~\cite{park2018multimodal},~\cite{solch2016variational}\\\hline
+     DNN &Section ~\ref{sec:dnn} & ~\cite{amarasinghe2018toward}\\\hline
+     GAN &Section ~\ref{sec:gan_adversarial} & ~\cite{li2018anomaly},~\cite{zenati2018efficient},~\cite{lim2018doping},~\cite{laptevanogen}\\\hline
+    \end{tabular}}
+\end{center}
+\end{table*}
+%%%%%%%%% End of time series anomaly detection
+

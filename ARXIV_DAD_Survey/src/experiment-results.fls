@@ -1,0 +1,9 @@
+PWD /Users/raghav/Documents/Uni/ARXIV_OCNN/src
+INPUT /usr/local/texlive/2015/texmf.cnf
+INPUT /usr/local/texlive/2015/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT experiment-results.tex
+OUTPUT experiment-results.log
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm

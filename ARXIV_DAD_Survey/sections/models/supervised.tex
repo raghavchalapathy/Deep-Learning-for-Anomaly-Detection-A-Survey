@@ -1,0 +1,36 @@
+%!TEX root = ../../main.tex
+\subsection{Supervised deep anomaly detection}
+\label{sec:supervisedDAD}
+ Supervised anomaly detection techniques are superior in performance compared to unsupervised anomaly detection techniques  since these techniques use  labeled samples.~\cite{gornitz2013toward}.  Supervised anomaly detection learns the separating boundary from a set of annotated data instances (training) and then, classify a test instance into  either normal or anomalous classes with the learned model (testing).\\
+\textbf{Assumptions :}
+Deep supervised learning methods depend on separating data classes whereas unsupervised
+techniques focus on explaining and understanding the characteristics of data. Multi-class classification based anomaly detection techniques assume that the training data contains labeled instances of  multiple normal classes ~\cite{shilton2013combined,jumutc2014multi,kim2015deep,erfani2017shared}. Multi-class anomaly detection techniques learn a classifier to distinguish between anomalous class from the rest of the classes. In general, supervised deep learning-based classification schemes for anomaly detection have two sub-networks, a feature extraction network followed by a classifier network. Deep models require extremely large number of training samples (in the order of thousands or millions) to effectively learn feature representations to discriminate various class instances. Due to, lack of availability of clean data labels supervised deep anomaly detection techniques are not so popular as semi-supervised and unsupervised methods.
+
+\textbf{Computational Complexity :} 
+The computational complexity of deep supervised  anomaly detection methods based techniques depends on the  input data dimension and the number of hidden layers trained using back-propagation algorithm. High dimensional data tend to have more hidden layers to ensure meaning-full hierarchical learning of input features.The computational complexity also increases  linearly with the number of hidden layers and require greater model training and update time.
+
+
+\textbf{Advantages and Disadvantages :}
+The advantages of supervised DAD techniques are as follows:
+\begin{itemize}
+\item Supervised DAD methods are more accurate than semi-supervised and unsupervised models.
+\item The testing phase of classification based techniques is fast since each test instance
+needs to be compared against the pre-computed model.
+\end{itemize}
+The disadvantages of Supervised DAD techniques are as follows:
+\begin{itemize}
+\item  Multi-class supervised techniques require accurate labels for various normal classes and anomalous instances, which is often not available.
+\item Deep supervised techniques fail to separate normal from anomalous data , if the feature space is highly complex and non-linear.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+

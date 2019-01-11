@@ -1,0 +1,36 @@
+%!TEX root = ../../main.tex
+\subsection{Deep learning for Anomaly detection in Social Networks}
+In recent times, online social networks has become part and parcel of daily life. Anomalies in social network
+are irregular often unlawful behaviour pattern of individuals within a social network, such  individuals may be identified as  spammers, sexual predators, online fraudsters, fake users or rumour-mongers. Detecting these irregular patterns is of prime importance since if not detected, the act of such individuals can have serious social impact. A survey of traditional anomaly detection techniques and its challenges to detect anomalies in social networks is a well studied topic in literature ~\cite{liu2017social,savage2014anomaly,anand2017anomaly,yu2016survey,cao2018automatic,yu2016survey}. The heterogeneous and dynamic nature of data presents significant challenges to DAD techniques. Despite these challenges several DAD techniques illustrated in Table ~\ref{tab:socialNetworkAnomalyDetect} are shown outperform state-of-the-art methods.
+
+% Table
+\begin{table*}
+  \begin{center}
+   \caption{Examples of DAD techniques used to detect anomalies in social network.
+            \\CNN: Convolution Neural Networks, LSTM : Long Short Term Memory Networks
+            \\AE: Autoencoders, DAE: Denoising Autoencoders
+            \\SVM : Support Vector Machines., DNN : Deep Neural Network  }
+    \captionsetup{justification=centering}
+    \label{tab:socialNetworkAnomalyDetect}
+    \scalebox{0.85}{
+    \begin{tabular}{|p{3cm}|p{4cm}|p{5cm}|}
+      \hline
+      \textbf{Technique Used} & \textbf{Section} & \textbf{References}\\
+      \hline
+      AE,DAE &  Section ~\ref{sec:ae}  & ~\cite{zhang2017detecting},~\cite{castellini2017fake}\\\hline
+      CNN-LSTM & Section ~\ref{sec:cnn}, ~\ref{sec:rnn_lstm_gru} & ~\cite{sun2018detecting},~\cite{shu2017doc},~\cite{yang2018anomaly}\\\hline
+      DNN & Section ~\ref{sec:dnn}  & ~\cite{li2017detecting}\\\hline
+      Hybrid Models (CNN-LSTM-SVM) & Section ~\ref{sec:hybridModels}  & ~\cite{wei2017new}\\\hline
+    \end{tabular}}
+  \end{center}
+\end{table*}
+
+
+
+
+
+% Science is a belief in the ingnorance of experts
+% Measure of ignorance; Data Artist
+% Find Worst Case: Piano
+%New Ideas in Business and Intelligence and customer analytics
+%Learn the rules like a professional but break like an artist

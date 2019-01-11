@@ -1,0 +1,39 @@
+%!TEX root = ../../main.tex
+\subsection{Log Anomaly Detection:}
+Anomaly detection in log file aims to find text, which can indicate the reasons and the nature of failure of a system. Most commonly, a domain  specific regular-expression  is constructed from past experience which finds new faults by pattern matching. The limitation of such approaches is that newer messages of failures are easily are not detected~\cite{memon2008log}.
+
+The unstructured and diversity in both format and semantics of log data pose significant challenges to log anomaly detection. Anomaly detection techniques should adapt to concurrent setting of log data generated and detect outliers in real time. Following the success of deep neural networks in real time text analysis, several DAD techniques illustrated in Table~\ref{tab:logAnomalyDetect} which model the log data as natural language sequence are shown very effective in detecting outliers.
+
+%%%%%%% Begin table fraud detection
+\begin{table*}
+\begin{center}
+\caption{Examples of Deep learning anomaly detection techniques used in system logs.
+        \\CNN: Convolution Neural Networks, LSTM : Long Short Term Memory Networks
+        \\GRU: Gated Recurrent Unit, DNN : Deep Neural Networks
+        \\AE: Autoencoders, DAE: Denoising Autoencoders}
+    \captionsetup{justification=centering}
+  \label{tab:logAnomalyDetect}
+  \scalebox{0.85}{
+    \begin{tabular}{ | p{2cm} | p{2cm} | p{9cm} |}
+    \hline
+     \textbf{Techniques}  & \textbf{Section} & \textbf{References} \\ \hline
+     LSTM & Section ~\ref{sec:rnn_lstm_gru} & ~\cite{hochreiter1997long},~\cite{brown2018recurrent},~\cite{tuor2017deep},~\cite{das2018desh},~\cite{malhotra2015long} \\\hline
+     AE & Section ~\ref{sec:ae} & ~\cite{du2017deeplog},~\cite{andrews2016detecting} ,~\cite{sakurada2014anomaly},~\cite{nolle2018analyzing},~\cite{nolle2016unsupervised}\\\hline
+     LSTM-AE & Section ~\ref{sec:rnn_lstm_gru}, ~\ref{sec:ae} & ~\cite{grover2018anomaly},~\cite{wolpher2018anomaly} \\\hline
+     RNN & Section ~\ref{sec:rnn_lstm_gru} & ~\cite{brown2018recurrent},~\cite{zhang2018role},~\cite{nanduri2016anomaly},~\cite{fengming2017anomaly}\\\hline
+     DAE & Section ~\ref{sec:ae} & ~\cite{marchi2015non},~\cite{nolle2016unsupervised}\\\hline
+     CNN & Section ~\ref{sec:cnn} & ~\cite{lu2018detecting},~\cite{yuan2018insider},~\cite{racki2018compact},~\cite{zhou2016spatial},~\cite{gorokhov2017convolutional},~\cite{liao2017deep},~\cite{cheng2017deep},~\cite{zhang2018alphamex}\\\hline
+    \end{tabular}}
+\end{center}
+\end{table*}
+%%%%%%%%% End of Log anomaly detection
+
+
+
+
+
+
+
+
+
+

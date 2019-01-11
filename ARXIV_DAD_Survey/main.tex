@@ -1,0 +1,185 @@
+\documentclass{article}
+
+
+\usepackage{arxiv}
+\usepackage{natbib}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{booktabs} % For formal tables
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{multirow}
+\usepackage{soul,color,colortbl}
+\usepackage{xcolor}
+\usepackage{upgreek}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{upgreek}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{framed}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{graphics}
+\usepackage{cuted}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{amssymb}
+\usepackage{pbox}
+\usepackage{amsmath}
+\usepackage{pbox}
+\usepackage{balance}
+\usepackage{flushend}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+% \usepackage[tableposition=top]{caption}
+\usepackage[justification=centering]{caption}
+\usepackage{caption,booktabs}
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+\begingroup
+\catcode`[=\active \catcode`]=\active
+
+% Define a meaning for active [ and ]
+\gdef[{\llbracket} \gdef]{\rrbracket}
+
+% Now take care of the \delcode of [ and ] for \left and \right
+% First a temporary macro
+\def\getdelim#1#2#3#4\relax{"#4}
+% Use the temporary macro to get the right delcodes out of
+% the meaning of \llbracket and \rrbracket
+\global\delcode`[=\expandafter\getdelim\llbracket\relax
+\global\delcode`]=\expandafter\getdelim\rrbracket\relax
+\endgroup
+
+
+
+\newcommand{\sign}{\mathrm{sign}}
+\newcommand{\argmin}{\operatorname{argmin}\, }
+\newcommand{\argmax}{\operatorname{argmax}\, }
+
+\newcommand{\E}[2]{\mathbb{E}_{#1}\left[ #2 \right]}
+
+\newcommand{\indicator}[1]{\llbracket #1 \rrbracket}
+\newcommand{\bias}{r}
+\newcommand{\XCal}{\mathscr{X}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+% \newcommand{\E}{\mathbf{E}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\J}{\mathbf{J}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+\renewcommand{\S}{\mathbf{S}}
+\newcommand{\T}{\mathbf{T}}
+% \newcommand{\U}{\mathbf{U}}
+\newcommand{\V}{\mathbf{V}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\HCal}{\mathscr{H}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\mbf}{\mathbf}% math bold
+
+\newcommand{\sanjay}[1]{\hl{\footnote{\hl{Sanjay: #1}}}}
+
+
+\newtheorem{theorem}{Theorem}
+
+
+\title{Deep Learning for Anomaly Detection: A Survey}
+
+
+\author{
+  Raghavendra Chalapathy \\
+%   \thanks{Use footnote for providing further
+%     information about author (webpage, alternative
+%     address)---\emph{not} for acknowledging funding agencies.} \\
+  University of Sydney,\\
+  Capital Markets Co-operative Research Centre (CMCRC)\\
+  \texttt{rcha9612@uni.sydney.edu.au} \\
+  %% examples of more authors
+ %   \And
+ % Aditya Krishna Menon \\
+ %  Data61/CSIRO and the Australian National University\\
+ %  \texttt{aditya.menon@data61.csiro.au} \\
+  \And
+ Sanjay Chawla \\
+  Qatar Computing Research Institute (QCRI), HBKU\\
+  \texttt{schawla@qf.org.qa} \\
+  }
+  %% \AND
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+\keywords{anomalies, outlier, novelty, deep learning}
+\input{sections/introduction}
+\input{sections/aspectsOfAnomalyDetection}
+\input{sections/applicationOfAD}
+\input{sections/deepAnomalyDetectionModels}
+\input{sections/locatingAnomalies}
+\input{sections/relativeSOW}
+\input{sections/conclusion}
+
+% \section{Anomaly detection: motivation and challenges}
+% \input{src/intro}
+
+% \section{Background and related work on anomaly detection}
+% \label{sec:background}
+% \label{sec:related}
+% \input{src/background}
+
+% \section{From One Class SVM  to One Class Neural Networks}
+% \label{sec:method}
+% \input{src/method}
+
+
+% \input{src/experiment-setup}
+% % The new  experimental setup and results are forthcoming, and that there were technical issues discovered with previously posted results.
+
+% \input{src/experiment-results}
+
+
+% \section{Conclusion}
+% \label{sec:conclusion}
+% \input{src/conclusion}
+
+
+
+%% Include bibliography
+% \bibliographystyle{unsrt}
+\bibliographystyle{unsrtnat}
+\bibliography{main}
+
+
+\end{document}

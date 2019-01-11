@@ -1,0 +1,13 @@
+# Fdb version 3
+["pdflatex"] 1546977105 "experiment-results.tex" "experiment-results.pdf" "experiment-results" 1546977106
+  "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
+  "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
+  "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm" 1136768653 1300 63a6111ee6274895728663cf4b4e7e81 ""
+  "/usr/local/texlive/2015/texmf-dist/web2c/texmf.cnf" 1428852030 31983 18aeec08f48baa3cf3508d538dd5f459 ""
+  "/usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt" 1442619646 3849859 bc9eaa9fdc19b5dbc06bcf6c1dd88e9f ""
+  "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
+  "experiment-results.aux" 1546977105 8 a94a2480d3289e625eea47cd1b285758 ""
+  "experiment-results.tex" 1546977103 16054 996db109c00d50c6f5e2b14d005544ab ""
+  (generated)
+  "experiment-results.pdf"
+  "experiment-results.log"

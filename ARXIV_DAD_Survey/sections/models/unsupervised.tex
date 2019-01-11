@@ -1,0 +1,80 @@
+%!TEX root = ../../main.tex
+\subsection{Unsupervised Deep Anomaly Detection }
+\label{sec:unsupervisedDAD}
+Unsupervised DAD is an important area of research  in both fundamental machine learning research and industrial applications. Several deep learning frameworks that addresses  challenges in unsupervised anomaly detection are proposed and shown to produce state-of-the-art performance as illustrated in Table ~\ref{tab:unsupervisedAnomalyDetection}. Autoencoders are the fundamental  unsupervised deep architectures used in anomaly detection~\cite{baldi2012autoencoders}.
+
+%%%%%%% Begin Un-supervised Deep Anomaly Detection (UDAD)
+\begin{table*}
+\begin{center}
+\caption{Examples of  Un-supervised DAD techniques .
+        \\CNN: Convolution Neural Networks, LSTM : Long Short Term Memory Networks
+        \\DNN : Deep Neural Networks., GAN: Generative Adversarial Network
+        \\AE: Autoencoders, DAE: Denoising Autoencoders, SVM: Support Vector Machines
+        \\STN: Spatial Transformer Networks, RNN : Recurrent Neural Networks
+        \\AAE: Adversarial Autoencoders, VAE : Variational Autoencoders.}
+\captionsetup{justification=centering}
+    \label{tab:unsupervisedAnomalyDetection}
+    \scalebox{0.85}{
+    \begin{tabular}{ | p{3cm}  | p{2cm} | p{8cm} |}
+    \hline
+     \textbf{Techniques}  & \textbf{Section} & \textbf{References} \\ \hline
+     LSTM & Section ~\ref{sec:rnn_lstm_gru} &  ~\cite{singh2017anomaly},~\cite{chandola2008comparative},~\cite{dasigi2014modeling},\cite{malhotra2015long}\\\hline
+     AE & Section ~\ref{sec:ae} & ~\cite{abati2018and},~\cite{zong2018deep},~\cite{tagawa2015structured},~\cite{dau2014anomaly},~\cite{sakurada2014anomaly},~\cite{wu2015adaptive},\newline~\cite{xu2015learning},~\cite{hawkins2002outlier},~\cite{zhao2015robust},~\cite{qi2014robust},~\cite{chalapathy2017robust},~\cite{yang2015unsupervised},\newline ~\cite{zhai2016deep},~\cite{lyudchik2016outlier},~\cite{lu2017unsupervised},~\cite{mehrotra2017deep},~\cite{meng2018relational},\cite{parchami2017using}\\\hline
+     STN & Section ~\ref{sec:stn} & ~\cite{chianucci2016unsupervised}\\\hline
+     GAN & Section ~\ref{sec:gan_adversarial} & ~\cite{lawson2017finding} \\\hline
+     RNN & Section ~\ref{sec:rnn_lstm_gru} & ~\cite{dasigi2014modeling},\cite{filonov2017rnn} \\\hline
+     AAE & Section ~\ref{sec:gan_adversarial} & ~\cite{dimokranitou2017adversarial},~\cite{leveau2017adversarial} \\\hline
+     VAE & Section ~\ref{sec:gan_adversarial} &  ~\cite{an2015variational},~\cite{suh2016echo},~\cite{solch2016variational},~\cite{xu2018unsupervised},~\cite{mishra2017generative}\\\hline
+    \end{tabular}}
+\end{center}
+\end{table*}
+%%%%%%%%% End of Un-supervised Deep Anomaly Detection (UDAD)
+
+% OCSVM~\cite{scholkopf2002support}, SVDD~\cite{scholkopf2002support}
+% SVM~\cite{cortes1995support}
+% KNN~\cite{altman1992introduction}
+% Random Forest~\cite{ho1995random}
+% Relief~\cite{kira1992feature}
+% CSI~\cite{ruchansky2017csi}
+% Section ~\ref{sec:ae}
+% Section ~\ref{sec:rnn_lstm_gru}
+% Section ~\ref{sec:gan_adversarial}
+% Section ~\ref{sec:dnn}
+% Section ~\ref{sec:cnn}
+% Section ~\ref{sec:stn}
+% Section ~\ref{sec:hybridModels}
+
+\textbf{Assumptions : } 
+The deep unsupervised models proposed for anomaly detection rely on one the following assumptions to detect outliers:
+\begin{itemize}
+ \item The “normal” regions in the original or some latent feature space can be distinguished from "anomalous" regions in the original or some latent feature space.
+  \item The majority of the data instances are normal compared to the remainder of the data set.
+  \item Unsupervised anomaly detection algorithm produces an outlier score of the data instances based on  intrinsic properties of the data-set such as distances or densities. The hidden layers of deep neural network aim to capture these intrinsic properties within the dataset~\cite{goldstein2016comparative}.
+\end{itemize}
+
+\textbf{Computational Complexity :} 
+The autoencoders is the most common architecture employed in outlier detection with quadratic cost, the optimization problem is non-convex in nature, similar to any other neural network architecture.
+The model computational complexity depends on the number of operations, network parameters and hidden layers. However, the computational complexity of training an autoencoder is much higher than traditional methods such as Principal Component Analysis (PCA) since PCA is
+based on matrix decomposition ~\cite{meng2018relational,parchami2017using}.\\
+
+\textbf{Advantages and Disadvantages:}
+The advantages of unsupervised deep anomaly detection techniques are as follows:
+\begin{itemize}
+\item  Learns the inherent data characteristics to separate normal from anomalous data point. These technique  identifies commonalities within the data therefore facilitates outlier detection.
+\item  Cost effective technique to find the anomalies since it does not require annotated data for training the algorithms.
+\end{itemize}
+The significant disadvantages of unsupervised deep anomaly detection techniques are:
+\begin{itemize}
+\item  Often it is difficult to learn commonalities within data in a complex and high dimensional space.
+\item While using autoencoders the choice of right degree of compression, i.e. dimensionality reduction is often an hyper-parameter that requires tuning for optimal results.
+\item Unsupervised techniques techniques are very sensitive to noise, and data corruptions and
+       are often less accurate than supervised or semi-supervised techniques.
+\end{itemize}
+
+
+
+
+
+
+
+

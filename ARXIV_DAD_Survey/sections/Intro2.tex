@@ -1,0 +1,83 @@
+\section{Literature Review}
+% allow  = 	permit, let, authorize, grant, empower, enable, entitle, qualify, agrees, offer, provide, express, show, assign, allocate, produce, construct, create, generate, induce, instigate, promote
+
+% consistent = steady, stable, constant, regular, even, uniform, orderly, unchanging, unvarying, unswerving, undeviating, unwavering, unfluctuating, homogeneous, true to type; dependable, reliable, unfailing, predictable, reliable
+
+% detect = 	identify, distinguish, establish, deduce, determine, differentiate, discriminate, discern, separate, characterise, discover, uncover, find, find out, turn up,  expose, reveal
+
+% use = utilize, make use of, avail oneself of, employ, work, operate, wield, ply, apply, manoeuvre, manipulate,
+
+
+% Why Should we care?
+%Background on group analysis - define group and explain, why are group interesting? Papers ?
+
+
+% General explanation
+Group anomalies are a collection of points in a dataset that do not conform or are not consistent with the dominant group pattern. Group anomaly detection is a growing area of research where the identification of irregular  group behaviors has provides meaningful insights in a diverse field of applications.
+
+
+%  What is a group?
+There are many definitions and interpretations of a group. One definition of a group is 
+two or more individuals who are connected
+to one another by social relationships \cite{Forsyth}. 
+
+
+
+
+ action can be subsequently taken. Due to the diverse of data, group anomaly detection 
+
+%Anomalies ubiquitous sources
+
+With the pervasive
+ extends the conventional individual anomalies
+The detection of group anomalies as they offers valuable insights over diverse variety of domains.
+
+
+%Application motivation
+
+ Members of a group can interact constructively or destructively to obtain a particular result. In social psychology, well-behaved groups have been found to uplift the performance of other members  \cite{SocialG}. Group members may also collaborate constructively in an unethical manner such as in the Chilean healthcare system  where the five largest private health insurers colluded to reduce the coverage of healthcare plans \cite{Chile}. Other notable research into groups have included protein interactions \cite{MMSB}, astronomical studies \cite{MGMM} and political voting \cite{GLAD}.
+%Thus the detection and analysis of group anomalies may result in a more desirable allocation of resources, mitigate risks as well as many other context-dependent implications and provide a deeper understanding in various applications.
+
+
+
+Due to varying perspectives on the elements which characterize a group, few technical methods have been developed for the group anomaly detection problem. Traditionally, research on anomaly detection has focused on individual instances however due to increased availability of multifaceted information, have allowed further investigations into clusters of data points.
+Generally, groups are defined as a collection of two or more related data instances \cite{Forsyth}. The relationship between individual samples in a group can be defined in different ways. For instance, in psychology, a network of people is formed by social ties whereas in astronomy, clusters of galaxies are related by their spatial distance. 
+
+
+%refer to a collection of instances such as people and items.   
+%In particular, research relating to the behaviours of groups of people .
+
+
+
+
+
+
+The existing methods for detecting group anomalies either allocate scores or assign class labels to each group.
+Xiong et. al proposes the Mixture of Gaussian Mixture (MGM) model detects group anomalies given groups are known a priori \cite{MGMM}. The MGM requires pre-selected parameters prior to model inference as well as a defined threshold to classify groups as normal or anomalous.
+For known groups, \cite{OCSMM} proposes one-class Support Measure Machine (OCSMM) to discover anomalies in group behaviors. OCSMM also requires pre-defined settings for the expected fraction of outliers within the dataset. Our methods do not require pre-defined settings or evaluating certain thresholds for selecting group anomalies.
+In our analysis, we are interested in differentiating group behaviors and focus on groups which are previously known. This is because clustering algorithms add an additional uncertainty as well as their inferences are difficult to evaluate without properly labelled data \cite{ClusterEval, ClusteringValidity}.
+
+% Hypothesis testing for individual outliers
+Previous research in group anomaly detection has involved many complicated procedures and are not robust in many situations due to their assumptions or other requirements.
+We propose an alternative method for discovering anomalous groups based on statistical hypothesis testing. The number of rejected hypotheses from  pairwise comparisons have the ability to differentiate behaviors in normal and anomalous groups.  Hypothesis testing has previously been used for individual outlier with methods such as Grubb's outlier test \cite{Grubb}, Dixon's Q test \cite{Dixon} and Rosner's generalized extreme studentized deviate test \cite{Rosner}. Most of these methods enforce the assumption of Gaussian distributions and we impose similar assumptions to evaluate the differences in mean, covariance and correlation among groups. These measures are easily interpreted and relevant in a diverse range of domains.
+
+
+
+
+
+%Summary
+
+Using a simpler method we are able to obtain more robust results and an easily interpretable model.
+  In this paper, we take a different approach to detecting anomalous groups which overcomes many of the current challenges.  We propose a general model which relies on statistical significance of various hypothesis,  called the Significance Testing of Anomalous Group Ensemble (STAGE) framework. The STAGE model provides a simple, intuitive and easy to interpret when identifying anomalous group behaviors. The hypothesis tests can either be non-parametric or parametric however choice of assumptions depend on the particular dataset. This method does not require tuning parameters or approximately optimizing over complicated objective functions. The STAGE model also achieves a high accuracy and greater robustness in detecting anomalous group, as compared to current state of the art methods.
+  Our major contributions are summarized as follows:
+ \begin{enumerate}
+   \item We express the problem of group anomalies in a general setting and also highlight specific cases which are not covered by existing  group anomaly detection techniques.
+   \item We propose a novel method for determining group anomalies based on pairwise comparison of  hypothesis tests. 
+ \item Our framework provides a flexible approach to examining a variety of group characteristics and is compared with existing methods on artificial experiments as well as real data applications.
+ \end{enumerate}
+ 
+ The sections of this paper are organised in the following manner. Section 2 provides an overview of the main existing methods relating to group anomaly detection. A formal definition of group anomalies is outlined in Section 3. Section 4 formulates our hypothesis testing based framework for identifying group anomalies. The synthetic experiments and application to real world datasets are explored in Section 5. Section 6 concludes the paper by proving a summary and future scope of research. 
+ 
+
+ 
+ 

@@ -1,0 +1,271 @@
+\chapter{ Group Change Detection (GCD) } 
+ \label{sec:dynamicGCD}
+%\section{ Group Change Detection (GCD) Techniques  } \label{Sec:GCD}
+Methods for detecting group anomalies were  explored in previous chapters however this Chapter thoroughly describes state-of-the-art Group Change Detection (GCD) techniques.   GCD methods detect  significant changes in statistical properties of a group stochastic process (GSP) which consists of a collection of time series.   
+ GCD research focuses on a single group over time however it is possible to analyse multiple groups over time which combines the static GAD and dynamic GCD  problem. 
+ 
+ 
+We formulate  the GCD problem with a slightly different problem definition to Section \ref{Sec:Problem} and  explicitly write groups as a function of time. % and formulate  the GCD problem as follows.
+  Consider a collection of $N'$ stochastic processes  of $V$ dimensions observed over a sequence of discrete times  $\mathcal{T}=\{1,2,\dots,T\}$.  Stochastic processes $n= 1,2,\dots,N'$ are represented by $   \{ (\,{ X}_{nv}(t) \,)_{v=1}^V  : \, t \in \mathcal{T}  \}$.  
+A group distribution at a fixed time $t$ is associated with the matrix of random variables 
+\begin{align}
+{\bf G}(t)=\big( { X}_{nv}(t)\big)  \in \mathbb{R}^{N' \times V} \label{Gdist}
+\end{align}
+such that  a GSP  is represented by $\{ {{\bf G}}(t) \}_{t \in\mathcal{T}}$  
+and the total number of observations is $N= T N^{'} $.    
+  GCD techniques  are explained  by descriptive components from Section \ref{Sec:Problem}  in  categories of discriminative methods, generative models and hypothesis tests. 
+
+
+
+
+\section{ Discriminative: Group Level Events in Time Series (GLETS) }
+We refer to the GCD technique proposed by 
+Chen et al. \cite{GLETS} as Group Level Events in Time Series (GLETS). GLETS is a discriminative method that detects a significant change in a group of time series where group memberships are previously unknown. A group of time series with numerical (discrete or continuous) values is clustered based on a dissimilarity measure given  observations over a reference period. Since GLETS employs a sequential clustering approach, it detects two type of temporal changes;
+\begin{enumerate}[(a)]
+\item Group formation:  a collection of dissimilar time series exhibit more cohesive structure over a period of time. % with a higher correlation.
+\item Group disbanding:  a group of correlated time series splits into multiple subgroups. % behaviours after a certain time period. 
+\end{enumerate}
+%A group of correlated time series is clustered based on Pearson's correlation over a training interval. 
+The four key components of GLETS are explained as follows. 
+\begin{enumerate}[1.]
+\item Characterisation function $f_1({\bf G}_{train})$: \\ 
+%A training set is assumed to contain information about regular  behaviour of a GSP.
+ Suppose training data consists of ${\bf G}_{train}= \{ {\bf G}(t)\}_{t \in [\tau,\tau+a]} $ % contains group observations in the interval $[\tau,\tau+a]$
+ where ${\bf G}(t) = \big( X_{nv}(t) \big) \in \mathbb{R}^{N' \times V}$ with $N'$ time series of $V$ dimensions and  $a$ is an appropriate window size chosen by a domain expert. Clustering is based on a dissimilarity metric $d$  over a training interval where   $d({\bf X}_{n}(t),{\bf X}_{n'}(t),[\tau,\tau+a])$ is calculated for all pairs $n,n'\in \{1,2,\dots,N' \}$.  In Chen et al. \cite{GLETS}, the dissimilarity metric $d$ is selected as Pearson's correlation coefficient  for financial data whereas Euclidean distance is applied for a remote sensing application. For example, Euclidean distance between the  $i$th and $j$th series in a time window $[\tau,\tau+a]$ is calculated by 
+\[d \Big({\bf X}_{n}(t),{\bf X}_{n'}(t),[\tau,\tau+a] \Big) = 
+\sqrt{ \displaystyle \sum_{t=\tau}^{\tau+a} \big( {\bf X}_{n}(t)-{\bf X}_{n'}(t) \big)^2 }
+ \]
+A GSP over interval $[\tau,\tau+a]$ is then characterised by the entropy score  
+\[\displaystyle H({\bf G}_{train}) = -\frac{1}{N}\sum_{n=1}^{N'} \ln \Big(  \frac{1}{N}\sum_{n'=1}^{N'}  \exp\big[-d( {\bf X}_{n}(t),{\bf X}_{n'}(t),[\tau,\tau+a])\,\big ] \Big)  \]
+where $d({\bf X}_{n}(t),{\bf X}_{n'}(t),[\tau,\tau+a])$ is a measure of  dissimilarity  between time series ${\bf X}_{n}(t)$ and ${\bf X}_{n'}(t)$  for  $t \in [\tau,\tau+a]$. 
+%
+\item Characterisation function $f_2({\bf G}_{test})$: \\
+The function $f_2$ captures the behaviour  of a GSP over a test period of group observations. Group formation and group disbanding are respectively detected by examining  time windows before and after the given training interval.   A group of correlated time series over training interval $[\tau,\tau+a]$ is compared with test set % of group observations  on test periods 
+   \[ \displaystyle {\bf G}_{test} = \left\{ \begin{array}{ll} \{ {\bf G}(t) \}_{t \in [\tau-a,\tau] } &  \Longleftrightarrow \;  \mbox{Group formation} \\ 
+  \{ {\bf G}(t) \}_{t \in [\tau+a,\tau+2a] } &  \Longleftrightarrow \; 
+  \mbox{Group disbanding} \end{array} \right. \] 
+%where $a$ is the window sise of training or test sets.
+ For example, a group formation is analysed using a test  characterisation function over $[\tau-a,\tau]$ with
+\[ \displaystyle  H({\bf G}_{test})    = -\frac{1}{N}\sum_{n=1}^{N'} \ln \Big(  \frac{1}{N}\sum_{n'=1}^{N'}  \exp\big[-d({\bf X}_{n}(t),{\bf X}_{n'}(t),[\tau-a,\tau])\,\big ] \Big)  \]  Similarly, group disbanding is detected by examining the test period  $[\tau+a,\tau+2a]$.  
+
+% The training set is characterised by  $ H({\bf G}_{train}) $.  
+\end{enumerate}
+\begin{enumerate}[3.] 
+ \item Measure $ \mathcal{D}\big(f_1 ({\bf G}_{train}) , f_2({\bf G}_{test} )\big )$: \\
+ A group change is quantified by the relative difference in characterised behaviour of  training and test intervals  with  
+\[ \displaystyle \frac{ H({\bf G}_{test})}{ H({\bf G}_{train}) }   \] 
+  where values close to $1$  indicate no significant group deviation  in a GSP.   
+\end{enumerate}
+\begin{enumerate}[4.]
+\item Threshold $\epsilon= th$: \\ 
+A threshold  $th$ is selected by domain experts in  Chen et al. \cite{GLETS} to identify test periods that are considerably different from a training set.   A significant temporal change in a GSP is detected when a score for a temporal change is greater than a suitable threshold $th$. 
+\end{enumerate}
+%Poor results are obtained when a chosen threshold is not suitable for a particular dataset.
+
+
+
+\section{ Generative: Dynamic Group Latent Anomaly Detection (DGLAD) }
+Yu et al. \cite{GLAD} extend the static GLAD model (described in subsection \ref{subs:GLAD}) to the dynamic setting in a method called Dynamic-GLAD or DGLAD. The DGLAD  model provides a solution for both GAD and GCD problems by handling multiple group stochastic processes. When group memberships are not previously known, DGLAD aggregates data instances based on similarity of features as well as pairwise connections.   In Yu et al. \cite{GLAD}, DGLAD detects significant changes in a GSP   with a lower false positive rate than other compared methods.   
+ A  drawback of the DGLAD model is the requirement for observations recorded over a period of time which is not readily available, especially for network data. 
+
+In DGLAD, structural values such as expected number of topics and number of groups  are initially selected by information criteria as previously described for  generative models in Section \ref{Sec:G}. To alleviate  computational burden, DGLAD  assumes that structural  values remain constant throughout the time period of interest. This may be violated in practice as the emergence and dissolution of topics or groups naturally occur over time.  It is also difficult to interpret inferred groups  as DGLAD allows individuals to switch groups   over time.  Thus an appropriate selection of initial structural values and a careful interpretation is recommended when applying the DGLAD model.
+
+DGLAD is explained using four key components as follows.  %introduced in Section \ref{Sec:Problem}. 
+\begin{enumerate}[1.]
+\item Characterisation function $f_1({\bf G}_{train})= \theta_m(t-1)$: \\ 
+Statistical properties of inferred groups are characterised by topic mixtures.  Latent topic variables are inferred for  each time step where the $m$th group at time $t-1$ is characterised by topic mixtures ${\theta}_{m}(t-1)$. 
+\end{enumerate}
+
+ 
+
+  
+\begin{enumerate}[2.]
+\item Characterisation function $f_2({\bf G}_{test})=\theta_m(t)$: \\ 
+%The $m$th group at a specific time point is characterised by the topic proportions $\theta_m(t)$. 
+To determine if a significant temporal change occurs from time step $t-1$ to $t$, the $m$th group at time $t$ is characterised by topic mixtures ${\theta}_{m}(t-1)$.  
+  Since multiple time steps are analysed, topic mixtures %$\{ \boldsymbol\theta(1),\dots,  \boldsymbol\theta(T) \} $
+ are inferred using an additional particle filtering technique as discussed in Doucet and Johansen \cite{doucet2009tutorial}. This particle filter utilises sequential importance sampling where the transition for topic mixtures over consecutive time steps follows  a multivariate Gaussian distribution with  
+\begin{equation}
+\boldsymbol\theta(t) \,| \, \boldsymbol\theta(t-1) \sim \mathcal{N} \Big(\boldsymbol\theta(t-1), \sigma^2 {\bf I} \Big)  \label{Eqn:Transition}
+\end{equation}
+where $\sigma^2$ is variance of topic mixtures over groups at the previous time step.  Since the variance-covariance matrix in Equation (\ref{Eqn:Transition}) has off-diagonals with zero entries, any two different groups conditioned on previous observations are assumed to be independent. 
+\end{enumerate}
+ 
+\begin{enumerate}[3.] 
+\item Measure $ \mathcal{D}\big(f_1({\bf G}_{train}), f_2({\bf G}_{test})\big )= || \theta_m(t) -\theta_m(t-1) ||$: \\
+Instead of examining likelihood scores, a difference between topic mixtures at consecutive time steps is computed to detect a significant group deviations.   A measure of temporal change in the $m$th group  transitioning from time $t-1$ to $t$ is given by 
+\[ || \theta_m(t) -\theta_m(t-1) ||  \] 
+where $|| \cdot ||$ is Euclidean distance. 
+\end{enumerate}
+ 
+
+\begin{enumerate}[4.]
+\item   Threshold $\epsilon $ is  selected by domain experts: \\  
+Similar to other generative models, a threshold is arbitrarily selected based on a small proportion of groups with the highest scores.   
+ Larger differences between topic mixtures at consecutive time steps indicate relatively  greater temporal change in a GSP.   
+\end{enumerate} 
+
+
+
+
+\section{Hypothesis Test: "What's strange about recent event" (WSARE)}
+ Wong et al. \cite{WSARE} propose  WSARE, an  unsupervised method specifically  formulated for analysing an emergency department database.    
+Numerical and categorical features (such as age and gender) are recorded for each patient admitted to the emergency department. Rules are established from a combination of features to uncover anomalous patterns in different demographic groups.  A significant temporal change in a demographic  group represents a potential disease outbreak where deviating patterns are characterised by higher proportions of daily counts for a demographic group as compared to expected (historical) proportions.  %Solely examining daily counts is not effectively in detecting an outbreak for specific diseases. 
+
+
+\begin{enumerate}[1.]
+\item Characterisation function $f_1({\bf G}_{train})=O_{past}$: \\  
+Firstly a demographic group is identified based on particular rules consisting of one or two features. 
+%The counts of a demographic group at the current date is compared to past observations  $O_{past}$. 
+ The regular behaviour is inferred from a training interval  over five to eight weeks prior to the current date. The  aggregated historical count is denoted by $O_{past}$. WSARE evaluates hypotheses based on 
+\begin{align}
+&\mbox{ $H_0:$ Date and rules are independent   \, versus \,  $H_1:$ Date and  rules are not independent  }
+\label{Hyp:WSARE} 
+\end{align}
+\end{enumerate}
+\begin{enumerate}[2.]
+\item Characterisation function $f_2({\bf G}_{test})=O_{today}$: \\  WSARE algorithm detects significant temporal changes in  demographic groups using specific rules. Table  \ref{Ex:WSARE} provides an example of a single feature rule with $\mathtt{Gender} = \mathtt{Male}$  and two feature rule  $\mathtt{Gender} = \mathtt{Male}$ \& $\mathtt{Age} > 70$. 
+%  WSARE  initially searches for rules with the most significant $p$-values.  
+  Hypothesis tests in WSARE are based on   counts of emergency department admittance for a particular demographic group  where an observed count for the current date is denoted by $O_{today}$. Given specific rules, the counts $O_{today}$ characterise the behaviour of a GSP at the current test date. 
+  
+ 
+
+\begin{table}[h]%
+\hspace{-5mm}
+\tabcolsep=0.2cm
+	\renewcommand{\arraystretch}{2.4}
+\begin{subtable}{.5\linewidth}
+\centering
+\scalebox{0.88}{
+\begin{tabular}{|c|c|c|cccc }
+\hline 
+  Rule   &    $O_{today}$ & $O_{past}$
+  \\ \hline %\\[-2mm] 
+ $\mathtt{Gender} = \mathtt{Male}$ & 
+ 66 & 503  \\ \hline% \\%[-2mm]   
+  $\mathtt{Gender} = \mathtt{Female}$ & 
+  34 & 497  \\%[2mm]   
+\hline
+ \end{tabular}
+ }
+%\end{center}
+ \smallskip
+\caption{ A single feature rule.}
+   \label{Ex:WSARE1}
+\end{subtable}
+	\renewcommand{\arraystretch}{2.44}
+	\begin{subtable}{.5\linewidth}
+	\centering
+\scalebox{0.88}{
+\begin{tabular}{|c|c|c|cccc }
+\hline%\\[-2mm]
+  Rule   &    $O_{today}$ & $O_{past}$
+  \\ \hline%\\%[-2mm] 
+ $\mathtt{Gender}   = \mathtt{Male } \; \&  \;  \mathtt{Age} > 70 $ & 
+ 27 & 129   \\ \hline %[-2mm]   
+  $\mathtt{Gender} = \mathtt{Female} \;\& \; \mathtt{Age} > 70 $ & 
+  3 & 71  \\%[2mm]   
+\hline
+ \end{tabular}
+ }
+ \smallskip
+\caption{ A two feature rule.}
+  \label{Ex:WSARE2}
+  \end{subtable}
+  %\vspace{-10mm}
+  \caption{Examples of counts observed for demographic groups based on one or two feature rules.  }
+  \label{Ex:WSARE}
+\end{table}  
+ 
+\end{enumerate}
+\begin{enumerate}[3.] 
+\item Measure $ \mathcal{D}\big(f_1 ({\bf G}_{train}) , f_2({\bf G}_{test} )\big )$: \\
+%To evaluate the hypothesis   (\ref{Hyp:WSARE}), 
+WSARE utilises Fisher's exact test where data under the null hypothesis follows a hypergeometric probability. 
+% with parameters $a,b,c,d $, 
+%\begin{align}
+% P(a,b,c,d) = \displaystyle \frac{ {a+b \choose{a} } { c+d \choose{c} } } { {n' \choose{a+c} } } \label
+%\end{align}
+%where the total count is $n' = a+b+c+d$. 
+ A $p$-value is the likelihood that dates  and rules are independent for a demographic group of interest such that extremely low $p$-values indicate that the current counts are significantly different  from  previous observations. Using the hypergeometric probability in Equation (\ref{Eqn:hyperG}),  examples in Table \ref{Ex:WSARE} (a) and  (b) are associated with significant $p$-values  respectively calculated as    \[P(66,503,34,497) \approx  0.0032 \mbox{\, and \,}
+P(27,129,3,71) \approx  0.0056
+ \]
+  Chi-square test for independence can also be applied to Table  \ref{Ex:WSARE} (a) with a resulting $p$-value of 0.00093. 
+However the example in Table  \ref{Ex:WSARE} (b) does not satisfy the condition that counts $> 5$ for a Chi-square test so  Fisher's exact test  is more appropriate.  
+ 
+
+WSARE  considers  all possible rules involving a single  feature   then determines if an additional component is significant. In Table \ref{Ex:WSARE}, WSARE initially  detects a significant temporal change for %in the demographic group 
+ $\mathtt{Gender} = \mathtt{Male}$ but also detects a change in the group with a additional component  $\mathtt{Gender}   = \mathtt{Male } \; \&  \;  \mathtt{Age} > 70 $. Since thousands of hypothesis tests are conducted, %the emergency department database contains thousands of rules, 
+   $p$-values are adjusted using  a randomisation test based on bootstrap sampling of dates in past records. % A null distribution is generated in a similar way to the bootstrap sampling  approach in ATD from Section \ref{Sec:ATD}. 
+   The  $p$-value  for observed counts and   the $b$th bootstrap sample are respectively denoted by $\tilde{p}$  and $\tilde{p}_b$. A compensated $p$-value for the $i$th rule is calculated  by    
+ \begin{equation}
+  p_i^* = \displaystyle  \frac{1}{B} \sum_{b=1}^ B I ( \tilde{p}_b > \tilde{p} )  
+  \label{Eqn:CompensatedP}
+\end{equation}    
+ where $B$ is the number of bootstrap  simulations for the randomisation test.  This reduces potential overfitting with less false discoveries based on estimated $p$-values. 
+\end{enumerate}
+\begin{enumerate}[4.]
+\item Threshold $\epsilon=\alpha_{FDR}$: \\ 
+ %which is significant when compared to a $0.$ 
+For a specific current date, the compensated $p$-value   from Equation (\ref{Eqn:CompensatedP}) is evaluated at a significant level  $\alpha$.  
+When monitoring demographic groups over multiple time steps, a threshold is adjusted to control for the false discovery rate (FDR). A threshold $\alpha_{FDR}$ is calculated by the FDR procedure in  Benjamini  and Hochberg \cite{MultiTest}. Thus a demographic group experiences a significant change if the compensated $p$-value is less than an adjusted significant level $\alpha_{FDR}$. 
+\end{enumerate}
+%A demographic group has a significantly higher count compared to past events if the null hypothesis is rejected at a predetermined significance level. 
+
+\section{Hypothesis Test: Multiple Sensor Sequential Detection (MSSD)}
+We refer to the method  proposed by  Xie and Siegmund  \cite{xie2013} as Multiple Sensor Sequential Detection (MSSD). MSSD is a sequential technique for detecting change-points in a proportion of sensors in a GSP. MSSD is formulated for continuous real-valued input data and examines the statistical properties of groups based on  location. Since the true times of significant changes in a GSP are unknown,  hypotheses are evaluated at each time step. The goal is to detect group changes as soon as possible but also reduce the number of false positives. 
+
+
+\begin{enumerate}[1.]
+\item Characterisation function $f_1({\bf G}_{train})=\{\mu_n(T)\}_{n=1}^{N'}$: \\ 
+Observations from each stochastic process in a GSP  are assumed to be mutually independent and normally distributed with zero mean and unit variance before a change-point occurs. MMSD then tests whether there is a significant change  in the mean of the $n$th series at time $\tau$, 
+\[ H_0: \mu_n(\tau)= 0  \mbox{ for all } n=1,2,\dots, N' \mbox{ \, versus \,  } H_1: \mu_n(\tau) > 0 \mbox{ for } n \in \mathsf{S}  \]  
+ where $\mathsf{S}$  denotes the set of time series affected by a change-point at time $\tau$.  
+%  The function $f_1$ characterises 
+   Group observations ${\bf G}_{train} =\{ {\bf G} ({t}) \}_{t=1}^T$ over  training interval  $[1,T] $ are characterised by  set of means  $\{\mu_n(T)\}_{n=1}^{N'}$ where   
+% A training sequence is then characterised by the where     
+the $n$th mean is estimated by  
+$   \mu_n(T) =\frac{1}{T} \sum_{t=1}^T   X_{n} (t) $. 
+ %A cumulative statistic for the $n$th series is calculated by   \[ R_{T n} = T\mu_n(T) %\sum_{t=1}^T   X_{t n}
+%  \]   
+% for $n=1,\dots, N$
+% The statistical property  of the GSP over all of the observed stochastic processes is characterised by $\{ R_{T n} \}_{n=1}^N$.
+\end{enumerate}
+%
+\begin{enumerate}[2.]
+\item Characterisation function $f_2({\bf G}_{test}) = \{\mu_n(\tau) \}_{n=1}^{N'}$: \\ 
+Since the true times of significant change are usually unknown, a variety of time values  $\tau$ are analysed. In a sequential fashion,  the test set ${\bf G}_{test} =\{ {\bf G} ({t}) \}_{t=1}^\tau$ is examined for time steps  $\tau=1,2,\dots,T$. The function $f_2$ characterises the behaviour of a GSP over $[1,\tau]$ by the set of means  $\{\mu_n(\tau)\}_{n=1}^{N'}$ where  the $n$th mean is  
+$  \mu_n(\tau) =\frac{1}{\tau} \sum_{t=1}^\tau   X_{ n}(t) $. 
+% The GSP over a test period is characterised by $\{ R_{\tau n} \}_{n=1}^N$.
+\end{enumerate}
+%
+\begin{enumerate}[3.] 
+\item Measure $ \mathcal{D}\big(f_1 ({\bf G}_{train}) , f_2({\bf G}_{test} )\big )$: \\
+Xie and Siegmund  \cite{xie2013} propose multiple ways to measure a significant group deviation at time $\tau$. %MMSD compares  two sets of observations in a similar way to CUSUM approachs that are explained in  Polunchenko  and Tartakovsky \cite{Polunchenko2012}. 
+One particular metric $ (T-\tau)^{-1/2}  \big( T \mu_n(T) - \tau \mu_n(\tau) \big) $ directly measures the change in the mean value of the $n$th time series from training period $[1,T]$ and test interval $[1,\tau]$. 
+% that compares means of training and test period for the $n$th time series %$\{\mu_n(T) \}_{n=1}^N$ and  test set $\{ \mu_n(\tau) \}_{n=1}^N$ 
+It is assumed that a significant change occurs in a proportion $p_0 = |\mathsf{S}|/N \in (0,1]$ of time series in a GSP.   
+ To incorporate information of proportions, MSSD calculates a global log-likelihood for measuring a group deviation in a GSP  with
+\begin{align}
+  Z_{\tau,T}=\sum_{n=1}^{N'} g\Big( \frac{   T \mu_n(T) - \tau \mu_n(\tau)  } {(T-\tau)^{1/2}}
+ \, , \, p_0  \Big) \label{Eqn:Z} %\\ & \mbox{ \nonumber 
+\end{align}
+where  
+$ g(u,p_0)= \ln \big(1-p_0+p_0 \exp[(u^+)^2/2] \,\big)$ and $u^+=\max(0,u)$. The initial selection of proportion $p_0$ also influences subsequent results.
+If a significant change is known to only affect a small number of stochastic processes in a GSP then  instead of the measure in Equation (\ref{Eqn:Z}), a maximum statistic is more appropriate with 
+\[ \Big( (T-\tau)^{-1/2}  \max_{1 \le n \le N'} 
+\big( T \mu_n(T) - \tau \mu_n(\tau) \big)^+ \Big)^2/2  
+\]
+%We are also able to consider extreme behaviours of the proportion of stochastic processes in a GSP. 
+% % the probability function in Equation (\ref{Eqn:Z}) reduces to $ g(u,p_0)=  (u^+)^2/2 $. On the other hand if an identical change occurs in a large proportion of sensors with $p_0 \approx 1  $ then $ g(u,p_0)=  (u^+)^2/2 $.
+\end{enumerate}
+\begin{enumerate}[4.]
+\item Threshold $\epsilon = b $: \\ 
+% a significant group deviation  in a GSP
+Firstly average run length is  the expected duration before a false detection when no real change occurs whereas expected delay detection is the time lag  before a true change-point is identified. 
+MMSD calculates a threshold based on minimising the expected delay detection whilst constraining the average run length.  The threshold value for $b$ is selected  to satisfy optimisation criteria as further  described in Xie and Siegmund  \cite{xie2013}. Thus a significant change at time $\tau $ occurs in a proportion $p_0$ of time series in a GSP  if the test statistic from Equation (\ref{Eqn:Z}) is greater than an estimated threshold with $Z_{\tau,T}>b$. 
+%A threshold is selected in order to identify test groups that are considerably different from the behaviours from a training set. 
+%$E [Z_{0,T}]$  
+\end{enumerate}
+ 
+ 

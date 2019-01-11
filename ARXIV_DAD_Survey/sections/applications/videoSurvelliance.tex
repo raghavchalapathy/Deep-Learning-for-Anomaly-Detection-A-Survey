@@ -1,0 +1,95 @@
+%!TEX root = ../../main.tex
+
+%%%%%%% Begin table for video survellienace anomaly detection
+\begin{table*}
+\begin{center}
+\caption{Examples of DAD techniques used in video surveillance.
+        \\CNN: Convolution Neural Networks, LSTM : Long Short Term Memory Networks
+        \\RBM: Restricted Boltzmann Machine, DNN : Deep Neural Networks
+        \\AE: Autoencoders, DAE: Denoising Autoencoders
+        \\OCSVM: One class Support vector machines, CAE: Convolutional Autoencoders
+        \\SDAE: Stacked Denoising Autoencoders, STN : Spatial Transformer Networks }
+  \label{tab:videoSurvellianceAnomalyDetect}
+  \captionsetup{justification=centering}
+  \scalebox{0.80}{
+    \begin{tabular}{ | p{3cm} | p{4cm} | p{12cm} |}
+      \hline
+      \textbf{Technique Used} & \textbf{Section} & \textbf{References}\\
+      \hline
+      CNN & Section ~\ref{sec:cnn} & \cite{dong2016camera},\cite{andrewsaanomaly},\cite{sabokrou2016fully},\cite{sabokrou2017deep},\cite{munawar2017spatio},\cite{li2017transferred},\cite{qiao2017abnormal},\cite{tripathi2018convolutional},\cite{nogas2018deepfall},\cite{christiansen2016deepanomaly},\cite{li2017transferred}\\\hline
+      SAE (AE-CNN-LSTM)  &  Section ~\ref{sec:ae},~\ref{sec:cnn},~\ref{sec:rnn_lstm_gru}  & ~\cite{chong2017abnormal},~\cite{qiao2017abnormal},~\cite{khaleghi2018improved}\\\hline
+      AE &  Section ~\ref{sec:ae}  & \cite{qiao2017abnormal},\cite{yang2015unsupervised},\cite{chen2015detecting},\cite{gutoskidetection},\cite{d2017autoencoder},\cite{dotti2017unsupervised},\cite{yang2015unsupervised},\cite{chen2015detecting},\cite{sabokrou2016video},\cite{tran2017anomaly},\cite{chen2015detecting} ,\cite{d2017autoencoder},\cite{hasan2016learning},\cite{yang2015unsupervised},\cite{cinelli2017anomaly}\\\hline
+      Hybrid Model (CAE-OCSVM) & Section ~\ref{sec:hybridModels}  & ~\cite{gutoskidetection}, ~\cite{dotti2017unsupervised}\\\hline
+      LSTM-AE &  Section ~\ref{sec:rnn_lstm_gru}, ~\ref{sec:ae}  & ~\cite{d2017autoencoder}\\\hline
+      STN &Section~\ref{sec:stn}   & \cite{chianucci2016unsupervised}\\\hline
+      RBM &Section ~\ref{sec:dnn}   & \cite{munawar2017spatio}\\\hline
+      LSTM &Section ~\ref{sec:rnn_lstm_gru}  &~\cite{medel2016anomaly},~\cite{luo2017remembering},~\cite{ben2018attentioned},~\cite{singh2017anomaly}\\\hline
+      RNN & Section ~\ref{sec:rnn_lstm_gru} &\cite{luo2017revisit},\cite{zhou2015abnormal} ,\cite{hu2016video},~\cite{chong2015modeling}\\\hline
+      AAE & Section ~\ref{sec:gan_adversarial} & ~\cite{ravanbakhsh2017training}\\\hline
+    \end{tabular}}
+  \end{center}
+\end{table*}
+%%%%%%%%% End of video survellienace anomaly detection
+
+
+\subsection{Video Surveillance}
+Video Surveillance also popularly known as Closed-circuit television (CCTV) involves monitoring a designated areas of interest in order to ensure security. In videos surveillance applications unlabelled data is available in large amounts, this is a significant challenge for supervised machine learning and deep learning methods. Hence video surveillance applications have been modelled as anomaly detection problems owing to lack of availability of labelled data. Several works have studied the state-of-the-art deep models for video anomaly detection and  have classified them based on the type of model and criteria of detection~\cite{kiran2018overview,chong2015modeling}. The challenges of robust 24/7 video surveillance systems is discussed in detail by Boghossian et.al~\cite{boghossian2005challenges}. The lack of  explicit definition of anomaly in real-life video surveillance is a significant issue that hampers the performance of DAD methods as well. DAD techniques used in  video surveillance  are illustrated  in Table ~\ref{tab:videoSurvellianceAnomalyDetect}.
+
+
+
+
+
+
+
+% % Datasets Used Table
+% \begin{table*}
+%   \begin{center}
+%     \caption{Datasets Used For Video surveillance}
+%     \label{tab:videoSurvelliance}
+%     \begin{tabular}{|p{3cm}|p{4cm}|p{6cm}|}
+%       \hline
+%       \textbf{DataSet} & \textbf{Type} & \textbf{References}\\
+%       \hline
+%       UCSD Ped2~\cite{ucsdAnomalyDetect2017},Subway~\cite{adam2008robust} &  Video   & Sabokrou et al~\cite{sabokrou2016fully,sabokrou2017deep}, Gutoski et al~\cite{gutoskidetection} \\ \hline
+%       LOST ~\cite{Abrams et al. 2012} &  Video   & Dotti et al~\cite{dotti2017unsupervised}\\ \hline
+%       YouTube &  Video   & Yang et al~\cite{yang2015unsupervised}\\ \hline
+%       UMN~\footnote{$http://mha.cs.umn.edu$} &  Video   & Sabokrou et al~\cite{yang2015unsupervised}\\ \hline
+%       CIFAR-10 &Images& Munawar et al~\cite{munawar2017spatio} \\ \hline
+%     \end{tabular}
+%   \end{center}
+% \end{table*}
+% %%%%%%%%% End of Datasets used in video survellienace anomaly detection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

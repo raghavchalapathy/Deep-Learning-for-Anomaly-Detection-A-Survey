@@ -1,0 +1,88 @@
+% !TEX root=../main.tex
+
+\begin{comment}
+Consider a feature matrix $\X \in \Real^{N \times D}$,
+where $N$ denotes the number of data points and $D$ the number of features for each point.
+For example, $N$ could be the number of images in some photo collection, and $D$ the number of pixels used to represent each image.
+The goal of anomaly detection is to determine which rows of $\X$ are anomalous, in the sense of being dissimilar to all other rows. We will use $\X_{n :}$ to denote the $n$th row of $\X$.
+\end{comment}
+
+%\subsection{A tour of anomaly detection methods}
+
+Anomaly detection is a well-studied topic in Data Science~\cite{chandola2007outlier,charubook}. Unsupervised anomaly detection aims at discovering
+rules to separate normal and anomalous data in the absence of labels. One-Class SVM (OC-SVM) is a popular unsupervised approach to detect anomalies, which constructs
+a smooth boundary around the majority of probability mass of data~\cite{Scholkopf:2001}. OC-SVM will be  described in detail in Section~\ref{sec:ocsvm}.
+In recent times, several approaches of feature selection and feature extraction methods have been proposed for complex, high-dimensional
+data for use with OC-SVM ~\cite{cao2003comparison,neumann2005combined}.
+Following the unprecedented success of using deep autoencoder networks, as feature extractors, in tasks as diverse as visual, speech anomaly detection~\cite{chong2017abnormal,marchi2017deep}, several hybrid models that combine feature extraction using deep learning and OC-SVM
+have appeared~\cite{sohaib2017hybrid,erfani2016high}. The benefits of leveraging pre-trained transfer learning  representations for anomaly detection in hybrid models was made evident by the results obtained, using two publicly available~\footnote{Pretrained-models:http://www.vlfeat.org/matconvnet/pretrained/.} pre-trained CNN models: ImageNet-MatConvNet-VGG-F (VGG-F) and  ImageNet-MatConvNet-VGG-M (VGG-M)~\cite{andrews2016transfer}. However, these hybrid OC-SVM approaches are decoupled in the sense that the feature learning is task agnostic and not customized for anomaly detecion. Recently a deep model which trains a neural network by minimizing the volume of a hypersphere that encloses the network representations of the data is proposed ~\cite{pmlrv80ruff18a}, our approach differs from this approach by combining the ability of deep networks to extract progressively rich representation of data alongwith the one-class objective, which obtains the hyperplane to separate all the normal data points from the origin.
+ %In this paper, we formulate and evaluate a new architecture for anomaly detection in complex, high-dimensional domains by integrating the one-class objective into neural network arhitecture. The proposed one-class neural network (OC-NN) model is trained using standard back-propogation algorithm to learn, rich differentiable features customized for anomaly detection. To the best of our knowledge, this is the first method proposed which
+%combines the ability of deep networks to extract progressively rich representation of data
+%with the one-class objective of creating a tight envelope around normal data to improve the performance
+%for anomaly detection.
+
+\begin{comment}
+\subsection{Deep hybrid OC-SVM Models.}
+A popular hybrid approach followed in unsupervised anomaly detection is to couple feature reduction and extraction methods alongwith SVMs~\cite{cao2003comparison,neumann2005combined,shen2008feature,widodo2007combination}. Several hybrid models have been proposed to leverage the representational power of deep learning to address scalability issues of SVMs~\cite{song2017hybrid,you2017hybrid,sohaib2017hybrid}. Deep learning architectures such as sparse stacked autoencoder (SAE)-based deep neural networks (DNNs)~\cite{sohaib2017hybrid}, deep belief networks (DBNs)~\cite{erfani2016high} are adopted for extracting robust features. DBNs are generative models consisting of multiple layers of latent variables ("hidden units"). The advantages of using DBNs are two-fold: (a) their ability to perform non-linear dimensionality reduction (b) learn high dimensional data representations. A DBN can be trained efficiently in a greedy layer-wise fashion by using a Restricted Boltzmann Machine (RBM)~\cite{hinton2010practical}. A Restricted Boltzmann machine model can be defined by joint energy function on the hidden variable $h_k$ with $K$ dimension and visible input variable $x_d$ with $D$ dimension as seen in Equation~\ref{energy}. The model parameters $W^P_{dk}$ encode the pairwise compatibility between $x_d$ and $h_k$ while the  parameters $W^B_k$ and $W^C_d$ are biases which, selectively activates either $h_k$ or $x_d$.
+
+\begin{align}
+\label{energy}
+    E_W(\mbf{x},\mbf{h})&=
+-\sum_{d=1}^D\sum_{k=1}^K W^P_{dk}x_dh_k - \sum_{k=1}^KW^B_k h_k - \sum_{d=1}^D W^C_d x_d
+\end{align}
+
+In the context of anomaly detection for images, the $\mbf{x}$ variables may represent (e.g  pixels of the image). The hidden units are binary vector of length $K$ less than original dimension of image $D$. Training an RBM implies finding the values of the parameters such that the energy is minimised. One possible approach is to maximise the log-likelihood of $x$ that is estimated by its gradient with respect to the model parameters using Contrastive Divergence (CD). The DBN consisting of stack of RBMs model encodes rich feature representations of the input within hidden units. While a hybrid model consisting of DBN, trained to extract generic underlying features, as inputs to one-class SVM trained are shown to be effective~\cite{erfani2016high}. The experiments in the aforementioned work were performed on real-datasets comprising 1D inputs, synthetic data or texture images, which have lower dimensionality and different data distribution compared to colour images or long protein sequences.
+\end{comment}
+
+%%%%%
+\subsection{Robust Deep Autoencoders for anomaly detection}
+Besides the hybrid approaches which use OC-SVM with deep learning features another approach for anomaly detection is to use deep autoencoders.
+Inspired by RPCA~\cite{xu2010robust}, unsupervised anomaly detection techniques such as robust deep autoencoders can be used to separate
+normal from anomalous data~\cite{zhou2017anomaly,chalapathy2017robust}.
+Robust Deep Autoencoder (RDA) or Robust Deep Convolutional Autoencoder (RCAE) decompose input data $X$ into two parts $X = L_D + S$, where $L_D$ represents the latent representation the hidden layer of the autoencoder. The matrix  $S$ captures noise and outliers which are hard to reconstruct as shown in Equation~\ref{eqn:robust-ae}. The decomposition is carried out by optimizing the objective function shown in Equation~\ref{eqn:robust-ae}.
+
+\begin{equation}
+	\label{eqn:robust-ae}
+	\min_{\theta, S} + ||L_D - D_{\theta}(E_{\theta}(L_D)) ||_{2}+ \lambda \cdot \| S^T \|_{2,1}
+\end{equation}
+ \hspace{1.8cm}   $s.t. \hspace{0.2cm} X - L_D -S = 0 $
+
+
+
+The above optimization problem is solved using a combination of backpropagation and Alternating Direction Method of Multipliers (ADMM) approach~\cite{boyd2004convex}. In our experiments  we have carried out a detailed comparision between OC-NN and approaches based on robust autoencoders.
+
+\begin{comment}
+Notice that in the constraint of Equation~\ref{eqn:robust-ae} we split the input data X into two
+parts, $L_D$ and $S$. $L_D$ is the input to an autoencoder $D_{\theta}(E_{\theta}(L_D))$ and
+we train this autoencoder by minimizing the reconstruction error
+ $||L_D - D_{\theta}(E_{\theta}(L_D)) ||_{2}$ through back-propagation. $S$, on the other
+hand, contains noise and outliers which are learnt applying proximal methods following Alternating Direction Method of Multipliers (ADMM) ~\cite{boyd2004convex}. While $\lambda$ tuning parameter is selected in a semi-supervised fashion through grid-search for optimal $F1$ score.
+RDA could be leveraged to detect anomalies similar to OC-SVM setting. The results obtained using our proposed approach of OC-NN are comparable to the results obtained on anomaly detection task on both MNIST and Cifar-10 datasets, as illustrated in Table~\ref{tbl:mnist-usps-anomaly-results-summary} and Table~\ref{tbl:cifar-10-pfam-anomaly-results-summary}.
+\end{comment}
+
+\subsection{One-Class SVM for anomaly detection}
+\label{sec:ocsvm}
+
+One-Class SVM (OC-SVM) is a widely used approach to discover anomalies in an unsupervised fashion~\cite{scholkopf2002support}. OC-SVMs are a special case of support vector machine, which learns a  hyperplane to separate all the data points from the origin in a reproducing kernel Hilbert space (RKHS) and maximises the distance from this hyperplane to the origin. Intuitively in OC-SVM all the data points are considered as positively labeled instances and the origin
+as the only negative labeled instance. More specifically, given a training data $\X$, a set without any class information, and $\Phi(\X)$  a RKHS map function
+from the input space to the feature space $F$,  a
+hyper-plane or linear decision function $f(\X_{n :})$ in the feature space $F$ is constructed as
+$f( \X_{n :} ) = w^T \Phi(\X_{n :}) - \bias$,  to separate as many as possible of the mapped vectors
+${ \Phi(\X_{n :}), n: 1,2,...,N}$ from the origin. Here  $w$ is the norm perpendicular to the hyper-plane and $\bias$ is the bias of the hyper-plane. In order to
+obtain $w$ and $\bias$, we need to solve the
+following optimization problem,
+
+\begin{equation}
+\label{eqn:ocsvm-objective}
+ \min_{w,\bias} \frac{1}{2} \| w \|_{2}^2+ \frac{1}{\nu} \cdot \frac{1}{N} \sum_{n = 1}^N \max( 0, \bias - \langle w, \Phi(\X_{n :}) \rangle ) - \bias.
+\end{equation}
+
+where $\nu \in (0,1)$, is a parameter that
+controls a trade off between maximizing the distance of the
+hyper-plane from the origin and the number of data points
+that are allowed to cross the hyper-plane (the false positives).
+%When $\nu$ is small, fewer data fall on the same side of the hyper-plane as the origin in the
+%feature space $F$.
+
+
+

@@ -1,0 +1,643 @@
+\section{Group Anomaly Detection (GAD) Techniques} \label{Sec:D}
+% Brief paragraph 
+After setting up the group deviation detection  problem and describing the general framework for methods in previous sections, we now  explain specific GAD techniques in further detail. A description of GAD techniques is provided in terms of the four key components from Section   \ref{Sec:Problem}.  GAD involves comparing multiple groups and identifying groups with significantly different statistical properties.   GAD methods fall into  categories of discriminative methods and generative models. Hypothesis tests are a specific generative models that also described in the following.  
+
+
+
+\subsection{ GAD Discriminative Methods } 
+ In GAD, a discriminative method classifies input groups into regular and anomalous behaviors.  
+ % Consider a simple discriminative approach where statistical properties of groups (such as mean and/or variance) are estimated then  pointwise anomaly detection methods are applied. Further statistical properties are quantified using parametric or non-parametric measures as described in Table \ref{Tab:Des}.  The selection of statistical properties for analysis  is crucial as  Guevara et al. \cite{SMDD} find single quantities of group means may not sufficiently distinguish anomalous group deviations.  Given an appropriate combination of estimated statistical properties of group distributions, pointwise anomaly detection methods are applicable for classifying group behaviors.   The effectiveness of such a simple approach for identifying group anomalies also depends on the ability of metrics to quantify statistical properties.   
+We  elaborately discuss two state-of-the-art discriminative models for detecting group anomalies.  Firstly One-Class Support Measure Machine (OCSMM)   proposed by Muandet and Sch\"olkopf \cite{OCSMM} %supports unsupervised learning for classifying group behaviors,  OCSMM 
+is an unsupervised method that maximises the margins between two classes using a separating hyperplane.  
+ Another discriminative model Support Measure Data Description (SMDD)   proposed by Guevara et al. \cite{SMDD} is similar to OCSMM however uses a supervised approach  based on a minimizing the  volume sets that contains the majority of groups in a training set.  % are contained in boundaries (soft or hard) of a volume set. 
+  Both methods can handle continuous and discrete input data where it is assumed that the statistical properties of group deviations can be differentiated based on certain  optimisation criteria. 
+%\subsection{ One-Class Group Anomaly Detection}
+  
+%Firstly SVDD summarises data behavior in a training set based on the optimisation criteria of minimum volume sets.
+
+%Firstly, we introduce the notation to set up the problem for  OCSMM and SMDD.
+ In this analysis, each  group   is associated with a probability measure where observations  are assumed to be  independent and identically distributed (iid). 
+Formally, %on the  space $(\Omega,\mathcal{F})$
+given an  outcome space $\Omega$ and $\sigma$-algebra $\mathcal{F}$, we define a set of probability measures $\mathcal{P}=\{\mathbb{P}_1,\dots,\mathbb{P}_M\}$  
+where each function is given by $\mathbb{P}_m: \, \Omega \to [0,1]
+$ for $m=1,\dots, M$. 
+  % The set of all probability measures  $\mathcal{P}_\Omega$  is defined on the probability space $(\Omega,\mathcal{F},\mathbb{P})$. 
+If groups  ${\bf G}_1,{\bf G}_2,\dots,{\bf G}_M$ exhibit regular behavior then they have iid probability distributions specified by $\mathbb{P}_1,\dots,\mathbb{P}_M$.  %Given the group size $N_m$, the empirical sample  $x^{(m)}_k$ denotes the $k$th observed values from the $m$th group for $k=1,\dots,N_m$ . 
+%A comparison of these probability measures based on the empirical samples leads to the detection of an anomalous group.
+%and defined on the set of probabilities $\mathcal{P}_\Omega$.   
+ %Then the mean embedding function is defined as
+% For , the second component $f_1$ have the same characterisation function. With one-class methods, % initially transform data %into feature representations of each group. %estimate  probability measures of
+ %In particular, 
+ In both OCSMM and SMDD, mean embedding functions are applied to transform groups into points in a reproducing kernel Hilbert space (RKHS). 
+   Let $\mathcal{H}$ denote the RKHS of probability measures with   kernel $k:\Omega \times \Omega  \to\mathbb{R}$.  Group behaviors are characterised using mean kernel embedding functions as defined by 
+ \begin{align}
+\mu :  \mathcal{P}\to \mathcal{H}, \quad\mathbb{P}_m \mapsto \mu_{\mathbb{P}_m}=E_{\mathbb{P}_m} [ k({\bf G}_m,\cdot) ] =\int_{\Omega} k(u,\cdot)\, d\mathbb{P}_m(u).  \label{KMF}
+ \end{align}
+ for $m=1,\dots,M$. 
+ 
+
+  
+
+\subsubsection{ One-Class Support Measure Machine (OCSMM) }
+ Muandet et al. \cite{OCSMM} propose OCSMM for  discriminating between regular and anomalous  group behaviors using a parametrised hyperplane. OCSMM maximises
+ the margin between two classes as separated based on the hyperplane.  
+{  Since OCSMM is  analogous to one class support vector machines  \cite{OCSVM}, we describe a linear hyperplane for vector ${\bf x}$ as } 
+\[ %f_{\bf w}(x) = 
+\big\langle {\bf w}, {\bf x} \big \rangle = \rho \]
+where parameters $({\bf w}, \rho)$ are the weights and bias term for parametrizing a separating hyperplane respectively.  Regular behaviors are further away from  the origin than anomalous instances. 
+
+OCSMM allows the user to select the expected proportion of group anomalies in the training data as denoted by  $\nu \in (0,1)$.  Since group anomalies are assumed to occur much less frequently that regular groups,  OCSMM learns patterns from one-class that exhibits  the dominant behavior in a dataset.  
+For more flexible margins in a separating hyperplane, 
+slack variables $\xi_1,\dots,\xi_M$ are  introduced such that the parameters  of a separating hyperplane are estimated by optimizing the following problem %results in the optimisation problem 
+%\vspace{-1cm}
+ \begin{align}
+&\min_{(  \rho, {\bf w},\boldsymbol \xi)} 
+\frac{1}{2} \langle {\bf w},{\bf w} \rangle_{\small \mathcal{H}} - \rho +  \frac{1}{\nu M} \sum_{m=1}^M
+\xi_m  \label{minW} \\
+\mbox{with con}\mbox{straints: } &  \langle {\bf w} ,  \mu_{\mathbb{P}_m } \rangle_\mathcal{H} \ge \rho - \xi_m \mbox{ and } \xi_m \ge 0 \mbox{ for } m=1,\dots,M   \nonumber
+\end{align}
+%and the parameters ${\bf w},\,\rho$ and  $\boldsymbol\xi$ are
+ The first term in Equation (\ref{minW}) represents  minimizing the error or distance of separating data points from the origin. The slack variables offer a more flexible description of a separating hyperplane where penalty term $1/{\nu M}$ represents the trade-off between the distance of a hyperplane from the origin and the upper bound on expected number of group anomalies in a training set. 
+% The parameter $\nu$ is  a penalty term that represents the trade-off between maximizing the margin and the number of allowable point 
+Equation (\ref{minW}) can be solved by introducing Lagrange multipliers $\boldsymbol \alpha$ where the estimated hyperplane is %estimated by %with weights % $\bf w$ %simplified as 
+\begin{align*}
+ f_{\bf w}(\mu_{\mathbb{P}_m } ) = \big\langle {\bf w},\mu_{\mathbb{P}_m } \big \rangle_\mathcal{H} \quad %= \sum_{l} \alpha_l \, \langle \mu_{\mathbb{P}_m}, \mu_{\mathbb{P}_l}\rangle_\mathcal{H} \\
+\mbox{ where }{\bf w}= \sum_{m=1}^M \alpha_m  \mu_{\mathbb{P}_m} \mbox{ and } \sum_{m=1}^M \alpha_m=1
+%0 \le \alpha_m \le \lambda
+\end{align*} 
+ 
+%$(\bf w, \rho)$  is a function  $f_{\bf w}:  \mathcal{H}\to \mathbb{R}$. Given the embedding function $mu$, a group represented by random variable ${\bf G}$ and probability measure $\mathbb{Q}$  is classified with regular behavior if 
+%$f_{\bf w}({\bf G}) = \big\langle {\bf w}, \mu_{\mathbb{Q} }  \big \rangle\ge \rho $. 
+The following schema describes OCSMM in four key components:   
+ \begin{enumerate}[1.]
+\item Characterisation function $f_1({\bf G}_{train})={\bf w}$: \\ The training set of group behaviors contains information about  $\mu_{\mathbb{P}_1},\dots, \mu_{\mathbb{P}_M}$.  In particular, the weight function of a separating hyperplane characterises a group training set by
+\[{\bf w}= \sum_{m=1}^M \alpha_m  \mu_{\mathbb{P}_m}\] 
+ \end{enumerate}
+ %
+ \begin{enumerate}[2.]
+ \item Characterisation function $f_2({\bf G}_{test})=\mu_{\mathbb{P}_m}$: \\ 
+The $m$th group is characterised by the mean embedding function.  Intuitively the value of a group mapped onto the RKHS is a feature representation for the  group. 
+\end{enumerate}
+ %
+\begin{enumerate}[3.]
+\item Measure $ \mathcal{D}\big( f_1({\bf G}_{train}), f_2({\bf G}_{test})\big )$ using a separating hyperplane: \\
+The separating hyperplane compares characterisation functions ${\bf w}$ and $\mu_{\mathbb{P}_m }  $ with
+$ \big\langle {\bf w},\mu_{\mathbb{P}_m } \big \rangle_\mathcal{H}%\sum_{l} \alpha_l \, \langle \mu_{\mathbb{P}_m}, \mu_{\mathbb{P}_l}\rangle_\mathcal{H}
+$.  
+% A special reproducing property of mean embedding functions in RKHS is $\langle \mu_{\mathbb{P}_m},f \rangle = E_\mathbb{P}[f(X)]$
+%for probability measure $\mathbb{P}_m \in \mathcal{P}$ and function $f \in \mathcal{H}$. We introduce a pairwise similarity function for pairwise probability measures as  $K: \mathcal{P} \times \mathcal{P}  \to \mathbb{R}$.
+% By applying the reproducing property and  Fubini's theorem, the kernel on  probability measures is defined as
+% \begin{align*}
+%% K(\mathbb{P}_m,\mathbb{P}_j) &= 
+%\langle \mu_{\mathbb{P}_m},\mu_{\mathbb{P}_j} \rangle_\mathcal{H}   &=\int \int  k(x,y)  \, d{\mathbb{P}_m}(x) d{\mathbb{P}_j}(y) 
+% \end{align*}
+%for $i,j=1,\dots,M$. Instead of computing this integral through Monte Carlo simulation, 
+ For a deeper understanding of this measure, consider  
+\begin{align*}
+ \big\langle {\bf w},\mu_{\mathbb{P}_m } \big \rangle_\mathcal{H}= \sum_{l} \alpha_l \, \langle \mu_{\mathbb{P}_m}, \mu_{\mathbb{P}_l}\rangle_\mathcal{H} 
+\end{align*} 
+where the kernel similarity on probability measures based on empirical samples is 
+%To ensure the kernel similarity estimated on empirical samples   %K(\hat{\mathbb{P}}_m,\hat{\mathbb{P}}_l)=
+\begin{align}
+\langle \hat{\mu}_{\mathbb{P}_m},\hat{\mu}_{\mathbb{P}_l} \rangle_\mathcal{H}  
+=
+\frac{1}{N_m   N_l } \sum_{i=1}^{N_m}
+ \sum_{i'=1}^{N_l} k\Big( X_{mi} , 
+ X_{li'}  \Big)  \label{kernelest}
+ \end{align}
+%and $X_{mi}$ is the $i$th observation in the $m$th vector. 
+%The following assumptions are imposed 
+ For a reasonable approximation using empirical estimates for probability measures, we require that  $||  \mu_{\mathbb{P}_m}  - \hat{\mu}_{ \mathbb{P}_m}  || $ is bounded   for $m=1,\dots,M$.   
+
+  The selection of kernel similarity function $k$ is important in the detection of group anomalies.
+When $k$ is chosen as a characteristic kernel such as a  Gaussian   kernel, the representative function $\mu$ is injective, that is there is a distinct mapping of groups onto the RKHS. The anomalous measure and classification threshold in  OCSMM are also dependent on the selection of kernel function. Table \ref{Tab:Kernel} provides examples where given a particular choice of reproducing kernel  $k$ in Equation (\ref{kernelest}), OCSMM characterises different statistical properties of  groups. 
+
+ % of kernel functions that captures different statistical properties of groups. %For instance, a linear kernel only captures the behavior of the first moment of a distribution while the  Gaussian RBF describes infinite moments.\\[2mm]
+
+\end{enumerate}
+
+ \begin{table}[H]
+ 
+\begin{center}
+\tabcolsep=0.25cm
+ \scalebox{0.9}{
+\begin{tabular}{p{15mm}ccp{20mm} } 
+ \hline\\[-2mm]
+Type & Reproducing Kernel $k(u,v)$  & Kernel Similarity $K(\mathbb{P}_i,\mathbb{P}_j  )$ & Moments  \\[1mm]
+\hline \\[-4mm]
+ \hline\\[-2mm]
+Linear & $\langle  u,v \rangle $  & $0\, [Av \mbox{ if } \mathbb{P}=N(A,1)] $ & First\\[2mm]
+Quadratic & $\langle  u,v \rangle ^2$   &  $v^2$ & Second \\[2mm]
+Quadratic &  $(\langle  u,v \rangle +1)^2$ & $v^2+1$ & First \& Second \\[2mm]
+Gaussian RBF & $\displaystyle \exp \bigg( {-\frac{||u-v||^2}{2\sigma^2} } \bigg)$ & $ \displaystyle \frac{1}{\sqrt{2}}\exp \bigg({-\frac{||v||^2}{4} } \bigg)  $ & Infinite
+\\[-1mm]
+& & $(\sigma^2=1)$ & 
+ \\[1mm] \hline
+\end{tabular}
+}
+\end{center}
+%\vspace{-1cm}
+ \caption{ Examples of different kernels for probability distribution $\mathbb{P}=N(0,1)$. % and the Gaussian RBF has a bandwidth or tuning parameter  $\sigma>0$.  
+ }
+ \label{Tab:Kernel}
+\end{table}
+
+ \begin{enumerate}[4.]
+\item  Threshold $\epsilon= \rho$: \\  The  threshold term for OCSMM represents a bias parameter for the separating  hyperplane. This threshold is calculated from   groups with probability measures that are mapped closest to the separating hyperplane. In fact,   support measures provide a description for the separating hyperplane such that the $m'$th group with $ 0 <\alpha_{m'} < \displaystyle \frac{1}{\nu M}$ is a support measure  that satisfies 
+\[ \rho  %=f_{\bf w}(\mu_{\mathbb{P}_m } )
+ = \big\langle {\bf w},\mu_{\mathbb{P}_{m'} } \big \rangle_\mathcal{H}= \sum_{l} \alpha_l \, \langle \mu_{\mathbb{P}_{m'} }, \mu_{\mathbb{P}_l}\rangle_\mathcal{H}  \]
+A threshold for anomalous groups is     \[\hat{\rho}=  \sum_{l} \hat{\alpha}_l \, \langle \hat{\mu}_{\mathbb{P}_{m'}}, \hat{\mu}_{\mathbb{P}_l}\rangle_\mathcal{H} \] 
+where a group anomaly is separated by a parametrised hyperplane with
+$   \big\langle \hat{\bf w},\hat{\mu}_{\mathbb{P}_m } \big \rangle_\mathcal{H}  < \hat{\rho}$. Thus group deviations are closer to the origin than regular group behaviors. 
+ \end{enumerate}
+ 
+ 
+ 
+%Solving with the Lagrange multiplers $\boldsymbol \alpha$ and $\boldsymbol \gamma$, results in the Lagrangian function
+%\begin{align}
+%L(\rho,{\bf w},{\boldsymbol \xi},{\boldsymbol \alpha},{\boldsymbol \gamma})= \frac{1}{2} || {\bf w}||^2 + \frac{1}{\nu M} \sum_{i=1}^M
+%\xi_i +\sum_{i=1}^M \alpha_i  \Big( \langle {\bf w} , \mu_{\mathbb{P}_i } \rangle - \rho +\xi_i \Big) + \sum_{i=1}^M\gamma_i\xi_i \label{Lag2}
+%\end{align}
+%Minimizing $L$ over $(\rho,{\bf w},\boldsymbol\xi )$  and then maximizing for arguments $(\boldsymbol\alpha,\boldsymbol\gamma)$. 
+
+
+
+
+% This leads to an equivalent optimisation problem of % to Equation (\ref{SMDD2} ) where $\bf c$ is replaced by $\bf w$ and $\lambda=\frac{1}{\nu M}$. 
+%\begin{align}
+%&\min_{\boldsymbol \alpha}
+%\sum_{m,l} \alpha_m\alpha_l \, \langle \mu_{\mathbb{P}_m}, \mu_{\mathbb{P}_l}\rangle_\mathcal{H}
+% %K({\bf x}_i, {\bf x}_j) 
+% \nonumber \\
+%\mbox{with }\mbox{constraints: } &
+%\sum_{m=1}^M \alpha_m=1, \quad 
+%{\bf w}= \sum_{m=1}^M \alpha_m  \mu_{\mathbb{P}_m},  \quad
+%0 \le \alpha_m \le \lambda
+%\label{OCSMMprob} 
+%\end{align}
+%
+%To evaluate whether the behavior of the $m$th group is consistent with other groups, the parameter $\hat{\alpha}_1,\dots,\hat {\alpha}_M$ and $\hat \rho$  
+%from training data. Following Equation (\ref{Eqn:class}), an anomalous group is classified by
+%\[ -  \sum_{l=1}^M \hat{\alpha}_l K( \hat{\mu}_{\mathbb{P}_m } ,\hat{\mu}_{\mathbb{P}_l }  )  > -\hat \rho
+%\]
+
+
+
+
+
+%Each empirical probability $\hat {\mathbb{P}}_m=\frac{1}{N_m} \sum_{k=1}^{N_m} I \Big({{\bf G}_m \le x^{(i)}_k} \Big)$ is associated with the true probability measure ${\mathbb{P}}_m$. It is necessary to have a consistent estimator  for the true probability measure ${\mathbb{P}}_m$ such that 
+%  $ \hat {\mathbb{P}}_m \to  {\mathbb{P}_m}$ as $N_m \to \infty$. %In general, more accurate descriptions of group distributions are obtained for larger group sizes.
+%This results in  good empirical approximations on the RKHS, that is
+%  $||  \mu_{\mathbb{P}_m}  - \mu_{\hat {\mathbb{P}}_m } || $ is bounded for $i=1,\dots,M$.
+
+%It is also assumed that the random variable ${\bf G}_m \sim \mathbb{P}_m$
+ 
+ 
+% $f:\Omega \to \mathbb{R}$ 
+%We examine the model for a smoothing function that maps data onto the feature space $\mathcal{H}$ using $\Phi:\chi  \to \mathcal{H}$, ${\bf x}_m \mapsto \Phi({\bf x}_i )$. %which is applied as $\Phi({\bf x}_n)$ $n=1,\dots,N$.  
+%The spherical function $\Phi$ subsequently defines a kernel function by the inner product between other mappings as $K({\bf x}_i,{\bf x}_j )=\langle \Phi({\bf x}_i),\Phi({\bf x}_j)\rangle$ where $K: \chi \times \chi  \to \mathbb{R}$. We examine the class of kernel function such that $K({\bf x}_i,{\bf x}_i)=1$. The multivariate group data  ${\bf G}_1,{\bf G}_2,\dots,{\bf G}_i$ are transformed into the  kernel mean function $\mu_{\mathbb{P}_1},\dots,\mu_{\mathbb{P}_i}$ . The mean map $\mu_{\mathbb{P}_i}$  is the feature representation of the $m$th group. 
+ %Other examples are described in Table \ref{Tab:Kernel}.
+
+
+%\begin{align}
+%\mbox{sgn}\big (\sum_{l=1}^M \alpha_l K( \mu_{\mathbb{P}_m } ,\mu_{\mathbb{P}_l }  )-\rho ) \big) =\left\{
+%                \begin{array}{ll}
+%                 +1 , \qquad 
+%%                  & || \mu_{\mathbb{P}_t }   -{\bf c}||^2 \le R^2, 
+%              &    \mbox{Group exhibits regular behavior. }\\
+%                 -1, \qquad   
+%                 %   & ||\mu_{\mathbb{P}_t }   -{\bf c}||^2 > R^2 
+%                 & \mbox{ Group exhibits anomalous behavior.}
+%                \end{array}
+%              \right.
+%\end{align} 
+
+%\newpage
+%
+%The optimisation problem in (\ref{Con1}) is solved by introducing Lagrange multipliers $\boldsymbol\alpha$.
+%This  results in
+%\begin{align}
+%&\sum_{i}\alpha_i=1 \mbox{ and }
+%\bf c= \sum_i \alpha_i  \mu_{\mathbb{P}_i}  \label{Con2} \\
+%& \qquad\mbox{with } 0 \le \alpha_i \le \frac{1}{\nu M}
+%\end{align}
+%The new constraint  on $\alpha_i $ leads to the support measures $SM$ which describe the majority of the group behaviors, that is $SM= \{\mu_{\mathbb{P}_i}  | 0 < \alpha_i <\lambda\}$.
+
+%For any support measure $ \mu_{\mathbb{P}_k}  \in SM$, the radius is calculated by
+%\begin{align}
+%R^2= \langle \mu_{\mathbb{P}_k}  , \mu_{\mathbb{P}_k}  \rangle
+%-2\sum_{i}\alpha_i\langle \mu_{\mathbb{P}_i} ,\mu_{\mathbb{P}_k}  \rangle +
+%\sum_{i,j} \alpha_i\alpha_j\langle  \mu_{\mathbb{P}_i} ,\mu_{\mathbb{P}_j} \rangle \label{SM}
+%\end{align}
+
+
+
+
+
+%iven that $\mathbb{P}_i$ is defined on the probability space $(\Omega,\mathcal{F},\mathcal{P})$,    %with $\Omega$ is the sample space, the set of probabilities$\mathcal{P} $ 
+%%$\mathcal{F}$.
+%we introduce a training probability $\mathbb{Q}$  measured on $\mathcal{F}$.
+% where an $\alpha \in (0,1)$ proportion of probability measures are concentrated and is defined as 
+%$MV_\alpha = \mbox{argmin}_{G \in \mathcal{F}} \Big
+%\{  \mathbb{P}(G) : \, \mathbb{P} (G) \ge \alpha \Big\}
+%$. 
+%
+%probability measures are concentrated and is defined as 
+%$MV_\alpha = \mbox{argmin}_{G \in \mathcal{F}} \Big
+%\{  \mathbb{P}(G) : \, \mathbb{P} (G) \ge \alpha \Big\}
+  % Thus a group with mean embedding value $ \mu_{\mathbb{P}_i}  $ is contained within a hypersphere with the radius $\sqrt{R^2 +\xi_i}.$ 
+%We quantify the anomalous behavior of a group by
+%In particular, we minimise the volume of an enclosing hypersphere with center $\bf c$ and radius $R$ that captures an $\alpha$ proportion of probability measures. The estimation of this MV-set is based on   mean embedding functions $\mu_{\mathbb{P}_1}, \mu_{\mathbb{P}_2}, \dots,\mu_{\mathbb{P}_M}$ where 
+%\[\hat {MV}({\bf c},R) = \big\{ \mathbb{P}_m \in \mathcal{P}  : \, || \mu_{\mathbb{P}_i}  -{\bf c}||^2 _\mathcal{H}\le R^2 \big\} \]   
+%A strict radius boundary of $R$ means that in a training set, all of the groups are assumed to exhibit regular behavior.
+ %The minimum volume set  can be written as
+%\[\hat {MV}({\bf c},R,\boldsymbol  \xi) = \big\{ \mathbb{P}_i \in \mathcal{P}  : \, || \mu_{\mathbb{P}_i}  -{\bf c}||^2 _\mathcal{H}\le R^2 +\xi_i \big\} \]   
+ 
+ %
+\subsubsection{ Support Measure Data Description (SMDD) } 
+ Guevara et al. \cite{SMDD} propose SMDD for  distinguishing between regular and anomalous  group behaviors by learning the dominant behavior (one-class) from   training data using minimum volume (MV) sets. {  Since SMDD is  analogous to support  vector data description \cite{SVDD}, we introduce a common MV-set for a vector ${\bf x}$ where an enclosing hypersphere with center $\bf c$ and radius $R$ is described by } 
+ %The discriminative functions for SMDD is based on fitting on minimum volume set on  training data.      \[|| \hat{\mu}_{\mathbb{P}_m} -  \hat{\bf c} ||^2 \]
+%describes an minimum volume sphere
+\[ ||{\bf x}  -{\bf c}||^2 \le R^2 \]
+ Since anomalous groups may be present in a training set, a penalty term is introduced. The penalty parameter $\lambda >0$ represents the trade-off between the volume of a  hypersphere and 
+ the expected proportion of anomalous groups in a training set. 
+ For a more flexible radius boundary, slack variables $\big\{\xi_m \big\}_{m=1}^M \ge 0$ are also introduced where SMDD %a MV-set %$\bf c$ and $R$
+ involves minimizing the objective function 
+ \begin{align}
+ &\min_{(R,{\bf c}, \boldsymbol\xi) }   R^2+\lambda \sum_{m=1}^M \xi_m \label{SMM1}  \\
+\mbox{with constraints: } &||\mu_{\mathbb{P}_m}  -{\bf c}||^2 _\mathcal{H}\le R^2  +\xi_m  \mbox{ and } \xi_m  \ge 0 \mbox{ for } m=1,\dots,M  \nonumber
+\end{align}
+ The first term in Equation (\ref{SMM1}) accounts for radius of a volume set while the second term accounts for less strict radius boundary for a MV set. 
+
+%Estimating the MV-set %$\bf c$ and $R$
+% involves minimizing over the objective function 
+% \begin{align}
+% &\min_{(R,{\bf c}, \boldsymbol\xi) }   R^2+\lambda \sum_{i=1}^M \xi_i \nonumber \\
+%\mbox{with constraints: } &||\mu_{\mathbb{P}_i}  -{\bf c}||^2 \le R^2  +\xi_i  \mbox{ and } \xi_i  \ge 0 \mbox{ for } i=1,\dots,M  \label{SMM1}
+%\end{align}
+
+
+%\[\hat {MV}({\bf c},R,\boldsymbol \kappa) = \big\{ \mathbb{P}_i \in \mathcal{P}  : \, \mathbb{P}_i \big( || \mu_{\mathbb{P}_i}  -{\bf c}||^2 _\mathcal{H}\le R^2 \big) \ge 1-\kappa_i \big\} \]   
+
+
+
+%such the penalty allows a certain number of groups to exceed the boundaries of the $MV$-set.
+
+%The penalty term $C>0$ represents the trade-off between the volume of the hypersphere and classification error in the training set. In other words, the probability that a test point ${\bf x}_k$ lies outside of $S({\bf c},R) $ is bounded by the model parameter $C$. 
+
+
+
+ 
+
+%The optimisation problem in (\ref{SMM1}) is solved by respectively introducing Lagrange multipliers $\boldsymbol\alpha$, % and $\boldsymbol\gamma$ for the two constraint inequalities.
+%%The Lagrangian function is 
+%\begin{align}
+%L(R^2,{\bf c},{\boldsymbol \xi},{\boldsymbol \alpha},{\boldsymbol \gamma})= R^2+\lambda\sum_{i} \xi_i -\sum_i  \alpha_i \Big( R^2 +\xi_i -||\mu_{ \mathbb{P}_i } -{\bf c}||^2  \Big) +\sum_i \gamma_i\xi_i 
+%\end{align}
+%It is important to note that $L$ is minimised w.r.t. $(R,{\bf c},\boldsymbol\xi )$  and maximised w.r.t. $(\boldsymbol\alpha,\boldsymbol\gamma).$
+ %of the minimisation problem as 
+%Since a kernel similarity function satisfies $ K({\bf x}_i,{\bf x}_i )=1$, 
+%\begin{align}
+%&\min_{\boldsymbol \alpha}
+%\sum_{i,j} \alpha_i\alpha_j \, \langle \mu_{\mathbb{P}_i}, \mu_{\mathbb{P}_j}\rangle_\mathcal{H}
+% %K({\bf x}_i, {\bf x}_j) 
+% \nonumber \\
+%\mbox{with }\mbox{constraints: } &
+%\sum_{i=1}^M \alpha_i=1, \quad 
+%{\bf c}= \sum_{i=1}^M \alpha_i  \mu_{\mathbb{P}_i},  \quad
+%0 \le \alpha_i \le \lambda
+%\label{SMDD2} 
+%\end{align}
+%Suppose we want to evaluate whether group ${{\bf G}_m}$ is anomalous. % A mapped probability  $\mu_{\mathbb{P}_m}$  is enclosed by 
+%A  hypersphere is estimated with parameters $ \hat{\bf c}$ and $ \hat R$ from the training data. 
+%
+% In order to detect a group anomaly, we calculate   
+Similar to OCSMM, we describe the key components of SMDD as follows.
+ \begin{enumerate}[1.]
+\item Characterisation function $f_1({\bf G}_{train})= {\bf c}$: \\
+ By combining kernel embedding functions  $\mu_{\mathbb{P}_1},\dots, \mu_{\mathbb{P}_M}$, the center of an enclosing hypersphere is estimated by  
+\[{\bf c}= \sum_{m=1}^M \alpha_m  \mu_{\mathbb{P}_m}\] 
+The value $\bf c$ characterises  group information on the training set with weights that are optimised in a different way to OCSMM. A special case occurs when a spherical normalisation of mean embedding functions is applied with   
+\[  \langle \mu_{\mathbb{P}_m}, \mu_{\mathbb{P}_l}\rangle_\mathcal{H} \mapsto  \frac{ \langle \mu_{\mathbb{P}_m}, \mu_{\mathbb{P}_l}\rangle_\mathcal{H}} { \sqrt{\langle \mu_{\mathbb{P}_m}, \mu_{\mathbb{P}_m}\rangle_\mathcal{H}  \langle \mu_{\mathbb{P}_l}, \mu_{\mathbb{P}_l}\rangle_\mathcal{H}}} \]
+From Guevara et al. \cite{SMDD},  SMDD and OCSMM are equivalent under a spherical transformation  that preserves the injectivity  of the Hilbert space mapping.
+ \end{enumerate}
+%
+ \begin{enumerate}[2.]
+\item Characterisation function $f_2({\bf G}_{test})=\mu_{\mathbb{P}_m}$: \\ 
+Similar to OCSMM, the $m$th group is characterised by  a mean embedding function. However even though the group characterisation in SMDD is identical to OSCMM, the weights are optimised based on different criteria. \end{enumerate}
+ %
+\begin{enumerate}[3.]
+\item Measure $ \mathcal{D}\big( f_1({\bf G}_{train}), f_2({\bf G}_{test})\big )$: \\
+The anomalous score for the $m$th group is calculated by \[ || \hat{\mu}_{\mathbb{P}_m} -  \hat{\bf c} ||^2_\mathcal{H}  \]
+where it is assumed that  $||  \mu_{\mathbb{P}_m}  - \hat{\mu}_{ {\mathbb{P}}_m } || $ is bounded  for   groups $m=1,\dots,M$. 
+\end{enumerate}
+%
+\begin{enumerate}[4.]
+\item Threshold $\epsilon={R}^2$: \\ In SMDD, the estimated radius 
+$\hat{R}^2$   of an enclosing sphere provides a threshold for group deviations.  Suppose that the $m'$th group has a support measure with $ 0 <\alpha_{m'} < \displaystyle \lambda$ then the radius threshold is estimated as
+\[ \hat{R}^2  =  || \hat{\mu}_{\mathbb{P}_ {m'} } -  \hat{\bf c} ||_\mathcal{H}^2  \]
+\end{enumerate}
+A group anomaly is detected if it is not enclosed by a MV set with
+$ || \hat{\mu}_{\mathbb{P}_{m} } -  \hat{\bf c} ||^2_\mathcal{H} > \hat{R}^2$. Thus  group deviations occur  outside of the boundaries of an estimated minimum volume set. 
+
+%
+%{\it Example:}
+%
+%We highlight key differences in SMDD and OCSMM through an example, consider the case where  group have identical probability distributions $\mathbb{P}_i=\mathbb{P}_j, \; \forall \; 1 \le i,j \le M$. The objective function in this case simplifies to $min_{\bf \alpha } \sum_{i=1}^M \sum_{j=1}^M \alpha_i \alpha_j  $  which results in equal weights $\alpha_i=1/M$ for $m=1,\dots,M$ and the threshold $\rho=1/M$.
+%The score of each group is $
+%\mathcal{S}({\bf G}_t)= 1 >  \rho=1/M$
+% so all groups are classified with normal behavior. Similarly, the constraint in (\ref{Con1}) reduces to $||\mu_{\mathbb{P}_i}  -\mu_{\mathbb{P}_j}||^2 \le R^2  +\xi_i$ where $R=0$. When all probability measures are identical, the radius is zero and all of the mean embedding maps are also support measures from Equation (\ref{SM}).
+%
+%We further explore the characteristic kernels of Gaussian radial basis function (RBF) as it provides a general description of a distribution.  When the Gaussian RBF from Table \ref{Tab:Kernel} is applied as the kernel $k$ in Equation (\ref{KMF}), the algorithm OCSMM \cite{OCSMM} has equivalencies to 
+%the application of OCSVM. From Muandet et al. \cite{OCSMM}, for identical bandwidths $\sigma_i=\sigma_j$ for $1 \le i,j \le N$, OCSMM corresponds to the OCSVM implemented on  spherically transformed data instances using the Gaussian RBF kernel. OCSMM is also equivalent to OCSVM applied on the kernel with variable bandwidth parameters.
+%
+%To discriminate between data behaviors a separating hyperplane is introduced as \\
+%\begin{align}
+%\mathcal{D} = \big\{ \langle {\bf c},\mu_{\mathbb{Q}}  
+% \rangle\ge \rho  \big\} =  \big\{ \mathbb{P} | \langle
+%\textstyle\sum_{i}\alpha_i\langle  \mu_{\mathbb{P}_i} ,\mu_{\mathbb{Q}}  \rangle
+%\ge \rho  \big\}\label{DB}
+%\end{align}
+
+
+% of statistical properties for group distributions.
+ %An anomalous group is discovered when a combination of statistical properties substantially deviates from  the overall pattern of group distributions.
+ % that are significantly different from  other groups.   
+ % For example,  describes commonly used  statistical properties of distributions quantified by parametric or non-parametric measures  %such as location, scale, skewness, kurtosis and dependence.where a better description of groups is obtained for larger sample sizes.    	 Non-parametric measures are more appropriate when groups are contaminated with outliers or contain noisy values.  
+   %Other characterisations for statistical properties are also possible such as median absolute deviations  for  scale \cite{MAD},   Kendall's rank correlation \cite{kendall1938} as well as robust measures for skewness and kurtosis in Kim et al. \cite{kim2004more}.
+ 
+
+
+%\begin{center}
+%\renewcommand{\arraystretch}{2}
+%{\bf Advantages and disadvantages of  discriminative models:} The disadvantages of classification-based techniques are as follow\\ 
+%Advantages:
+%\begin{enumerate}[(1)]
+%  \setlength\itemsep{5pt}
+%\item    Does not assume a parametric   distribution for the data. 
+%\item Captures a variety of statistical properties of groups. 
+%\item  Directly classifies group behaviors as regular or anomalous.
+%%\item 
+%\end{enumerate} 
+%Disadvantages:
+%\begin{enumerate}[(1)]
+%  \setlength\itemsep{5pt}
+%%\item     Usually requires data labels  which are difficult for group anomaly detection
+%\item  Results are sensitive to initial parameter  selection.  
+%\item  Difficult to interpret the statistical properties of a detect group anomaly.  
+%\item Prone to overfitting on training data.  
+%\end{enumerate} 
+%\end{center}
+
+ 
+
+%By analyzing certain statistical properties of interest, an interpretation of a group anomaly is provided however many state-of-the-art technique detect   anomalous groups  without a providing a plausible explanation.    
+
+%Table \ref{Tab:Des} describes the possible statistics for characterizing a group distribution. %well-known the non-parametric measures for location, scale and correlation
+
+
+%	%\vspace{-5mm}
+%	%  \tabcolsep=0.0cm
+%	\begin{table}[H]
+%	\tabcolsep=0.4cm 	\renewcommand{\arraystretch}{1.2}
+%	\begin{center}
+%	\scalebox{0.9}{
+%	\begin{tabular}{lcc  }
+%	\hline\\[-2mm]
+%	% \hline
+%Characteristic &
+%	 Parametric Measures    &  Non-parametric Measures  \\[2mm] \hline\\[-2mm]
+%	 Location & 
+%	  $ \displaystyle\bar{x}=\frac{1}{N} \sum_{i=1}^N X_i$ & $  q_{0.5}$ \\[2mm]
+%	  & Mean & Median \\[1mm]
+%	  \hline \\[-1mm]
+%	Scale & 
+%	 $ \displaystyle s^2 =	\frac{1}{N-1}\sum_{i=1}^{N} \big(X_{i}-\bar{X} \big)^2$ &
+%	 $q_{0.75}-q_{0.25}$ \\[4mm]
+%	 	  & Variance & Interquartile Range \\[1mm]
+%	 	  	   \hline \\[-2mm]
+%	%\(\stackunder[1pt]{$ \mbox{median}$}{\scalebox{0.8}{$ 1\le i\le N$}} \)$\big (| X_i - q_{0.5}| \big)$ 
+%	 Skewness & 
+%	$\displaystyle  \hat{\mathcal{S}}=\frac{1}{N} \sum_{i=1}^N \frac{( X_i-\bar X)^3}{ \hat\sigma^3}  $  &
+%	$ \displaystyle \frac{q_{0.75} + q_{0.25} -2 q_{0.5} }{  q_{0.75} - q_{0.25}  }$\\[4mm]
+%		   \hline \\[-2mm]
+%	 Kurtosis & 
+%	 $\displaystyle \hat{\kappa} =\frac{1}{N} \sum_{i=1}^N \frac{( X_i-\bar X)^4}{ \hat\sigma^4}  $ &
+%	$ \displaystyle\frac{q_{0.975} -q_{0.025} }{q_{0.75} -q_{0.25}}  $ \\[4mm]
+%		   \hline \\[-2mm]
+%	 Correlation &  
+%	  \;$ \hat{\rho} = \frac{ \sum_{i} \big(X_i - \bar X \big) \big(Y_i - \bar Y\big) } {\sqrt{ \sum_i \big(X_i - \bar X \big) ^2 \sum_i \big(Y_i - \bar Y\big)^2 }   } $  & 
+%	 $   \frac{ \sum_{i} \big(A_i - \bar A \big) \big(B_i - \bar B\big) } { \sqrt{ \sum_i \big(A_i - \bar A \big) ^2 \sum_i \big(B_i - \bar B\big)^2  }} $ \\[6mm]
+%   & Pearson's Linear Correlation \cite{Cor} & Spearman's Dependence \cite{SpearmanRho} \\[1mm]
+%	 \hline\\[-4mm]
+%	 \end{tabular}
+%	 }
+%	\end{center}
+%	\caption{This table summarises parametric and non-parametric measures of  statistical properties for a single vector of random variables $\{X_i\}_{i=1}^N$. % such as location, scale, skewness, kurtosis and correlation.
+%	 In the above notation, $q_\alpha=\mbox{inf}\{x \in \mathbb{R}: P(X \le x) =\alpha\}$ is  the $\alpha$-quantile of the distribution of $X$, while  
+%	ranked values of  variables $X$ and $Y$ are denoted by $A$ and $B$ respectively. 
+%Note Pearson's correlation captures a linear relationship between variables whereas Spearman's rank correlation  measures a monotonic (possibly non-linear) dependence.	
+% }
+% \label{Tab:Des}
+%% \vspace{-5mm}
+%\end{table} 
+
+%These are many hypothesis test that may be formulated for groups however
+  
+
+% quantified and captured by a particular   summary statistics are seen as the features of the group and thus we can uncover anomalies in respect to different group features.
+% ADV
+
+
+
+%\subsection{Reduction to Pairwise comparisons}
+%Another approach reduces group observations to pointwise features by computing a dissimilarity (or similarity) measure of group distributions.  Krikamol  and Sch\"olkopf \cite{OCSMM} uses distance and divergence measures in conjunction with $K$-nearest neighbor (KNN) anomaly detection method to detect group anomalies.  
+%%A pairwise comparison of groups is achieved by calculating distance or divergence measures. 
+%Distance and divergence measures  assume   observations are independent and identically distributed in each group.  
+%Common measures for pairwise groups include $L_2$ Euclidean distance,  Kullback-Leibler divergence \cite{perez2008kullback} or R\'{e}nyi  divergence \cite{renyi}. When two groups have unequal number of observations, distance/divergence metrics may also be converted kernel similarity measure.
+% For example, suppose we observed groups ${\bf G}_m= \{X^{(m)}_{i}\}_{i=1}^{N_m} $ and ${\bf G}_l= \{X^{(l)}_{i}\}_{i=1}^{N_l} $ with unequal group sizes of 
+%$N_m$ and  $N_l$ respectively. 
+%%In some instances, a kernel function is equivalent to a distance metric. 
+%A Gaussian kernel similarity of two unequal groups is given by 
+%\[\mathcal{K}({\bf G}_m,{\bf G}_l)=   \frac{1}{N_m N_l} \sum_{i=1}^{N_m}   \sum_{i'=1}^{N_l} k ( X^{(m)}_{i },X^{(l)}_{i' })  \] 
+%where a 
+%Gaussian radial basis function is  
+%\[\displaystyle k ( X^{(m)}_{i },X^{(l)}_{i' })  =\exp \bigg( {-\frac{|| X^{(m)}_{i }- X^{(l)}_{i' }||^2}{2\sigma^2} } \bigg)  \]
+%and $|| X^{(m)}_{i }- X^{(l)}_{i' }||^2$ is the $L^2$ Euclidean distance between two points in different groups. 
+%  Once these metrics are computed, standard   anomaly detection methods differentiate values of dissimilarity (similarity) measures.
+
+ 
+ 
+ 
+%{\tabcolsep=0.2cm
+% \begin{table}[H]
+%\begin{center}
+% \scalebox{1}{
+%\begin{tabular}{lccc}%p{20mm}ccp{20mm}
+% \hline\\[-2mm]
+%Metric  &   $\mathcal{D}({\bf G}_m,{\bf G}_l)$  & Expression & \\[1mm]
+% \hline\\[-2mm]
+% Kernel Similarity &  $\mathcal{K}({\bf G}_m,{\bf G}_l)$  & $\displaystyle \frac{1}{N_m N_l} \sum_{i=1}^{N_m}   \sum_{i'=1}^{N_l} k ( X^{(m)}_{i\cdot},X^{(l)}_{i'\cdot})  $ \\[4mm] 
+%   $L^2$ Euclidean Distance &  $\mathcal{K}({\bf G}_m,{\bf G}_l)$  & $\displaystyle \frac{1}{N_m N_l} \sum_{i=1}^{N_m}   \sum_{i'=1}^{N_l} k ( X^{(m)}_{i\cdot},X^{(l)}_{i'\cdot})  $ \\[4mm] 
+% Kullback-Leibler (KL) Divergence \cite{perez2008kullback} & $\hat{KL}({\bf G}_m||{\bf G}_l )$ & 
+% $ \displaystyle \frac{V}{N_m}   \sum_{i=1}^{N_m} \ln \frac{ ||X^{(m)} _{i \cdot}  - NN_{G_l} X^{(m)}_{i \cdot}   ||_2}  { ||X^{(m)} _{i \cdot}  - NN_{G_m} X^{(m)}_{i \cdot}  ||_2}    + \ln \frac{N_m }{N_l-1}$ \\[4mm]
+% \hline
+%\end{tabular}
+%}
+%\end{center}
+% \caption{ Examples of different divergence to compare two groups with unequal sample sizes.
+%The Gaussian RBF is given by $k(x,y)=\exp \big(- ||x-y||^2_2 / \sigma^2 \big)$  $\sigma>0$ is the bandwidth or tuning parameter. $NN_G (x)$ is the nearest neighbor of point $x$ for group $G$. 
+% }
+% \label{Tab:Metrics}
+%\end{table}
+%}
+
+%The difference between a distance and divergence
+
+%KNN-Metric
+%Further metrics may be introduced such as the $NP$-$L_2$ and $NP$-Renyi divergences proposed by \cite{}.
+
+ 
+%OCSMM and SMDD are analogous extensions of pointwise discriminative anomaly detection methods     One-Class Support Vector Machines (OCSVM) \cite{OCSVM} and Support Vector Data Descriptions (SVDD) \cite{SVDD} respectively. %, we initially describe the mechanisms and inference of these algorithms.  
+ 
+%Data Instances IID or Independent but not identically distributed.
+%If observations in a group are dependent then more complicated joint distributions are required. 
+%Groups are IID across time.
+%
+%\subsection{Reduction to Point Anomaly Detection}
+%A way to simplify the group anomaly problem is by calculating summary statistics of the distribution for each group. This may be either parametric or non-parametric measures for location, scale, shape and correlation as described in Table \ref{Tab:Des}. The summary statistics are seen as the features of the group and thus we can uncover anomalies in respect to different group features.
+% Subsequently, pointwise anomaly detection methods are applicable in order to differentiate anomalous group behaviors.
+%
+%% ADV
+%This simple approach also has computationally feasible and suitable for large datasets. Better interpretation of an anomalous group.
+%A problem with other methods is that they detect anomalous groups however they do not specify the exact reasons why a group is anomalous.
+%
+%% DISADV
+%A problem that may occur is the representation of a group using a single value such as the mean, which is not sufficient for distinguishing group distributions in many cases.
+%
+%
+%%\subsection{Reduction to Pairwise comparisons}
+%Another approach for detecting group anomalies, is by comparing the similarity of group distributions. That is, to calculate the metric $\mathcal{C}$ for the distance or divergence between two probability distributions. Metrics such as $L_2$ Eucidean distance, Kullback-Leibler and Renyi-$\alpha$ divergence. Once these metrics are computed, standard point anomaly detection methods may be applied.
+%
+%The difference between a distance and divergence
+%KNN-Metric
+%Further metrics may be introduced such as the $NP$-$L_2$ and $NP$-Renyi divergences proposed by \cite{}.
+% \cite{OCSMM} applies $K$-nearest neighbor (KNN) anomaly detection method from  \cite{} on the $NP$-$L_2$ and $NP$-Renyi divergences. This leads to a high performance as compared to the OCSMM method which is explained below.
+%
+%Advantage of divergence are non-parametric and KNN is a non-parametric detection method.
+%
+
+
+%\subsection{Discriminative Methods}
+%\subsection{ One-Class Pointwise Anomaly Detection}%Support Vector Machine (OCSVM)}
+%Before we introduce discrimnative model for detecting group anomalies, let us review pointwise anomaly detection techniques such as  SVDD  and  OCSVM.   
+% SVDD summarises data behavior in a training set based on the optimisation criteria of minimum volume sets. The behavior of 
+%data points is captured by a specific geometrical criteria. For example, an enclosing  hypersphere with center $\bf a$ and radius $R$ is usually fitted to the data.  On the other hand, OCSVM learns the data distribution of the majority of points in a training set.  OCSVM estimates a boundary that separates data behaviors given the model parameter for expected number of anomalies. 
+%
+%% To appropriately fit the assumptions of a hypersphere, an spherical transformation of data instances is required.
+% % description of data using different optimisation criteria. We examine Minimum Volume (MV)  sets which captures the majority of the data behavior %If SVDD is trained on `normal' data instances then anomalous cases in a test case are easily compared. 
+%
+%%$V$-dimensional
+%Suppose we want to apply SVDD by minimizing the volume of an enclosing hypersphere on multivariate dataset  $\chi =\{ {\bf x}_1,{\bf x}_2,\dots,{\bf x}_N \}$ with $ {\bf x}_i \in \mathbb{R}^V$. Data  that does not exhibit  elliptical behavior, requires a spherical transformation to appropriately fit within an hypersphere. We examine the model for a smoothing function that maps data onto the feature space $\mathcal{H}$ using $\Phi:\chi  \to \mathcal{H}$, ${\bf x}_i \mapsto \Phi({\bf x}_i )$. %which is applied as $\Phi({\bf x}_n)$ $n=1,\dots,N$.  
+%The spherical function $\Phi$ subsequently defines a kernel function by the inner product between other mappings as $K({\bf x}_i,{\bf x}_j )=\langle \Phi({\bf x}_i),\Phi({\bf x}_j)\rangle$ where $K: \chi \times \chi  \to \mathbb{R}$. We examine the class of kernel function such that $K({\bf x}_i,{\bf x}_i)=1$. For instance, the Gaussian radial basis function (RBF)
+% $K({\bf x}_i,{\bf x}_j )=\exp \Big( {-\frac{||{\bf x}_i-{\bf x}_j||^2}{2\sigma^2} } \Big)$  satisfies $K({\bf x}_i,{\bf x}_i)=1$ with bandwidth parameter $\sigma^2>0$.
+%%on %each of the data instances  ${\bf x}_i$ for $i=1,\dots,N$. 
+%
+%Now the minimum volume set for an enclosing hypersphere of data points is given by 
+%$S({\bf c},R) = \{ {\bf x}_i \in \chi \,  |\, || \Phi( {\bf x}_i)  -{\bf c}||^2 \le R^2\}$.  
+%%Since extreme values naturally occur in a multitude of distributions, a more flexible description of data behaviors may be required. 
+%Slack variables $\{\xi_i \}_{i=1}^N \ge 0$ are introduced for a more flexible description of data behaviors where the minimum volume set has a less strict radius boundary.
+%This also accounts for the possibility of infrequently occurring extreme values in a training set, which are penalised by the parameter $C$. %=\frac{1}{\nu N}$.  $\nu \in (0,1)$
+%The penalty term $C>0$ represents the trade-off between the volume of the hypersphere and classification error in the training set. In other words, the probability that a test point ${\bf x}_k$ lies outside of $S({\bf c},R) $ is bounded by the model parameter $C$. 
+%
+%
+%
+%The computation of the SVDD algorithm %$\bf c$ and $R$
+% involves minimizing the objective function 
+% \begin{align}
+% \min_{ (R,{\bf c},\boldsymbol\xi ) }   R^2+C\sum_{i=1}^N \xi_i 
+% \label{minR}
+%\end{align}
+%\[
+%\mbox{with constraints: } ||\Phi({\bf x}_i ) -{\bf c}||^2 \le R^2  +\xi_i \mbox{ and } \xi_i  \ge 0 \mbox{ for } i=1,\dots,N. 
+%\]
+%
+%% This is analogous to Support Vector Classifier Vapnik1998.
+%
+%The optimisation problem in (\ref{minR}) is solved by respectively introducing Lagrange multipliers $\boldsymbol\alpha$ and $\boldsymbol\gamma$ for the two constraint inequalities.
+%The Lagrangian function is 
+%\begin{align}
+%L(R^2,{\bf c},{\boldsymbol \xi},{\boldsymbol \alpha},{\boldsymbol \gamma})= R^2+C\sum_{i} \xi_i -\sum_i  \alpha_i \Big( R^2 +\xi_i -||\Phi({\bf x}_i ) -{\bf c}||^2  \Big) +\sum_i \gamma_i\xi_i 
+%\end{align}
+%It is important to note that $L$ is minimised w.r.t. $(R,{\bf c},\boldsymbol\xi )$  and maximised w.r.t. $(\boldsymbol\alpha,\boldsymbol\gamma).$
+%
+%
+%%\begin{align}
+%%&\max_{\boldsymbol \alpha}\sum_{i}\alpha_i  K({\bf x}_i,{\bf x}_i )  -
+%%\sum_{i,j} \alpha_i\alpha_j K({\bf x}_i, {\bf x}_j) \nonumber \\
+%%\mbox{with }&\mbox{constraints: }
+%%\sum_{i=1}^N \alpha_i=1, \quad 
+%%{\bf c}%= {\boldsymbol \alpha} \cdot x 
+%%= \sum_{i=1}^N \alpha_i {\bf x}_i, , \quad
+%%0 \le \alpha_i \le C
+%%\label{maxA} 
+%%\end{align}
+%A equivalent formulation of the minimisation problem is 
+%%Since a kernel similarity function satisfies $ K({\bf x}_i,{\bf x}_i )=1$, 
+%\begin{align}
+%&\min_{\boldsymbol \alpha}
+%\sum_{i,j} \alpha_i\alpha_j K({\bf x}_i, {\bf x}_j) \label{minA}
+%\end{align}
+%\[
+%\mbox{with }\mbox{constraints: } 
+%\sum_{i=1}^N \alpha_i=1, \quad 
+%{\bf c}%= {\boldsymbol \alpha} \cdot x 
+%= \sum_{i=1}^N \alpha_i \Phi({\bf x}_i),  \quad
+%0 \le \alpha_i \le C
+% \]
+%
+%If a new  test instance ${\bf x}_{t}$  is enclosed by the  hypersphere with estimated parameters $\hat \bf a$ and $\hat R$ then consistent with the normal behavior.
+%That can be written as ${\bf x}_{t} \in S (\bf \hat {a} , \hat R)$ or
+% $||\Phi({\bf x}_{t }) -\hat {\bf c}||^2 \le \hat R^2 $.
+%
+%By formulating this problem another way, Sch\"{o}lkopf et al. \cite{OCSVM} introduces OCSVM to discriminate data behaviors using a separating hyperplane between regular and non-anomalous classes. 
+% If the data instances ${\bf x}$ are consistent with the overall data description then they are classified into the class with regular behavior by a threshold $\rho$,
+%\[\mathcal{C}_{{\boldsymbol w,\rho}}= \big\{{\bf x} \big|  f_{\bf w}({\bf x}) \ge \rho \big\}  \]
+%$\mbox{ where } f_{\bf w}({\bf x}_i) = \big\langle {\bf w},\Phi({\bf x}_i ) \big \rangle$ is the function for a separating hyperplane. 
+% Similar to the previous framework, the  slack variable $\boldsymbol \xi$ is introduced and the parameters ${\bf w},\,\rho$ and  $\boldsymbol\xi$ are estimated by minimizing the error for the hyperplane that separates data points from the origin. This results in the optimisation problem 
+%%\vspace{-1cm}
+% \begin{align}
+%&\min_{(  \rho, {\bf w},\boldsymbol \xi)} 
+%\frac{1}{2} || {\bf w}||^2 + \frac{1}{\nu N} \sum_{i=1}^N
+%\xi_i - \rho  \label{minWeight}   \\
+%\mbox{with con}\mbox{straints: } &  \langle {\bf w} , {\Phi}(x_i) \rangle \ge \rho - \xi_i \mbox{ and } \xi_i \ge 0 \mbox{ for } i=1,\dots,N   \nonumber
+%\end{align}
+%where   $\nu \in (0,1)$ represents the trade-off between the distance of the hyperplane from the origin and the upper bound on the proportion of anomalies. The selection of parameter $\nu$ is also interpreted as expected proportion of outliers  in the training set.
+%
+%%\vspace{-5mm}
+%When introducing  Lagrange multiplers $\boldsymbol \alpha$ and $\boldsymbol \gamma$   respectively for constraint equations in (\ref{minWeight}), %the optimisation of parameters in the separating hyperplane becomes equivalent to minimisation problem in Equation (\ref{minA}) where weights ${\bf w } = \sum_{i=1}^N\alpha_i \Phi({\bf x}_i) $.
+%  the Lagrangian function becomes
+%\begin{align}
+%L(\rho,{\bf w},{\boldsymbol \xi},{\boldsymbol \alpha},{\boldsymbol \gamma})= \frac{1}{2} || {\bf w}||^2 + \frac{1}{\nu N} \sum_{i=1}^N
+%\xi_i +\sum_{i=1}^N \alpha_i  \Big( \langle {\bf w} , {\Phi}(x_i) \rangle - \rho +\xi_i \Big) + \sum_i \gamma_i\xi_i \label{Lag2}
+%\end{align}
+%Minimizing $L$ over $(\rho,{\bf w},\boldsymbol\xi )$  and then maximizing for arguments $(\boldsymbol\alpha,\boldsymbol\gamma)$. This leads to an equivalent optimisation problem to Equation (\ref{minA}) where $\bf a$ is replaced by $\bf w$ and $C=\frac{1}{\nu N}$. Note that if a spherical transformation $\Phi$ is not applied then the formulations of Equations (\ref{minR}) and (\ref{minA}) may not be equivalent. 
+%
+%
+%%Solving the simplified problem in (\ref{Lag2}) is equivalent to minimizing the objective functions in (\ref{Con1}) and (\ref{Ease1}).
+%%The radius $R$ and parameter $\rho$ can be calculated by
+%
+%For separating hyperplane, the discriminating function is
+%$f_{\bf w}({\bf x}_k) = \big\langle {\bf w},\Phi({\bf x}_i ) \big \rangle=  \sum_{i} \alpha_i K( {\bf x}_i,{\bf x}_k )$.
+%To evaluate whether a new test instance ${\bf x}_k$ for formulation of the minimum-volume set and the separating hyperplane are equivalent to 
+%\begin{align}
+%\mbox{sgn}\big (\sum_{i} \alpha_i K( {\bf x}_i,{\bf x}_k )-\rho ) \big) =\left\{
+%                \begin{array}{ll}
+%                 +1 , \qquad %{\bf x}_k \in S({\bf c},R) %==
+%                  & || {\bf x}_k  -{\bf c}||^2 \le R^2\\
+%                 -1, \quad      & || {\bf x}_k  -{\bf c}||^2 > R^2 %{\bf x}_k \not\in S({\bf c},R)
+%                \end{array}
+%              \right.
+%\end{align} 
+
+ 

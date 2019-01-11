@@ -1,0 +1,87 @@
+%!TEX root = ../../main.tex
+
+
+%%%%%%% Begin table industrial damage detection
+\begin{table*}
+\begin{center}
+\caption{Examples of  Hybrid DAD techniques.
+        \\CNN: Convolution Neural Networks, LSTM : Long Short Term Memory Networks
+        \\DBN: Deep Belief Networks, DNN : Deep Neural Networks.
+        \\AE: Autoencoders, DAE: Denoising Autoencoders, SVM: Support Vector Machines~\cite{cortes1995support}
+        \\SVDD: Support Vector Data Description, RNN : Recurrent Neural Networks
+        \\Relief: Feature selection Algorithm~\cite{kira1992feature}, KNN: K- Nearest Neighbours~\cite{altman1992introduction}
+        \\CSI: Capture, Score, and Integrate~\cite{ruchansky2017csi}. }
+    \captionsetup{justification=centering}
+    \label{tab:hybridModels}
+    \scalebox{0.85}{
+    \begin{tabular}{ | p{3cm} | p{2cm} | p{6cm} |}
+    \hline
+     \textbf{Techniques}  & \textbf{Section} & \textbf{References} \\ \hline
+     AE-OCSVM, AE-SVM & Section ~\ref{sec:ae}, & ~\cite{andrews2016detecting} \\\hline
+     DBN-SVDD, AE-SVDD & Section ~\ref{sec:dnn}, & ~\cite{erfani2016high},~\cite{kim2015deep} \\\hline
+     DNN-SVM & 21D & ~\cite{inoue2017anomaly} \\\hline
+     DAE-KNN, DBN-Random Forest~\cite{ho1995random},CNN-Relief,CNN-SVM & Section ~\ref{sec:dnn},\ref{sec:ae} & ~\cite{song2017hybrid},~\cite{shi2017semi},~\cite{zhu2018hybrid,urbanowicz2018relief} \\\hline
+     AE-CNN, AE-DBN & Section ~\ref{sec:dnn},~\ref{sec:cnn},\ref{sec:ae} &  ~\cite{wang2018effective},~\cite{li2015hybrid} \\\hline
+     AE+ KNN & Section \ref{sec:ae} & ~\cite{song2017hybrid} \\\hline
+     CNN-LSTM-SVM & Section ~\ref{sec:cnn},\ref{sec:rnn_lstm_gru}  & ~\cite{wei2017new}\\
+     RNN-CSI & Section ~\ref{sec:rnn_lstm_gru} & ~\cite{ruchansky2017csi}\\
+     CAE-OCSVM & Section \ref{sec:ae} & ~\cite{gutoskidetection}, ~\cite{dotti2017unsupervised}\\\hline
+    \end{tabular}}
+\end{center}
+\end{table*}
+
+\subsection{Hybrid deep anomaly detection}
+\label{sec:hybridModels}
+Deep learning models are widely used as feature extractors to learn robust features~\cite{andrews2016detecting}. In hybrid deep models, the representative features learnt within deep models are input to traditional algorithms like one-class Radial Basis Function (RBF) , Support Vector Machine (SVM) classifiers. The hybrid models employ two step learning and are shown to produce state-of-the-art results~\cite{erfani2016high,erfani2016robust,wu2015harvesting}.  Deep hybrid architectures used in anomaly detection are illustrated in Table ~\ref{tab:hybridModels}.
+
+%%%%%%%%% End of Hybrid Models
+
+% OCSVM~\cite{scholkopf2002support}, SVDD~\cite{scholkopf2002support}
+% SVM~\cite{cortes1995support}
+% KNN~\cite{altman1992introduction}
+% Random Forest~\cite{ho1995random}
+% Relief~\cite{kira1992feature}
+% CSI~\cite{ruchansky2017csi}
+% Section ~\ref{sec:ae}
+% Section ~\ref{sec:rnn_lstm_gru}
+% Section ~\ref{sec:gan_adversarial}
+% Section ~\ref{sec:dnn}
+% Section ~\ref{sec:cnn}
+% Section ~\ref{sec:stn}
+% Section ~\ref{sec:hybridModels}
+
+
+
+\textbf{Assumptions : } \\
+The deep hybrid models proposed for anomaly detection rely on one the following assumptions to detect outliers:
+\begin{itemize}
+  \item Robust features are extracted within hidden layers of deep neural network, aid in separating out the irrelevant features which can conceal the presence of anomalies.
+  \item Building a robust anomaly detection model on complex, high-dimensional spaces require feature extractor and an anomaly detector. Various anomaly detectors used alongwith are illustrated in Table ~\ref{tab:hybridModels}
+\end{itemize}
+
+\textbf{Computational Complexity :} \\
+Computational complexity of an hybrid model includes complexity of both deep architectures as well as traditional algorithms used within.  Additionally  an inherent issue of non-trivial choice of deep network architecture and parameters which involves searching optimized parameters in a considerably larger space introduces the computational complexity of using deep layers within hybrid models. Furthermore considering the classical algorithms such as  linear SVM which has prediction complexity  of $O(d)$ with d the number of input dimensions. For most kernels, including polynomial and RBF, the complexity is $O(nd)$ where $n$ is the number of support vectors although an approximation $O(d^2)$ is considered for SVMs with an RBF kernel.
+
+\textbf{Advantages and Disadvantages }\\
+The advantages of hybrid DAD techniques are as follows:
+\begin{itemize}
+\item  The feature extractor greatly reduce the ‘curse of dimensionality’ especially in high dimensional domain.
+\item  Hybrid models are  more scalable and computationally efficient since the linear or nonlinear kernel models operate on reduced input dimension.
+\end{itemize}
+The significant disadvantages of hybrid DAD techniques are:
+\begin{itemize}
+\item  The hybrid approach is suboptimal because it is unable to influence representational learning within the hidden layers of feature extractor, since generic loss functions are employed instead of  customised objective for anomaly detection.
+\item The deeper hybrid models tend to perform better, if the individual layers are pre-trained ~\cite{saxe2011random} which introduces computational expenditure.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,211 @@
+% !TEX root=../main.tex
+
+We now present our one-class Neural Network (OC-NN) model for unsupervised anomaly detection.
+The method can be seen as designing a neural architecture using an  OC-SVM equivalent loss function.
+Using OC-NN we will be able to exploit and refine features obtained from unsupervised tranfer learning specifically for anomaly
+detection. This in turn will it make it possible to discern anomalies in complex data sets where the decision boundary between normal and anomalous
+is highly nonlinear.
+\vspace{-0.1cm}
+\subsection{One-Class Neural Networks (OC-NN)}
+\label{sec:oc-nn}
+We design a simple feed forward network with one hiden layer having linear or sigmoid activation $g(\cdot )$ and one output node. Generalizations to deeper
+architectures is straightforward. The OC-NN objective can be formulated as:
+\begin{equation}
+	\label{eqn:oc-nn}
+	\min_{w, V, \bias} \frac{1}{2} \| w \|_{2}^2 + \frac{1}{2} \| V \|_F^2 + \frac{1}{\nu} \cdot \frac{1}{N} \sum_{n= 1}^N \max( 0, \bias - \langle w, g( V  \X_{n :} ) \rangle ) - \bias
+\end{equation}
+
+where $w$ is the scalar output obtained from the hidden to output layer,
+$V$ is the weight matrix from input to hidden units.
+Thus the \underline{key insight} of the paper is to replace the dot product $\mathbf{\langle w,\Phi(\X_{n :}) \rangle}$ in OC-SVM with the dot product $\mathbf{\langle w,g(V\X_{n :})\rangle}$. This change will make it possible to leverage transfer learning features obtained using an autoencoder and create an additional layer to refine
+the features for anomaly detection. However, the price for the change is that the objective becomes non-convex and thus the resulting algorithm
+for inferring the parameters of the model will not lead to a global optima.
+
+%which is randomly initialized from the uniform distribution within the range $[-1, 1]$.  $\nu \in (0,1)$, is the parameter that
+%equates to the percentage of anomalies within data, found via grid search in the experiments. $\bias$ is the equivalent maximum margin separating plane from the origin.
+
+
+%%%%
+\begin{comment}
+\subsection{Connection to OC-SVM}
+\label{sec:connection_to_OC-SVM}
+
+Clearly, Equation~\ref{eqn:oc-nn} is the special case of the Equation~\ref{eqn:ocsvm-objective} presented in the Section~\ref{sec:ocsvm}, where the weights $V$  in Equation~\ref{eqn:oc-nn} are randomly initialised, and not optimised, and $g$ is the either a $linear$ and $sigmoid$ activations.
+More generally, for a deep network with parameters $w$, we have
+
+\begin{equation}
+\label{eqn:gen-oc-nn}
+ \min_{w,\bias} \frac{1}{2} \| w \|_{2}^2 +\frac{1}{\nu} \cdot \frac{1}{N} \sum_{i = 1}^N \max( 0, \bias - \langle w, \Phi( \X_{n :} w ) \rangle ) - \bias
+\end{equation}
+\end{comment}
+
+%%%%
+\vspace{-0.1cm}
+\subsection{Training the model}
+\label{sec:training}
+We can optimize Equation~\ref{eqn:oc-nn} using an alternate minimization approach: We first fix $r$ and optimize for $w$ and $V$. We then use
+the new values of $w$ and $V$ to optimize $r$. However, as we  will show, the optimal value of $r$ is just the $\upsilon$-quantile of
+the array $\langle w,g(Vx_{n})\rangle$. We first define the objective to solve for $w$ and $V$ as
+% \vspace{-0.1cm}
+\begin{equation}
+                \label{eqn:minimize_w_V}
+                 \underset{w, V}{\argmin} \frac{1}{2} \| w \|_{2}^2 + \frac{1}{2} \| V \|_F^2 + \frac{1}{\upsilon} \cdot \frac{1}{N} \sum_{n = 1}^N \ell( y_n, \hat{y}_n( w, V ) )
+                 \end{equation}
+                where
+                \begin{align*}
+                        \ell( y, \hat{y} ) &= \max( 0, y - \hat{y} ) \\
+                        y_n       &= \bias \\
+                        \hat{y}_n( w, V ) &= \langle w, g( V x_n ) \rangle
+                \end{align*}
+
+Similarly the optimization problem for $\bias$ is
+\begin{equation}
+\label{eqn:minimize_r}
+\underset{\bias}{\argmin} \left( \frac{1}{N\upsilon} \cdot \sum_{n = 1}^N \max( 0, \bias - \hat{y}_n ) \right) - r
+\end{equation}
+\begin{comment}
+%%%
+\begin{enumerate}[(1)]
+	\item Initialise $w^{(0)}, V^{(0)}, r^{(0)}$ randomly
+	\item for $t = 1, 2, \ldots$
+	\begin{enumerate}[(a)]
+		\item find $(w^{(t+1)}, V^{(t+1)})$ that minimise the objective through Backpropagation (BP) algorithm.
+		\begin{equation}
+		\label{eqn:minimize_w_V}
+		 \underset{w, V}{\argmin} \frac{1}{2} \| w \|_{2}^2 + \frac{1}{2} \| V \|_F^2 + \frac{1}{\upsilon} \cdot \frac{1}{N} \sum_{n = 1}^N \ell( y_n, \hat{y}_n( w, V ) )
+		 \end{equation}
+		where
+		\begin{align*}
+			\ell( y, \hat{y} ) &= \max( 0, y - \hat{y} ) \\
+			y_n       &= \bias^{(t)} \\
+			\hat{y}_n( w, V ) &= \langle w, g( V x_n ) \rangle
+		\end{align*}
+
+		\item pick $\bias^{(t)}$ to be the $\upsilon^{\text{th}}$ quantile of $\{ \hat{y}_n \}_{n = 1}^N$, where
+		$$ \hat{y}_n^{(t+1)} = \langle w^{(t+1)}, g( V^{(t+1)} x_n ) \rangle. $$
+	\end{enumerate}
+
+\end{enumerate}
+
+To justify step 2(b), let us observe that the optimisation with respect to $\bias$ is\\
+%
+\begin{equation}
+\label{eqn:minimize_r}
+\underset{\bias}{\argmin} \left( \frac{1}{N\upsilon} \cdot \sum_{n = 1}^N \max( 0, \bias - \hat{y}_n ) \right) - r
+\end{equation}
+\end{comment}
+\begin{theorem}
+Given $w$ and $V$ obtained from solving Equation~\ref{eqn:minimize_w_V}, the solution to Equation~\ref{eqn:minimize_r} is given
+by the $\upsilon^{\text{th}}$ quantile of $\{ \hat{y}_n \}_{n = 1}^N$, where
+                $$ \hat{y}_n = \langle w, g(V x_n ) \rangle. $$
+\end{theorem}
+\begin{proof}
+ We can rewrite Equation~\ref{eqn:minimize_r} as:
+\begin{align*}
+%\underset{\bias}{\argmin} \left( \frac{1}{N\upsilon} \cdot \sum_{n = 1}^N \max( 0, \bias - \hat{y}_n ) \right) - r \\
+\underset{\bias}{\argmin} \left( \frac{1}{N\upsilon} \cdot \sum_{n = 1}^N \max( 0, \bias - \hat{y}_n ) \right) - \left( \bias - \frac{1}{N} \sum_{n = 1}^{N} \hat{y}_n \right) \\
+= \underset{\bias}{\argmin} \left( \frac{1}{N\upsilon} \cdot \sum_{n = 1}^N \max( 0, \bias - \hat{y}_n ) \right) - \left( \frac{1}{N} \sum_{n = 1}^{N} \left[ \bias - \hat{y}_n \right] \right) \\
+= \underset{\bias}{\argmin} \left( \sum_{n = 1}^N \max( 0, \bias - \hat{y}_n ) \right) - \upsilon \cdot \left( \sum_{n = 1}^{N} \left[ \bias - \hat{y}_n \right] \right) \\
+= \underset{\bias}{\argmin} \sum_{n = 1}^N \left[ \max( 0, \bias - \hat{y}_n ) - \upsilon \cdot \left( \bias - \hat{y}_n \right) \right] \\
+= \underset{\bias}{\argmin} \sum_{n = 1}^N
+\begin{cases} (1 - \upsilon) \cdot \left( \bias - \hat{y}_n \right) & \text{ if } \bias - \hat{y}_n > 0 \\ - \upsilon \cdot \left( \bias - \hat{y}_n \right) & \text{ otherwise}
+\end{cases}
+\end{align*}
+% \vspace{0.4cm}
+\vspace{-0.1cm}
+We can observe that the derivative with respect to $r$ is
+$$ F'( r ) = \sum_{n = 1}^N \begin{cases} (1 - \upsilon) & \text{ if } \bias - \hat{y}_n > 0 \\ -\upsilon & \text{ otherwise. } \end{cases} $$
+Thus, by F'( r ) = 0 we obtain
+%
+\begin{align*}
+	(1 - \upsilon) \cdot \sum_{n = 1}^N \indicator{ \bias - \hat{y}_n > 0 } &= \upsilon \cdot \sum_{n = 1}^N \indicator{ \bias - \hat{y}_n \leq 0 } \\
+	&= \upsilon \cdot \sum_{n = 1}^N (1 - \indicator{ \bias - \hat{y}_n > 0 }) \\
+	&= \upsilon \cdot N - \upsilon \cdot \sum_{n = 1}^N \indicator{ \bias - \hat{y}_n > 0 },
+\end{align*}
+or
+\begin{equation}
+ \frac{1}{N} \sum_{n = 1}^N \indicator{ \bias -\hat{y}_n > 0 }= \frac{1}{N} \sum_{n = 1}^N \indicator{ \hat{y}_n < r } = \upsilon
+\end{equation}\\
+This means we would require the $\nu^{\text{th}}$ quantile of $\{ \hat{y}_n \}_{n = 1}^N$.
+\end{proof}
+% \vspace{0.3cm}
+%Algorithm
+\vspace{-0.3cm}
+\subsection{OC-NN Algorithm}
+\label{sec:algorithm}
+We summarize the solution in Algorithm~\ref{alg1}. We initialize $\bias^{(0)}$ in Line 2. We learn the parameters($w,V$) of the neural network
+using the standard Backpropogation(BP) algorithm (Line 7). In the experiment section, we will train the model using features extracted from
+an autoencoder instead of raw data points. However this has no impact on the OC-NN algorithm. As show  in Theorem 3.1, we solve for $\bias$
+using the $\upsilon$-quantile of the scores $\langle y_{n} \rangle$. Once the convergence criterion is satisfied, the data points are
+labeled normal or anomalous using the decision function $S_{n} = sgn(\hat{y}_{n} - r)$.
+
+\begin{algorithm}
+\caption{one-class neural network (OC-NN) algorithm}\label{alg:oc-nn}
+\label{alg1}
+\begin{algorithmic}[1]
+\State{
+\textbf{Input:} Set of points $\X_{n :},\hspace{0.2cm} n: 1,...,N$
+}
+\State{
+\textbf{Output:} A Set of decision scores $S_{n :}=\hat{y}_{n :}$, n: 1,...,N for X
+}
+
+\State Initialise $\bias^{(0)}$
+\State $t \gets 0$
+\While{(no convergence achieved)}
+\State Find $(w^{(t+1)}, V^{(t+1)})$ \Comment Optimize Equation~\ref{eqn:minimize_w_V} using BP.
+\State $r^{t+1} \gets \nu^{\text{th}}$ quantile of $\{ \hat{y}_n^{t+1} \}_{n = 1}^N$
+\State $t \gets t + 1$
+\EndWhile \label{endwhile}
+\State \textbf{end}
+\State Compute decision score $S_{n :}=  \hat{y}_n -r  \mbox{ for each }  \X_{n :}$
+\If{($S_{n :}$ $\geq$ 0)}
+    \State $\X_{n :}$ is normal point
+   \Else
+    \State $\X_{n :}$ is anomalous
+\EndIf
+
+\State \textbf{return} $\{S_n\}$
+
+\end{algorithmic}
+\end{algorithm}
+% \vspace{-0.05cm}
+%
+\noindent
+{\bf Example:} We give a small example to illustrate that the minimum of the function
+\[f(r) =  \left( \frac{1}{N\upsilon} \cdot \sum_{n = 1}^N \max( 0, \bias - y_n ) \right) - r\] occurs at the
+the $\upsilon$-quantile of the set $\{y_{n}\}$. \\
+
+Let $y =\{1,2,3,4,5,6,7,8,9\}$ and  $\upsilon = 0.33$. Then the minimum will occur at $f(3)$ as detailed in
+the table below.
+\[
+\begin{array}{|r|l|r|}  \hline \hline
+r & f(r) (\mbox{expr}) & f(r) (\mbox{value}) \\ \hline \hline
+1 & \frac{1}{9*.33}[0 + 0 +\ldots 0] - 1 & -1.00 \\ \hline
+2 & \frac{1}{9*.33}[1 + 0 +\ldots 0] - 2 & -1.67 \\ \hline
+\rowcolor{green!20}
+3 & \frac{1}{9*.33}[2 + 1 +\ldots 0] - 3 & -1.99  \\ \hline
+4 & \frac{1}{9*.33}[3 + 2 + 1 +\ldots 0] - 4 & -1.98  \\ \hline
+5 & \frac{1}{9*.33}[4 + 3 + 2 + 1\ldots 0] - 5 & -1.63  \\ \hline
+6 & \frac{1}{9*.33}[5 + 4  + 3 + 2 + 1\ldots 0] - 6 & -0.94  \\ \hline
+7 & \frac{1}{9*.33}[6 + 5  + 4 + 3 + 2 + 1\ldots 0] - 7 & 0.07  \\ \hline
+8 & \frac{1}{9*.33}[7 + 6  + 5 + 4 + 3 + 2 + 1\ldots 0] - 8 & 1.43  \\ \hline
+9 & \frac{1}{9*.33}[8 + 7  + 6 + 4 + \ldots 0] - 9 & 3.12  \\ \hline
+\end{array}
+\]
+
+
+\begin{comment}
+\subsection{Predicting with the model}
+
+One convenient property of our model is that the anomaly detector will be inductive, i.e.\ it can generalise to unseen data points.
+One can interpret the model as learning a non linear projection  of the input;
+such a representation should thus be able to accurately model any unseen points that lie on the same manifold as the data used to train the model. Formally, $f( x ) = \langle w, \Phi( \X_{n :} w ) \rangle$  computes decision score of the given data point.
+The "negative" or "closer" $\langle w, \Phi( \X_{n :} w ) \rangle$ is, to origin and the more likely the point is deemed to be anomalous.
+
+%
+\subsection{Relation to existing models}
+Our contribution is breaking-new grounds, to integrate the OC-SVM equivalent objective into the neural
+network architecture, utilizing the features extracted through unsupervised tranfer representation learning for anomaly detection.
+Some previous works have employed deep networks for anomaly detection~\cite{chalapathy2017robust,zhou2017anomaly}. For example, the recent work of \cite{zhou2017anomaly} employed an autoencoder-inspired objective to train a robust deep autoencoder network, with extensions to capture structured noise within the data; Our method is distinct to robust deep autoencoders (RDA),  wherein we introduce a novel one-class neural network objective function illustrating the analytic derivation of $\nu^{th}$ quantile of the sorted output scores represents, the maximum margin distance,  separating normal data from anomalies. Although, nonlinear projections~\cite{bingham2001random,rathore2017ensemble} have been explored  for anomaly detection. We are unaware of prior usage of transfer learnt autoencoder networks integrated with one-class neural network objective to detect anomalies in unsupervised fashion.
+\end{comment}

@@ -1,0 +1,72 @@
+%!TEX root = ../../main.tex
+\subsection{Semi-supervised deep anomaly detection }
+\label{sec:semi_supervised_DAD}
+Semi-supervised or (one-class classification) DAD techniques assume that all training instances have only one class label.  A review of deep learning based semi-supervised techniques is presented by Kiran et.al and Min et.al~\cite{kiran2018overview,min2018ids}. DAD techniques learn a discriminative boundary around the normal instances. The test instance that does not belong to the majority class is flagged as being anomalous~\cite{perera2018learning,blanchard2010semi}. Various  semi-supervised DAD model architectures are illustrated in Table~\ref{tab:semisupervisedModels}.
+
+%%%%%%% Begin table Semi-supervised deep anomaly detection models
+\begin{table*}
+\begin{center}
+\caption{Semi-supervised DAD models overview
+        \\AE: Autoencoders, DAE: Denoising Autoencoders, KNN : K- Nearest Neighbours
+        \\CorGAN: Corrupted Generative Adversarial Networks, DBN: Deep Belief Networks
+        \\ AAE: Adversarial Autoencoders, CNN: Convolution neural networks
+        \\ SVM:  Support vector machines.}
+    \label{tab:semisupervisedModels}
+    \begin{tabular}{ | p{4cm} | p{4cm} | p{4cm} |}
+    \hline
+     \textbf{Techniques}  & \textbf{Section} & \textbf{References} \\ \hline
+     AE & Section ~\ref{sec:ae} & ~\cite{edmunds2017deep} ,~\cite{estiri2018semi}\\\hline
+     RBM & Section ~\ref{sec:dnn} & ~\cite{jia2014novel} \\\hline
+     DBN & Section ~\ref{sec:dnn} & ~\cite{wulsin2010semi},~\cite{wulsin2011modeling} \\\hline
+     CorGAN,GAN & Section~\ref{sec:gan_adversarial} & ~\cite{gu2018semi} ~\cite{akcay2018ganomaly},~\cite{sabokrou2018adversarially}\\\hline
+     AAE &Section~\ref{sec:gan_adversarial} & ~\cite{dimokranitou2017adversarial}\\\hline
+     Hybrid Models (DAE-KNN~\cite{altman1992introduction}), (DBN-Random Forest~\cite{ho1995random}),CNN-Relief~\cite{kira1992feature},CNN-SVM~\cite{cortes1995support} & Section~\ref{sec:DHM} & ~\cite{song2017hybrid},~\cite{shi2017semi},~\cite{zhu2018hybrid} \\\hline
+     CNN & Section~\ref{sec:cnn} & ~\cite{racah2017extremeweather},~\cite{perera2018learning} \\ \hline
+     RNN & Section~\ref{sec:rnn_lstm_gru} & ~\cite{wu2018semi} \\ \hline
+     GAN & Section~\ref{sec:gan_adversarial} & ~\cite{kliger2018novelty},~\cite{gu2018semi} \\ \hline
+    \end{tabular}
+\end{center}
+\end{table*}
+%%%%%%%%% End of industrial damage detection
+
+% OCSVM~\cite{scholkopf2002support}, SVDD~\cite{scholkopf2002support}
+% SVM~\cite{cortes1995support}
+% KNN~\cite{altman1992introduction}
+% Random Forest~\cite{ho1995random}
+% Relief~\cite{kira1992feature}
+% CSI~\cite{ruchansky2017csi}
+% Section ~\ref{sec:ae}
+% Section ~\ref{sec:rnn_lstm_gru}
+% Section ~\ref{sec:gan_adversarial}
+% Section ~\ref{sec:dnn}
+% Section ~\ref{sec:cnn}
+% Section ~\ref{sec:hybridModels}
+
+
+\textbf{Assumptions : }
+Semi-supervised DAD methods proposed rely on one the following assumptions to score a data instance as an anomaly.
+\begin{itemize}
+ \item  Proximity and Continuity: Points which are close to each other both in input space  and learnt feature space are more likely to share a same label.
+  \item Robust features are learnt within hidden layers of deep neural network layers and retain the discriminative attributes for separating normal from outlier data points.
+\end{itemize}
+
+\textbf{Computational Complexity :} 
+The computational complexity of semi-supervised DAD methods based techniques is similar to supervised DAD techniques, which primarily depends on the dimensionality of the input data and the number of hidden layers used for representative feature learning.\\
+
+\textbf{Advantages and Disadvantages:}
+The advantages of semi-supervised deep anomaly detection techniques are as follows:
+\begin{itemize}
+\item  Generative Adversarial Networks (GANs) trained in semi-supervised learning mode have shown great promise, even with very few labeled data.
+\item  Use of labeled data ( usually of one class), can produce considerable performance improvement   over unsupervised techniques.
+\end{itemize}
+The fundamental disadvantages of semi-supervised techniques presented by Lu et.al ~\cite{lu2009fundamental} is applicable even in deep learning context. Furthermore the hierarchical features extracted within hidden layers may not be representative of fewer anomalous instances hence are prone to over-fitting problem.
+
+
+
+
+
+
+
+
+
+

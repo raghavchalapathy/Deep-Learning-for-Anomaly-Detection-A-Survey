@@ -1,0 +1,43 @@
+%!TEX root = ../../main.tex
+\subsection{Industrial Anomalies Detection}
+
+Industrial systems consisting of wind turbines, power plants, high-temperature energy systems, storage devices and  with rotating mechanical parts are exposed to enormous stress on a day-to-day basis. Damage to these type of systems not only causes economic loss but also a loss of reputation, therefore detecting and repairing them early is of utmost importance. Several machine learning techniques have been used to detect such damage in industrial systems ~\cite{ramotsoela2018survey,marti2015anomaly}. Several papers published utilizing deep learning models for detecting early industrial damage show great promise~\cite{atha2018evaluation,de2018automatic,wang2018residential}. Damages caused to equipment's are rare events, thus  detecting such events can be formulated as outlier detection problem. The challenges associated with outlier detection in this domain is both volume as well as dynamic nature of data, since failure can be caused due to variety of factors. Some of the DAD techniques employed across various industries are illustrated in Table ~\ref{tab:industrialDamageDetect}.
+
+
+
+%%%%%%% Begin table industrial damage detection
+\begin{table*}
+\begin{center}
+\caption{Examples of DAD techniques used in industrial operations.
+        \\CNN: Convolution Neural Networks, LSTM : Long Short Term Memory Networks
+        \\GRU: Gated Recurrent Unit, DNN : Deep Neural Networks
+        \\AE: Autoencoders, DAE: Denoising Autoencoders, SVM: Support Vector Machines
+        \\SDAE: Stacked Denoising Autoencoders, RNN : Recurrent Neural Networks.}
+    \label{tab:industrialDamageDetect}
+    \captionsetup{justification=centering}
+    \scalebox{0.85}{
+    \begin{tabular}{ | l | p{2cm} | p{8cm} |}
+    \hline
+     \textbf{Techniques}  & \textbf{Section} & \textbf{References} \\ \hline
+     LSTM & Section ~\ref{sec:rnn_lstm_gru} &  ~\cite{inoue2017anomaly},~\cite{thi2017one},~\cite{kravchik2018detecting},~\cite{huang2018deep},~\cite{park2018lired},~\cite{chang2018review}\\\hline
+     AE & Section ~\ref{sec:ae} & ~\cite{yuan2015distributed},~\cite{araya2017ensemble},~\cite{qu2017detection},~\cite{sakurada2014anomaly},~\cite{bhattad2018detecting}\\\hline
+     DNN & Section ~\ref{sec:dnn} & ~\cite{lodhi2017power}\\\hline
+     CNN & Section ~\ref{sec:cnn} & ~\cite{faghih2016deep},~\cite{christiansen2016deepanomaly},~\cite{lee2016convolutional},~\cite{faghih2016deep}, ~\cite{dong2016camera},~\cite{nanduri2016anomaly},~\cite{fuentes2017robust},~\cite{huang2018deep},~\cite{chang2018review}\\\hline
+     SDAE,DAE & Section ~\ref{sec:ae} & ~\cite{yan2015accurate},~\cite{luo2017gas},~\cite{dai2017cleaning} \\\hline
+     RNN & Section ~\ref{sec:rnn_lstm_gru} & ~\cite{banjanovic2017neural},~\cite{thi2017one} \\\hline
+     Hybrid Models (DNN-SVM) & Section ~\ref{sec:hybridModels} & ~\cite{inoue2017anomaly} \\\hline
+    \end{tabular}}
+\end{center}
+\end{table*}
+%%%%%%%%% End of industrial damage detection
+
+
+
+
+
+
+
+
+
+
+

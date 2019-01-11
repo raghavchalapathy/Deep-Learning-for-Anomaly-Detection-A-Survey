@@ -1,0 +1,13 @@
+% !TEX root=../main.tex
+We propose a one-class neural network (OC-NN) model to detect anomalies in complex data sets. OC-NN
+combines the ability of deep networks to extract progressively rich representation of data
+with the one-class objective of creating a tight envelope around normal  data. The OC-NN approach
+breaks new ground for the following crucial reason:  data representation in the hidden layer is
+driven by the OC-NN objective and is thus customized for anomaly detection. This is a departure
+from other approaches which use a hybrid approach of learning deep features using an autoencoder
+and then feeding the features into a separate anomaly detection method like one-class SVM (OC-SVM).
+The hybrid OC-SVM approach is sub-optimal because it is unable to influence representational
+learning in the hidden layers. A comprehensive set of experiments demonstrate that on complex data
+sets (like CIFAR and GTSRB), OC-NN performs on par with state-of-the-art methods and outperformed conventional shallow methods in some scenarios.
+
+\keywords {one class svm,  anomalies detection, outlier detection, deep learning }

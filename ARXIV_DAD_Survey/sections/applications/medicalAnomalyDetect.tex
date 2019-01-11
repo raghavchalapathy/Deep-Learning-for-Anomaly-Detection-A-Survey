@@ -1,0 +1,40 @@
+%!TEX root = ../../main.tex
+\subsection{Medical Anomaly Detection:}
+\label{sec:medical_anomaly_detection}
+
+ Several studies have been conducted to understand the theoretical and practical applications of deep learning in medical and bio-informatics ~\cite{min2017deep,cao2018deep,zhao2016deep,khan2018review}. Finding rare events (anomalies) in areas such as medical image analysis, clinical electroencephalography (EEG) records,  enable to diagnose and provide preventive treatments for a variety of medical conditions. Deep learning based architectures are employed with great success to detect medical anomalies as illustrated in Table ~\ref{tab:medicalanomalyDetect}. The vast amount of imbalanced data in medical domain presents significant challenges to detect  outliers. Additionally deep learning techniques for long have been considered as black-box techniques, i,e even though deep learning models produce outstanding performance, these models lack interpret-ability. In recent times models with good interpret-ability are proposed and shown to produce state-of-the-art performance ~\cite{gugulothusparse,amarasinghe2018toward,choi2018doctor}.
+
+%%%%%%% Begin table fraud detection
+\begin{table*}
+\begin{center}
+  \caption{Examples of DAD techniques Used for medical anomaly detection.
+          \\AE: Autoencoders, LSTM : Long Short Term Memory Networks
+          \\GRU: Gated Recurrent Unit, RNN: Recurrent Neural Networks
+          \\CNN: Convolutional Neural Networks,VAE: Variational Autoencoders
+          \\GAN: Generative Adversarial Networks, KNN: K-nearest neighbours
+          \\RBM: Restricted Boltzmann Machines.}
+  \captionsetup{justification=centering}
+  \label{tab:medicalanomalyDetect}
+   \scalebox{0.9}{
+    \begin{tabular}{ | l | p{3cm} | p{9cm} |}
+    \hline
+    Technique Used & Section & References \\ \hline
+     AE  & Section~\ref{sec:ae} & ~\cite{wang2016research,cowton2018combined},~\cite{sato2018primitive}\\\hline
+     DBN & Section~\ref{sec:dnn} & ~\cite{turner2014deep},~\cite{sharma2016abnormality},~\cite{wulsin2010semi},~\cite{ma2018unsupervised},~\cite{zhang2016automatic},~\cite{wulsin2011modeling} ,~\cite{wu2015adaptive}\\\hline
+     RBM & Section~\ref{sec:dnn}  & ~\cite{liao2016enhanced}\\\hline
+     VAE & Section~\ref{sec:gan_adversarial} & ~\cite{xu2018unsupervised},~\cite{lu2018anomaly} \\\hline
+     GAN & Section~\ref{sec:gan_adversarial}&~\cite{ghasedi2018semi},~\cite{chen2018unsupervised} \\\hline
+     LSTM ,RNN,GRU & Section~\ref{sec:rnn_lstm_gru} & ~\cite{yang2018toward},~\cite{jagannatha2016bidirectional},~\cite{cowton2018combined},~\cite{o2016recurrent},~\cite{latif2018phonocardiographic},~\cite{zhang2018time},~\cite{chauhan2015anomaly},~\cite{gugulothusparse,amarasinghe2018toward}\\\hline
+     CNN  & Section~\ref{sec:cnn} & ~\cite{schmidt2018artificial},~\cite{esteva2017dermatologist},~\cite{wang2016research},~\cite{iakovidis2018detecting}\\\hline
+     Hybrid( AE+ KNN) & Section~\ref{sec:cnn} & ~\cite{song2017hybrid} \\\hline
+    \end{tabular}}
+\end{center}
+\end{table*}
+%%%%%%%%% End of table Medical anomaly detection
+
+
+
+
+
+
+

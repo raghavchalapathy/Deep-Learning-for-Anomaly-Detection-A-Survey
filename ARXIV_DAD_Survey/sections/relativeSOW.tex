@@ -1,0 +1,17 @@
+%!TEX root = ../main.tex
+\section{ Relative Strengths and Weakness : Deep Anomaly Detection Methods}
+\label{sec:relativeSOW}
+Each of the deep anomaly detection (DAD) techniques discussed in previous
+sections have their unique strengths and weaknesses. It is critical to understand which
+anomaly detection technique is best suited for a given anomaly detection problem context.
+Given the fact that DAD is an active research area, it is not feasible to provide such an
+understanding for every anomaly detection problem. Hence in  this section we analyze the
+relative strengths and weakenesses of different categories of techniques for a few
+simple problem settings.\\
+Classification based supervised DAD techniques illustrated in Chapter ~\ref{chpt:supervisedDAD} are  better choices in scenario consisting of equal amount of labels for both normal and anomalous instances. The computational complexity of supervised DAD technique is a key aspect, especially when the technique is applied to a real domain. While classification
+based, supervised or semi-supervised techniques have expensive training times, testing is usually fast since it uses pre-trained model. Unsupervised DAD techniques presented in Chapter~\ref{chpt:unsupervisedDAD} are being widely used since
+label acquisition is very expensive and time consuming process. Most of the unsupervised deep anomaly detection requires priors to be assumed on the anomaly distribution hence the models are less robust in handling noisy data. Hybrid models illustrated in Section~\ref{sec:hybridModels} extract robust features within hidden layers of deep neural network, and feed to best performing classical anomaly detection algorithms. The hybrid model approach is suboptimal because it is unable to influence representational learning in the hidden layers.  The One-class Neural Networks  (OC-NN) described in Section~\ref{sec:oneclassNN} combines the ability of deep networks to extract progressively rich representation of data alongwith the one-class objective, such as an hyperplane~\cite{chalapathy2018anomaly} or hypersphere ~\cite{ruff2018deep} to separate all the normal data points from the origin. Further research and exploration is necessary to better comprehend the benefits of this new architecture proposed.
+
+
+
+

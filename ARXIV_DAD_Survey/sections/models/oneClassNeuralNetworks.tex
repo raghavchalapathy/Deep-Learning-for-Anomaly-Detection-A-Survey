@@ -1,0 +1,32 @@
+%!TEX root = ../../main.tex
+\subsection{One-class neural networks (OC-NN) for anomaly detection}
+\label{sec:oneclassNN}
+One-class neural networks (OC-NN) combines the ability of deep networks to extract progressively rich representation of data alongwith the one-class objective, such as an hyperplane~\cite{chalapathy2018anomaly} or hypersphere ~\cite{ruff2018deep} to separate all the normal data points from the outliers. The OC-NN approach is novel for the following crucial reason: data representation in the hidden layer are learned by optimising the objective function customised for anomaly detection as illustrated in
+The experimental results in ~\cite{chalapathy2018anomaly,ruff2018deep} demonstrate that OC-NN can achieve comparable or better performance than existing state-of-the art methods for complex datasets, while having reasonable training and testing time compared to the existing methods.
+
+\textbf{Assumptions : } 
+The OC-NN models proposed for anomaly detection rely on the  following assumptions to detect outliers:
+\begin{itemize}
+ \item  OC-NN models extracts the common factors of variation within the data distribution within the hidden layers of deep neural network.
+  \item Performs combined representation learning and produces a outlier score for test data instance.
+  \item Anomalous samples do not contain common factors of variation and hence hidden layers fails to capture the representations of outliers.
+\end{itemize}
+
+\textbf{Computational Complexity :} 
+The Computational complexity of an OC-NN model as against the  hybrid model includes only the complexity of deep network of choice ~\cite{saxe2011random}. OC-NN models do not require  data to be
+stored for prediction, thus have very low memory complexity. However  it is evident that the OC-NN training time is proportional to the input dimension.
+
+\textbf{Advantages and Disadvantages:}
+The advantages of OC-NN  are as follows:
+\begin{itemize}
+\item  OC-NN  models jointly trains a deep neural network while optimizing a data-enclosing hypersphere or hyperplane in output space.
+\item OC-NN propose an alternating minimization algorithm for learning
+the parameters of the OC-NN model. We observe that the subproblem of the OC-NN objective is equivalent to a solving a quantile selection problem which is well defined.
+\end{itemize}
+The significant disadvantages of OC-NN for anomaly detection are:
+\begin{itemize}
+\item Training times  and model update time may be longer for high dimensional input data.
+\item Model updates would also take longer time, given the change in input space.
+\end{itemize}
+
+

@@ -1,0 +1,112 @@
+% SYNONYMS
+ 
+%examine, study, investigate, explore, consider, analyse, review, outline
+%propose, suggest, advance, offer, present, submit, prefer, initiate, recommend,  posit
+%develop 	expand, reinforce, extend, broaden, enhance, elaborate, amplify, refine, improve, polish, perfect
+% create, generate, produce, design, fabricate, manufacture, build, construct, erect,
+%  group-category,  gather, mass, cluster, aggregation, collection, network, crowd, collection
+% represents- depict, portray, render, delineate, show, illustrate,  characterize, paint, draw, sketch, indicate, identifies, denotes, symbolise, signifies
+%examine- inspect, survey, scrutinize, enquire into, study, investigate,explore, consider, appraise,research, analyse, review,
+
+\documentclass[format=acmsmall, screen=true]{acmart}
+%\documentclass[10pt,a4paper]{article}
+\usepackage{booktabs}  
+\usepackage{float,caption}
+\usepackage{algorithm,algcompatible,amsfonts} 
+\usepackage{subcaption,multirow} 
+\usepackage{tabularx,enumerate,amsmath,graphicx}
+\usepackage{pifont,pbox}
+\newcommand{\yeah}{\checkmark}
+\newcommand{\nope}{ {\small \ding{55}} }
+
+ %\email{etot5316@uni.sydney.edu.au}
+%
+
+\begin{document}
+
+
+
+\setcopyright{acmcopyright}
+\acmJournal{CSUR}
+\acmYear{2018} \acmVolume{1} \acmNumber{1} \acmArticle{1} \acmMonth{1}
+ \acmPrice{\$15.00}
+ \acmDOI{10.1145/3203246}
+
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10002944.10011122.10002945</concept_id>
+<concept_desc>General and reference~Surveys and overviews</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010257.10010258.10010260.10010229</concept_id>
+<concept_desc>Computing methodologies~Anomaly detection</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10002950.10003648.10003688.10003693</concept_id>
+<concept_desc>Mathematics of computing~Time series analysis</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{General and reference~Surveys and overviews}
+\ccsdesc[500]{Computing methodologies~Anomaly detection}
+\ccsdesc[300]{Mathematics of computing~Time series analysis}
+
+\author{Edward Toth}
+\affiliation{%
+    \institution{School of Information Technologies, The University of Sydney}
+       \email{etot5316@uni.sydney.edu.au}
+%   \city{ Sydney}
+    \country{Australia}
+}
+%
+\author{Sanjay Chawla }
+\affiliation{%
+    \institution{Qatar Computing Research Institute, Hamad bin Khalifa University }
+    \email{schawla@qf.org.qa}
+    \city{Doha}
+    \country{Qatar}
+}
+ 
+
+%\input{Abstract}
+
+%\begin{abstract}
+%Given a portfolio of stocks, a series of frames in a surveillance video or even a group of people, how do we detect dynamic anomalous changes in their collective behaviors in an online fashion? 
+% As a solution to this problem, we propose GRACE, an effective algorithm that is rapid and flexible in detecting significant changes in different aspects of group distributions.  
+% 
+%In this paper, we validate the theoretical distribution of test statistics computed in GRACE as well as demonstrate the effectiveness of GRACE as compared with state-of-the-art models. We also implement our proposed method on two real world applications; video footage recording the movement of pedestrians and a portfolio of health care stocks over a a twenty year period.  
+%\end{abstract}
+
+%Anomaly detection and change detection is an important research area with a vast range of domain applications. %Additional issues arise when involving group structures.  
+
+\begin{abstract}
+Pointwise anomaly detection and change detection focus on the study of individual data instances however an emerging area of research involves groups or collections of observations. From applications of high energy particle physics to healthcare  collusion,  group deviation detection techniques result in novel research discoveries, mitigation of risks,  prevention of  malicious collaborative activities and other interesting explanatory  insights.  In particular, static group anomaly detection   is the process of identifying groups that are not consistent with regular group patterns while dynamic group change detection  assesses significant differences in the state of a group  over a period of time. Since both group anomaly detection   and group change detection   share fundamental ideas, this survey paper provides a clearer and deeper understanding of group deviation detection  research in static and dynamic situations.  %by explains the underlying structure and key descriptive components for state-of-the-art techniques. 
+\end{abstract} 
+ \keywords{Group deviation detection, group anomaly detection, group change detection, machine learning, generative models, discriminative methods, hypothesis testing} 
+ 
+ \title{  Group Deviation Detection Methods: A Survey }
+\maketitle
+
+
+\input{Intro} 
+\input{Problem}
+\input{MyModel} 
+\input{Discriminative}
+\input{Generative}
+\input{Comparison}  
+\input{Conclusion}
+\bibliographystyle{acm} 
+\bibliography{biblio}
+
+
+%% 21/10 - Intro + MyModel TOOK 5-6hrs to revise
+%% Need cite{} change detection techniques survey {Related Work}
+
+
+\end{document}

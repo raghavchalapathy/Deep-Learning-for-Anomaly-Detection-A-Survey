@@ -1,0 +1,32 @@
+%!TEX root = ../../main.tex
+\subsection{Miscellaneous Techniques}
+This section explores, various DAD techniques which are shown to be effective and promising,  we discuss the key idea behind those techniques, and their area of applicability.
+
+\subsubsection{Transfer Learning based anomaly detection : }
+Deep learning for long has been critized for the need to have enough data to produce good results.
+Transfer learning relaxes this data dependence and helps to  achieve good performance even with limited  training data instances. Litjens et.al and Pan et.al ~\cite{litjens2017survey,pan2010survey} present the review on deep transfer learning approaches. Transfer learning is an important tool in machine learning to solve the basic problem of insufficient training data. It aims to transfer the knowledge from the source domain to the target domain by relaxing the assumption that  training and future data must be in the same feature space and have the same distribution. Deep transfer representation-learning has been explored ~\cite{andrews2016transfer,vercruyssen2017transfer,li2012detecting,almajai2012anomaly,kumar2017transfer,liang2018transfer} and shown to produce very promising results. The open research questions using transfer learning for anomaly detection is , the degree of  transferability, that is to define how well features transfer the knowledge and improve the classification performance from one task to another.
+
+\subsubsection{Zero Shot learning based anomaly detection:}
+Zero shot learning (ZSL)  aims recognize objects never seen before within training set~\cite{romera2015embarrassingly}.
+ZSL achieves this  in two phases: Firstly the  knowledge about the objects in natural language descriptions or attributes (commonly known as meta-data) is captured Secondly this knowledge is then used to classify instances among a new set of classes. This setting is important in real world since one may not be able to obtain images of all the possible classes at training. The main challenge associated with this approach is the obtaining the meta-data about the data instances. However several approaches of using ZSL in anomaly and novelty detection are shown to produce state-of-the-art results ~\cite{mishra2017generative,socher2013zero,xian2017zero,liu2017generalized,rivero2017grassmannian}.
+
+\subsubsection{Ensemble based anomaly detection:}
+ A notable issue with deep neural networks is that they are sensitive to noise within input data and often require large training data to perform robustly~\cite{kim2016lstm}. In order to achieve robustness even in noisy data an idea to randomly vary on the connectivity architecture of the autoencoder are shown to obtain signicantly better performance. An autoencoder ensembles consisting of  various randomly connected autoencoders are experimented by Chen et.al ~\cite{chen2017outlier} to achieve promising results on several bench-mark datasets. The ensemble approaches are still an active area of research which has been shown to produce improved diversity, thus avoid overfitting problem while reducing training time.
+
+% Similarly Kim et.al  employ a novel ensemble method that combines  multiple thresholding classifiers into a single one unit , enabling it possible to recognize ‘highly normal’ sequences.
+
+\subsubsection{Clustering based anomaly detection:}
+Several anomaly detection  algorithms based on clustering have been proposed in literature ~\cite{ester1996density}. Clustering involves grouping together similar patterns based on features extracted  detect new anomalies. The time and space complexity grows linearly with number of classes to be clustered ~\cite{sreekanth2010generalized}, which renders the clustering based anomaly detection prohibitive for real-time practical applications.  The dimensionality of the input data is reduced  extracting features within the hidden layers of deep neural network which ensures scalability for complex and high dimensional datasets.  Deep learning enabled clustering approach anomaly detection utilizes e.g word2vec ~\cite{mikolov2013efficient}  models to get the semantical presentations of normal data and anomalies to form clusters and detect outliers ~\cite{yuan2017deep}. Several works rely on variants of hybrid models along with auto-encoders for obtaining representative features for  clustering to find anomalies~\cite{aytekin2018clustering,xie2016unsupervised,guo2017improved,xie2016unsupervised,guo2017deep,wang2016learning,mani2018scalable}.
+
+
+\subsubsection{Deep Reinforcement Learning (DRL) based anomaly detection:}
+\label{reinforcementlearning},
+Deep reinforcement learning (DRL) methods have attracted significant interest due to its ability to learn complex behaviors in high-dimensional data space. Efforts to detect anomalies using deep reinforcement learning have been proposed by ~\cite{de2017learning,rlanomaly}.
+The DRL based anomaly detector  does not consider any assumption about the concept of the anomaly,  the detector identifies new anomalies by consistently enhancing its knowledge  through reward signals accumulated. DRL based anomaly detection is a very novel concept which  requires further investigation and identification of research gap and its applications.
+
+\subsubsection{Statistical techniques deep anomaly detection: }
+Hilbert transform is statistical signal processing technique which derives the analytic representation of a real-valued signal. This property is leveraged by Kanarachos et.al~\cite{kanarachos2015anomaly} for real time detection of anomalies in health related time series dataset and is shown to be a very promising technique. The algorithm combines the ability of wavelet analysis, neural networks and Hilbert transform in a sequential manner to detect real-time anomalies. The topic of statistical techniques DAD techniques requires further investigation to fully understand thier potential and applicability for anomaly detections.
+
+
+% Although the authors claim the real time detection of anomalies In the fourth comming years these statistical signal processing techniques have been rarely experimented due to the fact that the training phase can be computationally demanding and exprensive.
+
