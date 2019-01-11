@@ -17,7 +17,7 @@ I would be updating the paper every two-weeks and will be including and citing y
   5. Related Work
   6. Our Contributions
   7. Organization
-  8. Different aspects of deep learning-based anomaly detection.
+  8. #### Different aspects of deep learning-based anomaly detection.
      1. Nature of Input Data
      2. Based on Availability of labels 
           * Supervised deep anomaly detection
