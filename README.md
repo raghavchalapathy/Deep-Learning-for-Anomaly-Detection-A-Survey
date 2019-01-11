@@ -4,11 +4,11 @@
 
 ## Contributing
 
-Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title and preferably bibtex entry [here](https://github.com/raghavchalapathy/Deep-Learning-for-Anomaly-Detection-A-Survey/issues). in Issue list section
+Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title and provide us the preferably bibtex by creating an new issue  [Include Paper](https://github.com/raghavchalapathy/Deep-Learning-for-Anomaly-Detection-A-Survey/issues).
 
 I would be updating the paper every two-weeks and will be including and citing your paper in the appropriate sections of research or application sections. This enables us to keep track and follow the recent progress in the space of deep learning based techniques for anomaly detection.
 
-Survey paper can be downloaded from  [Here](https://pages.github.com/).
+Survey paper can be downloaded from [Arxiv](https://pages.github.com/).
 
 
 # Table of contents
