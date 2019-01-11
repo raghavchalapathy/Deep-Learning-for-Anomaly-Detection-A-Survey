@@ -34,22 +34,22 @@ I would be updating the paper every two-weeks and will be including and citing y
           * AnomalyScore
           * Labels
  9. ApplicationsofDeepAnomalyDetection 
-          * Intrusion Detection
-          * Host-Based Intrusion Detection Systems (HIDS)
-          * Network Intrusion Detection Systems (NIDS)
-          * Fraud Detection
-          * Bankingfraud 
-          * Mobile cellular network fraud 
-          * Insurance fraud 
-          * Healthcare fraud
-          * MalwareDetection
-          * Medical Anomaly Detection
-          * Deep learning for Anomaly detection in Social Networks 
-          * Log Anomaly Detection
-          * Internet of things (IoT) Big Data Anomaly Detection 
-          * Industrial Anomalies Detection 
-          * Anomaly Detection in TimeSeries 
-          * Video Surveillance 
+     1. Intrusion Detection
+     2. Host-Based Intrusion Detection Systems (HIDS)
+     3. Network Intrusion Detection Systems (NIDS)
+     4. Fraud Detection
+     5. Banking fraud 
+     6. Mobile cellular network fraud 
+     7. Insurance fraud 
+     8. Healthcare fraud
+     9. MalwareDetection
+     10. Medical Anomaly Detection
+     11. Deep learning for Anomaly detection in Social Networks 
+     12. Log Anomaly Detection
+     13. Internet of things (IoT) Big Data Anomaly Detection 
+     14. Industrial Anomalies Detection 
+     15. Anomaly Detection in TimeSeries 
+     16. Video Surveillance 
 10. Deep Anomaly Detection(DAD) Models 
      1. Supervised deep anomaly detection 
      2. Semi-supervised deep anomaly detection 
