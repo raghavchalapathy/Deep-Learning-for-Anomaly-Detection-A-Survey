@@ -4,7 +4,8 @@
 
 ## Contributing
 
-Please leave a comment  if you wish to get your work be included in the survey kindly leave paper title and provide us the preferably bibtex by creating an new issue  [Include Paper](https://github.com/raghavchalapathy/Deep-Learning-for-Anomaly-Detection-A-Survey/issues).
+Please leave a comment and create a new issue @ [Include My Work](https://github.com/raghavchalapathy/Deep-Learning-for-Anomaly-Detection-A-Survey/issues).  if you wish your work be included in the survey.
+Kindly request you to provide us the title of paper and preferably bibtex entry. 
 
 I would be updating the paper every two-weeks and will be including and citing your paper in the appropriate sections of research or application sections. This enables us to keep track and follow the recent progress in the space of deep learning based techniques for anomaly detection.
 
@@ -13,12 +14,12 @@ Survey paper can be downloaded from [Arxiv](https://pages.github.com/).
 
 # Table of contents
   1. #### Introduction
-    1. What are anomalies?
-    2. What are novelties?
-    3. Motivation and Challenges: Deep anomaly detection (DAD) techniques
-    4. Related Work
-    5. Our Contributions
-    6. Organization
+     1. What are anomalies?
+     2. What are novelties?
+     3. Motivation and Challenges: Deep anomaly detection (DAD) techniques
+     4. Related Work
+     5. Our Contributions
+     6. Organization
   2. #### Different aspects of deep learning-based anomaly detection.
      1. Nature of Input Data
      2. Based on Availability of labels 
