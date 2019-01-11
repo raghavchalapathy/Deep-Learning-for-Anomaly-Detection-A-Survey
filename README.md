@@ -3,8 +3,8 @@
  The aim of this survey is two fold, firstly we present a structured and comprehensive reviewof research methods in deep anomaly detection (DAD). Furthermore, we also discuss the adoption of DAD methods across various application domains and assess their effectiveness.
 
 # Table of contents
-  * [Introduction](#envirius)
-  * [Installation](#installation)
+  * [Introduction]
+  * [Installation]
   * [Uninstallation](#uninstallation)
   * [Available plugins](#available-plugins)
   * [Usage](#usage)
