@@ -8,7 +8,7 @@ Please leave a comment  if you wish to get your work be included in the survey k
 
 I would be updating the paper every two-weeks and will be including and citing your paper in the appropriate sections of research or application sections. This enables us to keep track and follow the recent progress in the space of deep learning based techniques for anomaly detection.
 
-[Survey paper can be downloaded from (https://www.google.com) 
+[Survey paper can be downloaded from] (https://www.google.com) 
 
 
 # Table of contents
