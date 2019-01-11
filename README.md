@@ -4,10 +4,9 @@
 
 # Table of contents
   * Introduction
-   * Installation
-   * Installation
-   * Installation
-   * Installation
+   Introduction
+   > line 2 
+   >> line 3
   * [Uninstallation](#uninstallation)
   * [Available plugins](#available-plugins)
   * [Usage](#usage)
